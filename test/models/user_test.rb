@@ -35,7 +35,6 @@ class UserTest < ActiveSupport::TestCase
   test "should return nothing for missing unique_hash key in encoded token" do
     token = Token.encode({ foo: 'bar' })
     current_user = User.authenticate(token)
-
     assert_nil current_user
   end
 end

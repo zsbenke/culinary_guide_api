@@ -6,4 +6,8 @@ class User < ApplicationRecord
     return if payload.nil? || payload.try(:[], 'unique_hash').nil?
     find_or_create_by(unique_hash: payload['unique_hash'])
   end
+
+  def as_json(options)
+    super only: [:unique_hash]
+  end
 end

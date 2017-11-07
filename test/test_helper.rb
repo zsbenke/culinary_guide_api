@@ -5,5 +5,11 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  def secret_key_base
+    Rails.application.secrets.secret_key_base
+  end
+
+  def authorization_header(token)
+    { 'HTTP_AUTHORIZATION' => ActionController::HttpAuthentication::Token.encode_credentials(token) }
+  end
 end
