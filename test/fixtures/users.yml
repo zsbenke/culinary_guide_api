@@ -1,2 +1,8 @@
 user:
   unique_hash: hash123
+
+user_with_active_subscription:
+  expires_at: <%= 1.week.from_now %>
+
+user_with_expired_subscription:
+  expires_at: <%= 1.week.ago %>

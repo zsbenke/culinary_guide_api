@@ -37,4 +37,12 @@ class UserTest < ActiveSupport::TestCase
     current_user = User.authenticate(token)
     assert_nil current_user
   end
+
+  test "should determine subsscription status" do
+    active_user = users :user_with_active_subscription
+    assert active_user.subscriber?
+
+    expired_user = users :user_with_expired_subscription
+    assert_not expired_user.subscriber?
+  end
 end

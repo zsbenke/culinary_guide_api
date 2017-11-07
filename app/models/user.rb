@@ -7,6 +7,10 @@ class User < ApplicationRecord
     find_or_create_by(unique_hash: payload['unique_hash'])
   end
 
+  def subscriber?
+    expires_at > Time.now
+  end
+
   def as_json(options)
     super only: [:unique_hash]
   end
