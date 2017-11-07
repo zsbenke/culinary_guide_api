@@ -5,7 +5,10 @@ class Token
     end
 
     def decode(token)
-      JWT.decode(token, secret, true, { :algorithm => 'HS256' }).first
+      body = JWT.decode(token, secret, true, { :algorithm => 'HS256' }).first
+      HashWithIndifferentAccess.new body
+    rescue
+      nil
     end
 
     private
