@@ -38,7 +38,7 @@ class UserTest < ActiveSupport::TestCase
     assert_nil current_user
   end
 
-  test "should determine subsscription status" do
+  test "should determine subscription status" do
     active_user = users :user_with_active_subscription
     assert active_user.subscriber?
 
