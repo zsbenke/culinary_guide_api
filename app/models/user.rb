@@ -8,10 +8,11 @@ class User < ApplicationRecord
   end
 
   def subscriber?
+    return false if expires_at.nil?
     expires_at > Time.now
   end
 
   def as_json(options)
-    super only: [:unique_hash]
+    { unique_hash: unique_hash, expires_at: expires_at, subscriber: subscriber? }
   end
 end

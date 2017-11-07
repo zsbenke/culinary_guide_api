@@ -44,5 +44,8 @@ class UserTest < ActiveSupport::TestCase
 
     expired_user = users :user_with_expired_subscription
     assert_not expired_user.subscriber?
+
+    expired_user.update expires_at: nil
+    assert_not expired_user.subscriber?
   end
 end
