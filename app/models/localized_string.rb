@@ -1,0 +1,2 @@
+class LocalizedString < ApplicationRecord
+end
