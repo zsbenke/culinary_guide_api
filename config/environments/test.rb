@@ -39,4 +39,6 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.csv_dumps_path = Rails.root.join('test', 'fixtures', 'files', 'csv_dumps')
 end
