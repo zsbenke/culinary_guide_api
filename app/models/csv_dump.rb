@@ -48,6 +48,13 @@ class CSVDump
     @imported = (Xattr.new(@path)['gm_imported'] == 'true')
 
     # read data from gzip file
+  end
+
+  def imported?
+    @imported == true
+  end
+
+  def read
     @data = []
 
     if @name.match /\.csv\.gz/
@@ -63,10 +70,6 @@ class CSVDump
     @data.shift(1)
   end
 
-  def imported?
-    @imported == true
-  end
-
   def import
     model_name = name.split("_#{self.class.csv_dump_name}")[0].singularize
     model_name_mapped = self.class.table_map.try(:[], model_name)
@@ -76,6 +79,8 @@ class CSVDump
     # remove existing records
     model_class.delete_all
     model_class.connection.execute("ALTER SEQUENCE #{model_name.pluralize}_id_seq RESTART WITH 1")
+
+    read
 
     @data.each do |entry|
       record = model_class.new
