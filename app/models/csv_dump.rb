@@ -46,8 +46,20 @@ class CSVDump
     @size = options[:size]
     @created_at = options[:created_at]
     @imported = (Xattr.new(@path)['gm_imported'] == 'true')
-    @data = CSV.open(@path).read
-    @headers = data[0]
+
+    # read data from gzip file
+    @data = []
+
+    if @name.match /\.csv\.gz/
+      Zlib::GzipReader.open(@path) do |gzip|
+        csv = CSV.new gzip
+        csv.each { |row| @data << row }
+      end
+    else
+      @data = CSV.open(@path).read
+    end
+
+    @headers = @data[0]
     @data.shift(1)
   end
 
