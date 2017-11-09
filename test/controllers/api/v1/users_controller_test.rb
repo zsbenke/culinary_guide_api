@@ -11,11 +11,15 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
 
     user = User.find_by_unique_hash(unique_hash)
     json = JSON.parse response.body
+    data = json['data']
+    header = json['header']
 
     assert_response :success
-    assert_equal unique_hash, json['unique_hash']
-    assert_equal user.subscriber?, json['subscriber']
-    assert_nil json['expires_at']
+    assert_equal unique_hash, data['unique_hash']
+    assert_equal user.subscriber?, data['subscriber']
+    assert_equal user.subscriber?, header['subscriber']
+    assert_equal false, header['needs_subscription']
+    assert_nil data['expires_at']
   end
 
   test "should permit details for existing user" do
@@ -25,11 +29,11 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
 
     get api_v1_user_details_path, params: nil, headers: authorization_header(token)
 
-    json = JSON.parse response.body
+    data = JSON.parse(response.body)['data']
     assert_response :success
-    assert_equal user.unique_hash, json['unique_hash']
-    assert_equal user.subscriber?, json['subscriber']
-    assert_equal user.expires_at.to_s, Time.parse(json['expires_at']).in_time_zone.to_s
+    assert_equal user.unique_hash, data['unique_hash']
+    assert_equal user.subscriber?, data['subscriber']
+    assert_equal user.expires_at.to_s, Time.parse(data['expires_at']).in_time_zone.to_s
   end
 
   test "should deny details for bad token" do
