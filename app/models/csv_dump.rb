@@ -70,15 +70,17 @@ class CSVDump
     @data.shift(1)
   end
 
-  def import
+  def import(remove_existing: true)
     model_name = name.split("_#{self.class.csv_dump_name}")[0].singularize
     model_name_mapped = self.class.table_map.try(:[], model_name)
     model_name = model_name_mapped if model_name_mapped.present?
     model_class = model_name.classify.constantize
 
-    # remove existing records
-    model_class.delete_all
-    model_class.connection.execute("ALTER SEQUENCE #{model_name.pluralize}_id_seq RESTART WITH 1")
+    if remove_existing == true
+      # remove existing records
+      model_class.delete_all
+      model_class.connection.execute("ALTER SEQUENCE #{model_name.pluralize}_id_seq RESTART WITH 1")
+    end
 
     read
 
@@ -86,6 +88,7 @@ class CSVDump
       record = model_class.new
 
       @headers.each do |column|
+        next if remove_existing == false && column == 'id'
         value = entry[@headers.index(column)]
         record.send("#{column}=", value) if record.respond_to?("#{column}=")
       end
