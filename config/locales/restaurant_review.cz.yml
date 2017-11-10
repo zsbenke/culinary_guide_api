@@ -1,0 +1,14 @@
+cz:
+  restaurant_test:
+    values:
+      price_value:
+        "nincs kitöltve": "není vyplněno"
+        "rossz": "špatná"
+        "megfelelő": "dostačující"
+        "jó": "dobrá"
+        "nagyon jó": "vynikající"
+
+  activerecord:
+    attributes:
+      restaurant_test:
+        price_value: "Poměr ceny a služeb"

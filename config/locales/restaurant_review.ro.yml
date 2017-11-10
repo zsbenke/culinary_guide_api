@@ -1,0 +1,14 @@
+ro:
+  restaurant_test:
+    values:
+      price_value:
+        "nincs kitöltve": "necompletat"
+        "rossz": "slab"
+        "megfelelő": "satisfăcător"
+        "jó": "bun"
+        "nagyon jó": "foarte bun"
+
+  activerecord:
+    attributes:
+      restaurant_test:
+        price_value: "Raport preț-calitate"

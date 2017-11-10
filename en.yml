@@ -1,0 +1,6 @@
+en:
+  record_successfully_updated: 'A rekord sikeresen frissítve: '
+  record_successfully_created: 'A rekord sikeresen létrehozva: '
+  record_successfully_restored: 'A rekord sikeresen visszaállítva az előző verzióra.'
+  pagination_next_link:  'Következő &rarr;'
+  pagination_prev_link:  '&larr; Előző'

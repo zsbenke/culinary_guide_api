@@ -1,0 +1,91 @@
+ro:
+  restaurant:
+    full_address_format: "%{postcode} %{city}, %{address}"
+    values:
+      country:
+        "HU – Magyarország": "Ungaria"
+        "CZ – Csehország": "Cehia"
+        "SK – Szlovákia": "Slovacia"
+        "RO – Románia": "România"
+        "RS – Szerbia": "Serbia"
+        "HR – Horvátország": "Croația"
+        "SI – Szlovénia": "Slovenia"
+        "AT – Ausztria": "Austria"
+      region:
+        hu:
+          "Budapest": "Budapesta"
+          "Észak-Magyarország": "Ungaria de Nord"
+          "Alföld": "Marea Câmpie"
+          "Észak-Dunántúl": "Transdanubia de Nord"
+          "Balaton és környéke": "Zona Balaton"
+          "Dél-Dunántúl": "Transdanubia de Sud"
+        hr:
+          "Dráva-Száva vidék (Nizinska Hrvatska)": "Regiunea Drava-Sava"
+          "Zágráb és környéke (Grad Zabreb i okolica)": "Zona Zagreb"
+          "Isztria és Kvarner öböl környéke  (Istra i Kvarner)": "Istria și zona golfului Kvarner "
+          "Dalmácia (Dalmacija)": "Dalmația"
+        ro:
+          "Partium": "Crișana"
+          "Bukarest": "București"
+          "Bukovina": "Bucovina"
+          "Moldva": "Moldova"
+          "Erdély": "Transilvania"
+          "Bánság": "Banat"
+          "Olténia": "Oltenia"
+          "Munténia": "Muntenia"
+          "Dobruzsda": "Dobrogea"
+        rs:
+          "Vajdaság": "Voivodina"
+          "Belgrád és környéke": "Zona Belgrad"
+        cz:
+          "Prága és környéke": "Zona Praga"
+          "Csehország": "Cehia"
+          "Morvaország": "Moravia"
+        sk:
+          "Kelet-Szlovákia": "Slovacia de Est"
+          "Közép-Szlovákia": "Slovacia Centrală"
+          "Nyugat-Szlovákia": "Slovacia de Vest"
+          "Bratislava és környéke": "Zona Bratislava"
+        si:
+          "Észak": "Nord"
+          "Kelet": "Est"
+          "Nyugat": "Vest"
+          "Dél": "Sud"
+          "Ljubljana és környéke": "Zona Ljubljana"
+      open_times:
+        days:
+          monday: "luni"
+          tuesday: "marți"
+          wednesday: "miercuri"
+          thursday: "joi"
+          friday: "vineri"
+          saturday: "sâmbătă"
+          sunday: "duminică"
+      open_on_monday:
+        "true": "deschis luni"
+        "false": "nu are"
+      open_on_sunday:
+        "true": "v nedeľu otvorené"
+        "false": "nu are"
+      reservation_needed:
+        "true": "necesar"
+        "false": "nu este necesar"
+      has_parking:
+        "true": "are"
+        "false": "nu are"
+      wifi:
+        "true": "are"
+        "false": "nu are"
+      credit_card:
+        "true": "are"
+        "false": "nu are"
+
+  activerecord:
+    attributes:
+      restaurant:
+        country: "Țări"
+        region: "Regiuni"
+        reservation_needed: "Rezervări"
+        has_parking: "Parcare"
+        credit_card: "card de credit"
+        wifi: "Wi-Fi"

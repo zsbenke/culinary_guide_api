@@ -1,0 +1,14 @@
+hr:
+  restaurant_test:
+    values:
+      price_value:
+        "nincs kitöltve": "nije zadovoljeno"
+        "rossz": "loše"
+        "megfelelő": "odgovarajuće"
+        "jó": "dobro"
+        "nagyon jó": "jako dobro"
+
+  activerecord:
+    attributes:
+      restaurant_test:
+        price_value: "Omjer cijene i kvalitete"

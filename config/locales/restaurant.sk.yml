@@ -1,0 +1,91 @@
+sk:
+  restaurant:
+    full_address_format: "%{postcode} %{city} %{address}"
+    values:
+      country:
+        "HU – Magyarország": "Maďarsko"
+        "CZ – Csehország": "Česká republika"
+        "SK – Szlovákia": "Slovensko"
+        "RO – Románia": "Rumunsko"
+        "RS – Szerbia": "Srbsko"
+        "HR – Horvátország": "Chorvátsko"
+        "SI – Szlovénia": "Slovinsko"
+        "AT – Ausztria": "Rakúsko"
+      region:
+        hu:
+          "Budapest": "Budapešť"
+          "Észak-Magyarország": "Severné Maďarsko"
+          "Alföld": "Veľká nížina"
+          "Észak-Dunántúl": "Severné Zadunajsko"
+          "Balaton és környéke": "Balaton a okolie"
+          "Dél-Dunántúl": "Južné Zadunajsko"
+        hr:
+          "Dráva-Száva vidék (Nizinska Hrvatska)": "Oblasť riek Dráva – Sáva"
+          "Zágráb és környéke (Grad Zabreb i okolica)": "Záhreb a okolie"
+          "Isztria és Kvarner öböl környéke  (Istra i Kvarner)": "Istria a oblasť Kvarnerského zálivu"
+          "Dalmácia (Dalmacija)": "Dalmácia"
+        ro:
+          "Partium": "Partium"
+          "Bukarest": "Bukurešť"
+          "Bukovina": "Bukovina"
+          "Moldva": "Moldavsko"
+          "Erdély": "Sedmohradsko"
+          "Bánság": "Banát"
+          "Olténia": "Olténia"
+          "Munténia": "Munténia"
+          "Dobruzsda": "Dobrudža"
+        rs:
+          "Vajdaság": "Vojvodina"
+          "Belgrád és környéke": "Belehrad a okolie"
+        cz:
+          "Prága és környéke": "Praha a okolie"
+          "Csehország": "Čechy"
+          "Morvaország": "Morava"
+        sk:
+          "Kelet-Szlovákia": "Východné Slovensko"
+          "Közép-Szlovákia": "Stredné Slovensko"
+          "Nyugat-Szlovákia": "Západné Slovensko"
+          "Bratislava és környéke": "Bratislava a okolie"
+        si:
+          "Észak": "Sever"
+          "Kelet": "Východ"
+          "Nyugat": "Západ"
+          "Dél": "Juh"
+          "Ljubljana és környéke": "Ľubľana a okolie"
+      open_times:
+        days:
+          monday: "pondelok"
+          tuesday: "utorok"
+          wednesday: "streda"
+          thursday: "štvrtok"
+          friday: "piatok"
+          saturday: "sobota"
+          sunday: "nedeľa"
+      open_on_monday:
+        "true": "v pondelok otvorené"
+        "false": "nie"
+      open_on_sunday:
+        "true": "v nedeľu otvorené"
+        "false": "nie"
+      reservation_needed:
+        "true": "potrebná"
+        "false": "nie je potrebná"
+      has_parking:
+        "true": "áno"
+        "false": "nie"
+      wifi:
+        "true": "áno"
+        "false": "nie"
+      credit_card:
+        "true": "áno"
+        "false": "nie"
+
+  activerecord:
+    attributes:
+      restaurant:
+        country: "Krajiny"
+        region: "Regióny"
+        reservation_needed: "Rezervácia stola"
+        has_parking: "Parkirišče"
+        credit_card: "kreditná karta"
+        wifi: "Wi-Fi"

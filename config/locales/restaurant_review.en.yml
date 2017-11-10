@@ -1,0 +1,9 @@
+en:
+  restaurant_test:
+    values:
+      price_value:
+        "nincs kitöltve": "not completed"
+        "rossz": "poor"
+        "megfelelő": "adequate"
+        "jó": "good"
+        "nagyon jó": "very good"

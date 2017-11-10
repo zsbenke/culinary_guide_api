@@ -1,0 +1,14 @@
+de:
+  restaurant_test:
+    values:
+      price_value:
+        "nincs kitöltve": "nicht ausgefüllt"
+        "rossz": "schlecht"
+        "megfelelő": "befriedigend"
+        "jó": "gut"
+        "nagyon jó": "sehr gut"
+
+  activerecord:
+    attributes:
+      restaurant_test:
+        price_value: "Preis-Leistungs-Verhältnis"

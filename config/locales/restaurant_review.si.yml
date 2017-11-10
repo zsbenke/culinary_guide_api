@@ -1,0 +1,14 @@
+si:
+  restaurant_test:
+    values:
+      price_value:
+        "nincs kitöltve": "ni izpolnjeno"
+        "rossz": "slabo"
+        "megfelelő": "ustrezno"
+        "jó": "dobro"
+        "nagyon jó": "odlično"
+
+  activerecord:
+    attributes:
+      restaurant_test:
+        price_value: "Razmerje cena-vrednost"

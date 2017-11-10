@@ -1,0 +1,91 @@
+rs:
+  restaurant:
+    full_address_format: "%{address}, %{postcode} %{city}"
+    values:
+      country:
+        "HU – Magyarország": "Mađarska"
+        "CZ – Csehország": "Češka"
+        "SK – Szlovákia": "Slovačka"
+        "RO – Románia": "Rumunija"
+        "RS – Szerbia": "Srbija"
+        "HR – Horvátország": "Hrvatska"
+        "SI – Szlovénia": "Slovenija"
+        "AT – Ausztria": "Austrija"
+      region:
+        hu:
+          "Budapest": "Budimpešta"
+          "Észak-Magyarország": "Severna mađarska regija"
+          "Alföld": "Velika mađarska nizina"
+          "Észak-Dunántúl": "Severni deo Prekodunavske regije"
+          "Balaton és környéke": "Jezero Balaton i okolina"
+          "Dél-Dunántúl": "Južni deo Prekodunavske regije"
+        hr:
+          "Dráva-Száva vidék (Nizinska Hrvatska)": "Nizinska Hrvatska"
+          "Zágráb és környéke (Grad Zabreb i okolica)": "Grad Zagreb i okolina"
+          "Isztria és Kvarner öböl környéke  (Istra i Kvarner)": "Istra i Kvarner"
+          "Dalmácia (Dalmacija)": "Dalmacija"
+        ro:
+          "Partium": "Partium"
+          "Bukarest": "Bukarest"
+          "Bukovina": "Bukovina"
+          "Moldva": "Moldova (pokrajina)"
+          "Erdély": "Transilvanija"
+          "Bánság": "Banat"
+          "Olténia": "Oltenija"
+          "Munténia": "Muntenija"
+          "Dobruzsda": "Dobrudža"
+        rs:
+          "Vajdaság": "Vojvodina"
+          "Belgrád és környéke": "Grad Beograd i okolina"
+        cz:
+          "Prága és környéke": "Grad Prag i okolina"
+          "Csehország": "Češka"
+          "Morvaország": "Moravska"
+        sk:
+          "Kelet-Szlovákia": "Južni deo Slovačke"
+          "Közép-Szlovákia": "Centralni deo Slovačke"
+          "Nyugat-Szlovákia": "Zapadni deo Slovačke"
+          "Bratislava és környéke": "Grad Bratislava i okolina"
+        si:
+          "Észak": "Sever"
+          "Kelet": "Istok"
+          "Nyugat": "Zapad"
+          "Dél": "Jug"
+          "Ljubljana és környéke": "Grad Ljubljana i okolina"
+      open_times:
+        days:
+          monday: "ponedeljak"
+          tuesday: "utorak"
+          wednesday: "sreda"
+          thursday: "četvrtak"
+          friday: "petak"
+          saturday: "subota"
+          sunday: "nedelja"
+      open_on_monday:
+        "true": "ponedeljom otvoreno"
+        "false": "nema"
+      open_on_sunday:
+        "true": "nedeljom otvoreno"
+        "false": "nema"
+      reservation_needed:
+        "true": "potrebna"
+        "false": "nije potrebna"
+      has_parking:
+        "true": "ima"
+        "false": "nema"
+      wifi:
+        "true": "ima"
+        "false": "nema"
+      credit_card:
+        "true": "ima"
+        "false": "nema"
+
+  activerecord:
+    attributes:
+      restaurant:
+        country: "Države"
+        region: "Regije"
+        reservation_needed: "Rezervacija"
+        has_parking: "Parking"
+        credit_card: "kreditna kartica"
+        wifi: "Wi-Fi"

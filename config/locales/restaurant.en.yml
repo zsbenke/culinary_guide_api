@@ -1,0 +1,80 @@
+en:
+  restaurant:
+    values:
+      country:
+        "HU – Magyarország": "Hungary"
+        "CZ – Csehország": "Czech Republic"
+        "SK – Szlovákia": "Slovakia"
+        "RO – Románia": "Romania"
+        "RS – Szerbia": "Serbia"
+        "HR – Horvátország": "Croatia"
+        "SI – Szlovénia": "Slovenia"
+        "AT – Ausztria": "Austria"
+      region:
+        hu:
+          "Budapest": "Budapest"
+          "Észak-Magyarország": "Northern Hungary"
+          "Alföld": "The Great Plane"
+          "Észak-Dunántúl": "Northern Trans-Danubia"
+          "Balaton és környéke": "Balaton and area"
+          "Dél-Dunántúl": "Southern Trans-Danubia"
+        hr:
+          "Dráva-Száva vidék (Nizinska Hrvatska)": "Region of the rivers Drava and Sava"
+          "Zágráb és környéke (Grad Zabreb i okolica)": "Zagreb and area"
+          "Isztria és Kvarner öböl környéke  (Istra i Kvarner)": "Istria and Kvarner Bay area"
+          "Dalmácia (Dalmacija)": "Dalmatia"
+        ro:
+          "Partium": "Partium"
+          "Bukarest": "Bukarest"
+          "Bukovina": "Bukovina"
+          "Moldva": "Moldavia"
+          "Erdély": "Transylvania"
+          "Bánság": "The Banat"
+          "Olténia": "Oltenia"
+          "Munténia": "Munténia"
+          "Dobruzsda": "Dobruja"
+        rs:
+          "Vajdaság": "Vojvodina"
+          "Belgrád és környéke": "Belgrade and area"
+        cz:
+          "Prága és környéke": "Prague and area"
+          "Csehország": "Czech Republic"
+          "Morvaország": "Moravia"
+        sk:
+          "Kelet-Szlovákia": "Eastern Slovakia"
+          "Közép-Szlovákia": "Central Slovakia"
+          "Nyugat-Szlovákia": "Western Slovakia"
+          "Bratislava és környéke": "Bratislava and area"
+        si:
+          "Észak": "North"
+          "Kelet": "East"
+          "Nyugat": "West"
+          "Dél": "South"
+          "Ljubljana és környéke": "Ljubljana and area"
+      open_times:
+        days:
+          monday: "Monday"
+          tuesday: "Tuesday"
+          wednesday: "Wednesday"
+          thursday: "Thursday"
+          friday: "Friday"
+          saturday: "Saturday"
+          sunday: "Sunday"
+      open_on_monday:
+        "true": "open on Mondays"
+        "false": ""
+      open_on_sunday:
+        "true": "open on Sundays"
+        "false": ""
+      reservation_needed:
+        "true": "necessary"
+        "false": "not necessary"
+      has_parking:
+        "true": "is available"
+        "false": "is not available"
+      wifi:
+        "true": ""
+        "false": ""
+      credit_card:
+        "true": ""
+        "false": ""

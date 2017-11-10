@@ -1,0 +1,91 @@
+de:
+  restaurant:
+    full_address_format: "%{address} %{postcode} %{city}"
+    values:
+      country:
+        "HU – Magyarország": "Ungarn"
+        "CZ – Csehország": "Tschechien"
+        "SK – Szlovákia": "Slowakei"
+        "RO – Románia": "Rumänien"
+        "RS – Szerbia": "Serbien"
+        "HR – Horvátország": "Kroatien"
+        "SI – Szlovénia": "Slowenien"
+        "AT – Ausztria": "Österreich"
+      region:
+        hu:
+          "Budapest": "Budapest"
+          "Észak-Magyarország": "Nordungarn"
+          "Alföld": "Große Tiefebene"
+          "Észak-Dunántúl": "Nordtransdanubien"
+          "Balaton és környéke": "Plattensee und Umgebung"
+          "Dél-Dunántúl": "Südtransdanubien"
+        hr:
+          "Dráva-Száva vidék (Nizinska Hrvatska)": "Save-Drau-Zwischenstromland"
+          "Zágráb és környéke (Grad Zabreb i okolica)": "Zagreb und Umgebung"
+          "Isztria és Kvarner öböl környéke  (Istra i Kvarner)": "Istrien und Umgebung um die Kvarner-Buch"
+          "Dalmácia (Dalmacija)": "Dalmatien"
+        ro:
+          "Partium": "Partium"
+          "Bukarest": "Bukarest"
+          "Bukovina": "Bukowina"
+          "Moldva": "Moldau"
+          "Erdély": "Siebenbürgen"
+          "Bánság": "Banat"
+          "Olténia": "Kleine Walachei"
+          "Munténia": "Große Walachei"
+          "Dobruzsda": "Dobrudscha"
+        rs:
+          "Vajdaság": "Wojwodina"
+          "Belgrád és környéke": "Belgrad und Umgebung"
+        cz:
+          "Prága és környéke": "Prag und Umgebung"
+          "Csehország": "Tschechien"
+          "Morvaország": "Mähren"
+        sk:
+          "Kelet-Szlovákia": "Ostslowakei"
+          "Közép-Szlovákia": "Mittelslowakei"
+          "Nyugat-Szlovákia": "Westslowakei"
+          "Bratislava és környéke": "Bratislava und Umgebung"
+        si:
+          "Észak": "Nord"
+          "Kelet": "Ost"
+          "Nyugat": "West"
+          "Dél": "Süd"
+          "Ljubljana és környéke": "Ljubljana und Umgebung"
+      open_times:
+        days:
+          monday: "Montag"
+          tuesday: "Dienstag"
+          wednesday: "Mittwoch"
+          thursday: "Donnerstag"
+          friday: "Freitag"
+          saturday: "Samstag"
+          sunday: "Sonntag"
+      open_on_monday:
+        "true": "montags geöffnet"
+        "false": "nicht vorhanden"
+      open_on_sunday:
+        "true": "sonntags geöffnet"
+        "false": "nicht vorhanden"
+      reservation_needed:
+        "true": "erforderlich"
+        "false": "nicht erforderlich"
+      has_parking:
+        "true": "vorhanden"
+        "false": "nicht vorhanden"
+      wifi:
+        "true": "vorhanden"
+        "false": "nicht vorhanden"
+      credit_card:
+        "true": "vorhanden"
+        "false": "nicht vorhanden"
+
+  activerecord:
+    attributes:
+      restaurant:
+        country: "Länder"
+        region: "Regionen"
+        reservation_needed: "Tischreservierung"
+        has_parking: "Parkplätze"
+        credit_card: "kreditne kartice"
+        wifi: "Wi-Fi"

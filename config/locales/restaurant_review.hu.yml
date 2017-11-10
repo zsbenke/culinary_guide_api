@@ -1,0 +1,25 @@
+hu:
+  restaurant_review:
+    name: "Étterem tesztek"
+    values:
+      price_value:
+        "nincs kitöltve": "nincs kitöltve"
+        "rossz": "rossz"
+        "megfelelő": "megfelelő"
+        "jó": "jó"
+        "nagyon jó": "nagyon jó"
+
+  activerecord:
+    attributes:
+      restaurant_review:
+        restaurant_id: "Étterem azonosító"
+        title: "Teszt időpontja"
+        print: "Alapszöveg"
+        year: "Teszt időszak"
+        rating: "Pontérték"
+        english_translation: "Angol fordítás"
+        german_translation: "Német fordítás"
+        localized_translation: "Helyi nyelv fordítás"
+        price_value: "Ár-érték arány"
+        price_information: "Árinformációk"
+        price_information_rating: "Árinformáció értékelése"
