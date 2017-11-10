@@ -9,6 +9,14 @@ class CSVDump
       entries.sort_by(&:created_at).reverse
     end
 
+    def imported
+      all(imported: true)
+    end
+
+    def non_imported
+      all(imported: false)
+    end
+
     def csv_dumps_path
       if Rails.configuration.respond_to?(:csv_dumps_path)
         Rails.configuration.csv_dumps_path.to_s

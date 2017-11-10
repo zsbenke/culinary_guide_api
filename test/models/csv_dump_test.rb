@@ -36,8 +36,8 @@ class CSVDumpTest < ActiveSupport::TestCase
   end
 
   test "should list imported and non-imported csv dumps" do
-    imported_csv_dumps = CSVDump.all(imported: true)
-    non_imported_csv_dumps = CSVDump.all(imported: false)
+    imported_csv_dumps = CSVDump.imported
+    non_imported_csv_dumps = CSVDump.non_imported
     assert_equal 1, imported_csv_dumps.count
     assert_equal 2, non_imported_csv_dumps.count
 
