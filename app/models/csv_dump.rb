@@ -46,8 +46,6 @@ class CSVDump
     @size = options[:size]
     @created_at = options[:created_at]
     @imported = (Xattr.new(@path)['gm_imported'] == 'true')
-
-    # read data from gzip file
   end
 
   def imported?
@@ -76,13 +74,17 @@ class CSVDump
     model_name = model_name_mapped if model_name_mapped.present?
     model_class = model_name.classify.constantize
 
-    if remove_existing == true
-      # remove existing records
-      model_class.delete_all
-      model_class.connection.execute("ALTER SEQUENCE #{model_name.pluralize}_id_seq RESTART WITH 1")
-    end
-
     read
+
+    # remove existing records
+    if remove_existing == true
+      index_of_id = @headers.index('id')
+      raise MissingIDColumnError if index_of_id.nil?
+      max_id = @data.map { |r| r[index_of_id].to_i }.max + 1
+
+      model_class.delete_all
+      model_class.connection.execute("ALTER SEQUENCE #{model_name.pluralize}_id_seq RESTART WITH #{max_id}")
+    end
 
     @data.each do |entry|
       record = model_class.new
@@ -102,6 +104,18 @@ class CSVDump
     Xattr.new(@path)['gm_imported'] = imported
 
     self
+  end
+
+  def stale?
+    created_at < 14.days.ago
+  end
+
+  def created?
+    created_at.present?
+  end
+
+  def destroy
+    File.delete(path)
   end
 
   private

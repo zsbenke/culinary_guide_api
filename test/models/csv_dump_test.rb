@@ -63,6 +63,8 @@ class CSVDumpTest < ActiveSupport::TestCase
 
     assert_equal csv_dump.data.count, Restaurant.count
     assert csv_dump.imported?
+    assert Restaurant.create
+    assert csv_dump.data.count + 1, Restaurant.count
   end
 
   test "should import records remapped to new tablename" do
@@ -71,6 +73,8 @@ class CSVDumpTest < ActiveSupport::TestCase
 
     assert_equal csv_dump.data.count, RestaurantReview.count
     assert csv_dump.imported?
+    assert RestaurantReview.create
+    assert csv_dump.data.count + 1, RestaurantReview.count
   end
 
   def teardown
