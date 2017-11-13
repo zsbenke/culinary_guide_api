@@ -23,9 +23,9 @@ class OpenableTest < ActiveSupport::TestCase
 
   test "should parse open result" do
     restaurant = restaurants(:lacikonyha)
-    restaurant.open_mon_morning_start = '09:00'
+    restaurant.open_mon_morning_start = '9:00'
     restaurant.open_mon_morning_end = '15:00'
-    restaurant.open_tue_morning_start = '09:00'
+    restaurant.open_tue_morning_start = '9:00'
     restaurant.open_tue_morning_end = '12:00'
     restaurant.open_tue_afternoon_start = '13:00'
     restaurant.open_tue_afternoon_end = '17:00'
@@ -33,10 +33,10 @@ class OpenableTest < ActiveSupport::TestCase
     restaurant.open_info = 'hétfőn és kedden zárva'
     restaurant.save
 
-    assertion = 'H: 09:00-15:00, K: 09:00-12:00 13:00-17:00, Sze: Zárva (hétfőn és kedden zárva)'
+    assertion = 'H: 9:00-15:00, K: 9:00-12:00 13:00-17:00, Sze: Zárva (hétfőn és kedden zárva)'
     assert_equal assertion, restaurant.open_results
 
-    assertion = 'Mon: 09:00-15:00, Tue: 09:00-12:00 13:00-17:00, Wed: Zárva'
+    assertion = 'Mon: 9:00am-3:00pm, Tue: 9:00am-12:00pm 1:00pm-5:00pm, Wed: Closed'
     assert_equal assertion, restaurant.open_results(locale: :en)
   end
 end

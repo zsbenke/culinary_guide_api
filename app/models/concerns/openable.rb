@@ -2,7 +2,7 @@ module Openable
   extend ActiveSupport::Concern
 
   included do
-    def open_times_label(day_name)
+    def open_times_label(day_name, locale: :hu)
       day_name_index = I18n.t('date.day_names', locale: :en).map(&:downcase).index(day_name.to_s)
       day_name = I18n.t('date.abbr_day_names', locale: :en).map(&:downcase)[day_name_index]
       label = ""
@@ -13,11 +13,14 @@ module Openable
         (self.send("open_#{day_name}_afternoon_end") || '--')
       ]
 
-      return 'Zárva' if rows[0] == 'Zárva' || rows[1] == 'Zárva' || rows[2] == 'Zárva' || rows[3] == 'Zárva'
+      closed_label = I18n.t('restaurant.values.open_times', locale: locale)['Zárva'.to_sym]
+      closed_label_in_hu = I18n.t('restaurant.values.open_times', locale: :hu)['Zárva'.to_sym]
+      return closed_label if rows[0] == closed_label_in_hu || rows[1] == closed_label_in_hu || rows[2] == closed_label_in_hu || rows[3] == closed_label_in_hu
       return nil if rows[0] == '--' || rows[1] == '--'
 
-      label = "#{rows[0]}-#{rows[1]}"
-      label += " #{rows[2]}-#{rows[3]}" if rows[2] != '--' && rows[3] != '--'
+      open_times = I18n.t('restaurant.values.open_times', locale: locale)
+      label = "#{open_times[rows[0].to_sym]}-#{open_times[rows[1].to_sym]}"
+      label += " #{open_times[rows[2].to_sym]}-#{open_times[rows[3].to_sym]}" if rows[2] != '--' && rows[3] != '--'
       return label
     end
 
@@ -33,7 +36,7 @@ module Openable
       days = I18n.t('date.day_names', locale: :en).dup.rotate(1).map { |dn| dn.downcase.to_sym }
       days.each_with_index do |day, i|
         index = i
-        label = self.send(:open_times_label, day)
+        label = self.open_times_label(day, locale: locale)
         if label != current_label
           full_label << "#{day_names_label.call(current_start, index - 1)}: #{current_label}" if current_label.present?
           current_label = label
