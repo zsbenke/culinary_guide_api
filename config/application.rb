@@ -15,7 +15,7 @@ module GaultmillauEu
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    config.i18n.default_locale = :hu
+    config.i18n.default_locale = :en
     config.available_locales = [:en, :hu, :cz, :de, :hr, :ro, :rs, :si, :sk]
   end
 end

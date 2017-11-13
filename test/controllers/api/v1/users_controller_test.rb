@@ -49,4 +49,31 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unauthorized
   end
+
+  test "should set current locale in headers" do
+    user = users :user
+    token = Token.encode({ unique_hash: user.unique_hash })
+    params = { locale: :hu }
+    user.update expires_at: 1.week.from_now
+
+    get api_v1_user_details_path, params: params, headers: authorization_header(token)
+
+    header = JSON.parse(response.body)['header']
+    assert_equal 'hu', header['locale']
+  end
+
+  test "should fallback to English for unknown and empty locale param" do
+    user = users :user
+    token = Token.encode({ unique_hash: user.unique_hash })
+    user.update expires_at: 1.week.from_now
+
+    get api_v1_user_details_path, params: nil, headers: authorization_header(token)
+    header = JSON.parse(response.body)['header']
+    assert_equal 'en', header['locale']
+
+    params = { locale: 'ca' }
+    get api_v1_user_details_path, params: params, headers: authorization_header(token)
+    header = JSON.parse(response.body)['header']
+    assert_equal 'en', header['locale']
+  end
 end
