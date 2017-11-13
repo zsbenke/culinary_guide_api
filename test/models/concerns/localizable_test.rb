@@ -34,20 +34,20 @@ class LocalizableTest < ActiveSupport::TestCase
     restaurant.open_on_sunday = true
     restaurant.save
 
-    assertion = I18n.t('restaurant.values.open_on_monday.true')
+    assertion = I18n.t('restaurant.values.open_on_monday.true', locale: :hu)
     assert_equal assertion, restaurant.open_on_monday_localized_to_hu
 
-    assertion = I18n.t('restaurant.values.open_on_sunday.true')
+    assertion = I18n.t('restaurant.values.open_on_sunday.true', locale: :hu)
     assert_equal assertion, restaurant.open_on_sunday_localized_to_hu
 
     restaurant.open_on_monday = false
     restaurant.open_on_sunday = false
     restaurant.save
 
-    assertion = I18n.t('restaurant.values.open_on_monday.false')
+    assertion = I18n.t('restaurant.values.open_on_monday.false', locale: :hu)
     assert_equal assertion, restaurant.open_on_monday_localized_to_hu
 
-    assertion = I18n.t('restaurant.values.open_on_sunday.false')
+    assertion = I18n.t('restaurant.values.open_on_sunday.false', locale: :hu)
     assert_equal assertion, restaurant.open_on_sunday_localized_to_hu
   end
 
