@@ -1,5 +1,6 @@
 class Restaurant < ApplicationRecord
   include Localizable
+  include Openable
 
   has_many :restaurant_reviews
 
