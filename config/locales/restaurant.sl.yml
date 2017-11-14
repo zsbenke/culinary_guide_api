@@ -1,34 +1,34 @@
-rs:
+sl:
   restaurant:
-    full_address_format: "%{address}, %{postcode} %{city}"
+    full_address_format: "%{postcode} %{city}, %{address}"
     values:
       country:
-        "HU – Magyarország": "Mađarska"
+        "HU – Magyarország": "Madžarska"
         "CZ – Csehország": "Češka"
-        "SK – Szlovákia": "Slovačka"
-        "RO – Románia": "Rumunija"
+        "SK – Szlovákia": "Slovaška"
+        "RO – Románia": "Romunija"
         "RS – Szerbia": "Srbija"
-        "HR – Horvátország": "Hrvatska"
+        "HR – Horvátország": "Hrvaška"
         "SI – Szlovénia": "Slovenija"
-        "AT – Ausztria": "Austrija"
+        "AT – Ausztria": "Avstrija"
       region:
         hu:
           "Budapest": "Budimpešta"
-          "Észak-Magyarország": "Severna mađarska regija"
-          "Alföld": "Velika mađarska nizina"
-          "Észak-Dunántúl": "Severni deo Prekodunavske regije"
-          "Balaton és környéke": "Jezero Balaton i okolina"
-          "Dél-Dunántúl": "Južni deo Prekodunavske regije"
+          "Észak-Magyarország": "Severna Madžarska"
+          "Alföld": "Madžarska nižina"
+          "Észak-Dunántúl": "Severno Prekdonavje"
+          "Balaton és környéke": "Blatno jezero z okolico"
+          "Dél-Dunántúl": "Južno Prekdonavje"
         hr:
-          "Dráva-Száva vidék (Nizinska Hrvatska)": "Nizinska Hrvatska"
-          "Zágráb és környéke (Grad Zabreb i okolica)": "Grad Zagreb i okolina"
-          "Isztria és Kvarner öböl környéke  (Istra i Kvarner)": "Istra i Kvarner"
+          "Dráva-Száva vidék (Nizinska Hrvatska)": "Nižinska Hrvaška"
+          "Zágráb és környéke (Grad Zabreb i okolica)": "Mesto Zagreb z okolico"
+          "Isztria és Kvarner öböl környéke  (Istra i Kvarner)": "Istra in Kvarner"
           "Dalmácia (Dalmacija)": "Dalmacija"
         ro:
           "Partium": "Partium"
-          "Bukarest": "Bukarest"
+          "Bukarest": "Bukarešta"
           "Bukovina": "Bukovina"
-          "Moldva": "Moldova (pokrajina)"
+          "Moldva": "Moldavija"
           "Erdély": "Transilvanija"
           "Bánság": "Banat"
           "Olténia": "Oltenija"
@@ -36,22 +36,22 @@ rs:
           "Dobruzsda": "Dobrudža"
         rs:
           "Vajdaság": "Vojvodina"
-          "Belgrád és környéke": "Grad Beograd i okolina"
+          "Belgrád és környéke": "Beograd z okolico"
         cz:
-          "Prága és környéke": "Grad Prag i okolina"
+          "Prága és környéke": "Praga z okolico"
           "Csehország": "Češka"
           "Morvaország": "Moravska"
         sk:
-          "Kelet-Szlovákia": "Južni deo Slovačke"
-          "Közép-Szlovákia": "Centralni deo Slovačke"
-          "Nyugat-Szlovákia": "Zapadni deo Slovačke"
-          "Bratislava és környéke": "Grad Bratislava i okolina"
+          "Kelet-Szlovákia": "Vzhodna Slovaška"
+          "Közép-Szlovákia": "Osrednja Slovaška"
+          "Nyugat-Szlovákia": "Zahodna Slovaška"
+          "Bratislava és környéke": "Bratislava z okolico"
         si:
           "Észak": "Sever"
-          "Kelet": "Istok"
-          "Nyugat": "Zapad"
+          "Kelet": "Vzhod"
+          "Nyugat": "Zahod"
           "Dél": "Jug"
-          "Ljubljana és környéke": "Grad Ljubljana i okolina"
+          "Ljubljana és környéke": "Ljubljana z okolico"
       open_times:
         '--': '--'
         'Zárva': 'Zárva'
@@ -102,39 +102,31 @@ rs:
         '22:00': '22:00'
         '23:00': '23:00'
         '23:30': '23:30'
-      days:
-        monday: "ponedeljak"
-        tuesday: "utorak"
-        wednesday: "sreda"
-        thursday: "četvrtak"
-        friday: "petak"
-        saturday: "subota"
-        sunday: "nedelja"
       open_on_monday:
-        "true": "ponedeljom otvoreno"
-        "false": "nema"
+        "true": "odprto v ponedeljek"
+        "false": "ne"
       open_on_sunday:
-        "true": "nedeljom otvoreno"
-        "false": "nema"
+        "true": "odprto v nedeljo"
+        "false": "ne"
       reservation_needed:
         "true": "potrebna"
-        "false": "nije potrebna"
+        "false": "ni potrebna"
       has_parking:
-        "true": "ima"
-        "false": "nema"
+        "true": "da"
+        "false": "ne"
       wifi:
-        "true": "ima"
-        "false": "nema"
+        "true": "da"
+        "false": "ne"
       credit_card:
-        "true": "ima"
-        "false": "nema"
+        "true": "da"
+        "false": "ne"
 
   activerecord:
     attributes:
       restaurant:
         country: "Države"
         region: "Regije"
-        reservation_needed: "Rezervacija"
-        has_parking: "Parking"
+        reservation_needed: "Rezervacija mize"
+        has_parking: "Parkirišče"
         credit_card: "kreditna kartica"
         wifi: "Wi-Fi"

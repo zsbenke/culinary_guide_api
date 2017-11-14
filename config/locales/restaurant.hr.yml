@@ -102,14 +102,6 @@ hr:
         '22:00': '22:00'
         '23:00': '23:00'
         '23:30': '23:30'
-      days:
-        monday: "ponedjeljak"
-        tuesday: "utorak"
-        wednesday: "srijeda"
-        thursday: "četvrtak"
-        friday: "petak"
-        saturday: "subota"
-        sunday: "nedjelja"
       open_on_monday:
         "true": "otvoreno ponedjeljak"
         "false": "nije omogućeno"

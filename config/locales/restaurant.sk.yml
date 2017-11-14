@@ -102,14 +102,6 @@ sk:
         '22:00': '22:00'
         '23:00': '23:00'
         '23:30': '23:30'
-      days:
-        monday: "pondelok"
-        tuesday: "utorok"
-        wednesday: "streda"
-        thursday: "štvrtok"
-        friday: "piatok"
-        saturday: "sobota"
-        sunday: "nedeľa"
       open_on_monday:
         "true": "v pondelok otvorené"
         "false": "nie"

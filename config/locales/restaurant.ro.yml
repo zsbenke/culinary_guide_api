@@ -102,14 +102,6 @@ ro:
         '22:00': '22:00'
         '23:00': '23:00'
         '23:30': '23:30'
-      days:
-        monday: "luni"
-        tuesday: "marți"
-        wednesday: "miercuri"
-        thursday: "joi"
-        friday: "vineri"
-        saturday: "sâmbătă"
-        sunday: "duminică"
       open_on_monday:
         "true": "deschis luni"
         "false": "nu are"

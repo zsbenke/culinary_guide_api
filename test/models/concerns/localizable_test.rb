@@ -71,28 +71,28 @@ class LocalizableTest < ActiveSupport::TestCase
     assert_equal 'postcode city, street', restaurant.full_address_to_ro
 
     # Szerbia
-    assert_equal 'street, postcode city', restaurant.full_address_to_rs
+    assert_equal 'street, postcode city', restaurant.full_address_to_cs
 
     # Horváthország
     assert_equal 'street, postcode city', restaurant.full_address_to_hr
 
     # Szlovénia
-    assert_equal 'postcode city, street', restaurant.full_address_to_si
+    assert_equal 'postcode city, street', restaurant.full_address_to_sl
   end
 
   test "should fallback to english localization when a language is missing" do
     restaurant = restaurants(:lacikonyha)
 
     localization = LocalizedString.where(model: 'restaurant', column: 'region', value: 'Budapest').first
-    localization.update_attribute :value_in_rs, 'Budapest RS'
+    localization.update_attribute :value_in_cs, 'Budapest CS'
     localization.update_attribute :value_in_en, 'Budapest'
-    assert_equal 'Budapest RS', restaurant.region_localized_to_rs
+    assert_equal 'Budapest CS', restaurant.region_localized_to_cs
 
-    localization.update_attribute :value_in_rs, ''
-    assert_equal 'Budapest', restaurant.region_localized_to_rs
+    localization.update_attribute :value_in_cs, ''
+    assert_equal 'Budapest', restaurant.region_localized_to_cs
 
     localization.update_attribute :value_in_en, ''
-    assert_equal '', restaurant.region_localized_to_rs
+    assert_equal '', restaurant.region_localized_to_cs
   end
 end
 

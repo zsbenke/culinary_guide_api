@@ -102,14 +102,6 @@ cz:
         '22:30': '22:30'
         '23:00': '23:00'
         '23:30': '23:30'
-      days:
-        monday: "pondělí"
-        tuesday: "úterý"
-        wednesday: "středa"
-        thursday: "čtvrtek"
-        friday: "pátek"
-        saturday: "sobota"
-        sunday: "neděle"
       open_on_monday:
         "true": "otevřeno v pondělí"
         "false": "není"

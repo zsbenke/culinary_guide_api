@@ -102,14 +102,6 @@ de:
         '22:30': '22:30'
         '23:00': '23:00'
         '23:30': '23:30'
-      days:
-        monday: "Montag"
-        tuesday: "Dienstag"
-        wednesday: "Mittwoch"
-        thursday: "Donnerstag"
-        friday: "Freitag"
-        saturday: "Samstag"
-        sunday: "Sonntag"
       open_on_monday:
         "true": "montags geöffnet"
         "false": "nicht vorhanden"

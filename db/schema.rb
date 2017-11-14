@@ -21,11 +21,11 @@ ActiveRecord::Schema.define(version: 20171108154745) do
     t.string "value"
     t.string "value_in_hu"
     t.string "value_in_de"
-    t.string "value_in_rs"
+    t.string "value_in_cs"
     t.string "value_in_en"
     t.string "value_in_sk"
     t.string "value_in_ro"
-    t.string "value_in_si"
+    t.string "value_in_sl"
     t.string "value_in_cz"
     t.string "value_in_hr"
     t.datetime "created_at", null: false
@@ -72,7 +72,6 @@ ActiveRecord::Schema.define(version: 20171108154745) do
     t.string "def_people_two_title"
     t.string "def_people_three_name"
     t.string "def_people_three_title"
-    t.text "english"
     t.boolean "credit_card"
     t.boolean "wifi"
     t.boolean "reservation_needed"
@@ -114,13 +113,10 @@ ActiveRecord::Schema.define(version: 20171108154745) do
     t.string "open_sun_morning_end"
     t.string "open_sun_afternoon_start"
     t.string "open_sun_afternoon_end"
-    t.boolean "public"
     t.string "year"
-    t.integer "parent_id"
-    t.integer "child_id"
-    t.integer "position"
     t.text "search_cache"
     t.string "tags_index"
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
