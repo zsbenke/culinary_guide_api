@@ -12,4 +12,8 @@ class ActiveSupport::TestCase
   def authorization_header(token)
     { 'HTTP_AUTHORIZATION' => ActionController::HttpAuthentication::Token.encode_credentials(token) }
   end
+
+  def generate_localized_strings
+    Restaurant.all.each(&:create_localized_strings)
+  end
 end

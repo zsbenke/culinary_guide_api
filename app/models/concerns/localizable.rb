@@ -4,9 +4,6 @@ module Localizable
   included do
     include Rails.application.routes.url_helpers
 
-    after_save   :create_localized_strings
-    after_create :create_localized_strings
-
     columns_hash.keys.each do |column|
       Rails.configuration.available_locales.each do |locale|
         define_method("#{column.to_s}_localized_to_#{locale}".to_s) do

@@ -16,6 +16,8 @@ class LocalizedStringTest < ActiveSupport::TestCase
       Restaurant.create title: "Restaurant #{i}", region: "Alföld"
     end
 
+    generate_localized_strings
+
     localized_string = LocalizedString.where(model: 'restaurant', column: 'region', value: 'Alföld').first
 
     assert localized_string.records.count == 5
