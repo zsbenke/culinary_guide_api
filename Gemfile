@@ -36,6 +36,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'jwt'
 gem 'ffi-xattr'
 gem 'rails-i18n', '~> 5.0.0'
+gem 'pg_search'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
