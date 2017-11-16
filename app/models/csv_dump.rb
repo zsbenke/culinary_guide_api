@@ -53,8 +53,7 @@ class CSVDump
     @path = options[:path]
     @size = options[:size]
     @created_at = options[:created_at]
-    @imported = false
-    # @imported = (Xattr.new(@path)['gm_imported'] == 'true')
+    @imported = (Xattr.new(@path)['user.gm_imported'] == 'true')
   end
 
   def imported?
@@ -110,7 +109,7 @@ class CSVDump
     end
 
     @imported = true
-    # Xattr.new(@path)['gm_imported'] = imported
+    Xattr.new(@path)['user.gm_imported'] = imported
 
     self
   end

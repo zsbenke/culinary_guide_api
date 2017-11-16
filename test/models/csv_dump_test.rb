@@ -1,16 +1,16 @@
 require 'test_helper'
 
 class CSVDumpTest < ActiveSupport::TestCase
-  # def setup
-  #   csv_dump = CSVDump.find('restaurants_csv_dump.csv.gz')
-  #   Xattr.new(csv_dump.path)['gm_imported'] = 'false'
-  #
-  #   csv_dump = CSVDump.find('restaurants_csv_dump.csv')
-  #   Xattr.new(csv_dump.path)['gm_imported'] = 'false'
-  #
-  #   csv_dump = CSVDump.find('restaurant_tests_csv_dump.csv.gz')
-  #   Xattr.new(csv_dump.path)['gm_imported'] = 'true'
-  # end
+  def setup
+    csv_dump = CSVDump.find('restaurants_csv_dump.csv.gz')
+    Xattr.new(csv_dump.path)['user.gm_imported'] = 'false'
+
+    csv_dump = CSVDump.find('restaurants_csv_dump.csv')
+    Xattr.new(csv_dump.path)['user.gm_imported'] = 'false'
+
+    csv_dump = CSVDump.find('restaurant_tests_csv_dump.csv.gz')
+    Xattr.new(csv_dump.path)['user.gm_imported'] = 'true'
+  end
 
   test "should return the path of csv dumps directory" do
     csv_dumps_path = CSVDump.csv_dumps_path
@@ -35,16 +35,16 @@ class CSVDumpTest < ActiveSupport::TestCase
     end
   end
 
-  # test "should list imported and non-imported csv dumps" do
-  #   imported_csv_dumps = CSVDump.imported
-  #   non_imported_csv_dumps = CSVDump.non_imported
-  #   assert_equal 1, imported_csv_dumps.count
-  #   assert_equal 2, non_imported_csv_dumps.count
-  #
-  #   imported_csv_dumps.each     { |csvd| assert     csvd.imported? }
-  #   non_imported_csv_dumps.each { |csvd| assert_not csvd.imported? }
-  # end
-  #
+  test "should list imported and non-imported csv dumps" do
+    imported_csv_dumps = CSVDump.imported
+    non_imported_csv_dumps = CSVDump.non_imported
+    assert_equal 1, imported_csv_dumps.count
+    assert_equal 2, non_imported_csv_dumps.count
+
+    imported_csv_dumps.each     { |csvd| assert     csvd.imported? }
+    non_imported_csv_dumps.each { |csvd| assert_not csvd.imported? }
+  end
+
   test "should parse csv as plain and gzipped" do
     csv_dump = CSVDump.find('restaurants_csv_dump.csv')
     csv_dump.read
@@ -62,7 +62,7 @@ class CSVDumpTest < ActiveSupport::TestCase
     csv_dump.import
 
     assert_equal csv_dump.data.count, Restaurant.count
-    # assert csv_dump.imported?
+    assert csv_dump.imported?
     assert Restaurant.create
     assert csv_dump.data.count + 1, Restaurant.count
   end
@@ -72,13 +72,13 @@ class CSVDumpTest < ActiveSupport::TestCase
     csv_dump.import
 
     assert_equal csv_dump.data.count, RestaurantReview.count
-    # assert csv_dump.imported?
+    assert csv_dump.imported?
     assert RestaurantReview.create
     assert csv_dump.data.count + 1, RestaurantReview.count
   end
 
-  # def teardown
-  #   csv_dump = CSVDump.find('restaurants_csv_dump.csv.gz')
-  #   Xattr.new(csv_dump.path)['gm_imported'] = 'false'
-  # end
+  def teardown
+    csv_dump = CSVDump.find('restaurants_csv_dump.csv.gz')
+    Xattr.new(csv_dump.path)['user.gm_imported'] = 'false'
+  end
 end
