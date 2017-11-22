@@ -3,7 +3,8 @@ require 'test_helper'
 class RestaurantTest < ActiveSupport::TestCase
   def setup
     # import restaurants to work with
-    CSVDump.find('restaurants_csv_dump.csv.gz').import
+    CSVDump.find('restaurants_csv_dump.csv.gz').import(generate_log: false)
+    CSVDump.find('localized_strings_csv_dump.csv').import(generate_log: false)
   end
 
   test "should search for restaurants" do
@@ -26,6 +27,29 @@ class RestaurantTest < ActiveSupport::TestCase
     assert restaurants.count < Restaurant.all.count
     assert_equal results_count, restaurants.count
     assert restaurants.pluck(:tags_index).to_s.include? 'söröző'
+  end
+
+  test "should format hash from values" do
+    restaurant = Restaurant.first
+    asserted_hash = {
+      id: restaurant.id,
+      title: restaurant.title,
+      country: restaurant.country_localized_to_sk,
+      full_address: restaurant.full_address_to_sk,
+      invalid_value: nil
+    }
+    formatted_hash = restaurant.formatted_hash(:sk, [:id, :title, :country, :full_address, :invalid_value])
+    assert_equal asserted_hash, formatted_hash
+
+    asserted_hash = {
+      id: restaurant.id,
+      title: restaurant.title,
+      country: restaurant.country_localized_to_en,
+      full_address: restaurant.full_address_to_en,
+      invalid_value: nil
+    }
+    formatted_hash = restaurant.formatted_hash(:en, [:id, :title, :country, :full_address, :invalid_value])
+    assert_equal asserted_hash, formatted_hash
   end
 
   test "should verify country code" do

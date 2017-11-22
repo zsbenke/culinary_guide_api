@@ -46,4 +46,13 @@ class Restaurant < ApplicationRecord
       :all
     end
   end
+
+  def formatted_hash(locale = Rails.configuration.i18n.default_locale, columns = [])
+    hash = {}
+    columns.each do |column|
+      hash[column.to_sym] = try("#{column}_to_#{locale}") || try("#{column}_localized_to_#{locale}") || try(column)
+    end
+
+    hash
+  end
 end
