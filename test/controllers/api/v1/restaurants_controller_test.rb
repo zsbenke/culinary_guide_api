@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Api::V1::RestaurantsControllerTest < ActionDispatch::IntegrationTest
+class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
   def setup
     @user = users :user
     @headers = authorization_header authorization_token_for_user @user
@@ -59,6 +59,8 @@ class Api::V1::RestaurantsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal restaurants.pluck(:id).sort, ids
 
+    data.each { |record| compare_keys record, :en }
+
     country = :all
     get api_v1_restaurants_path, params: { country: country }, headers: @headers
 
@@ -68,6 +70,8 @@ class Api::V1::RestaurantsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_equal restaurants.pluck(:id).sort, ids
+
+    data.each { |record| compare_keys record, :en }
   end
 
   test "should filter for every available country on index when country param is invalid" do
@@ -80,6 +84,39 @@ class Api::V1::RestaurantsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_equal restaurants.pluck(:id).sort, ids
+
+    data.each { |record| compare_keys record, :en }
+  end
+
+  test "should search on index" do
+    get api_v1_restaurants_path, params: { keyword: 'Budapest' }, headers: @headers
+
+    data = JSON.parse(response.body)['data']
+    ids = data.map { |r| r['id'].to_i }.sort
+    restaurants = Restaurant.search('budapest')
+
+    assert_response :success
+    assert_equal restaurants.pluck(:id).sort, ids
+
+    data.each { |record| compare_keys record, :en }
+  end
+
+  test "should narrow search to current country on index when country is set" do
+    locale = :ro
+    country = :ro
+    keyword = 'nyitva vasárnap'
+    params = { locale: :ro, county: country, keyword: keyword }
+
+    get api_v1_restaurants_path, params: params, headers: @headers
+
+    data = JSON.parse(response.body)['data']
+    ids = data.map { |r| r['id'].to_i }.sort
+    restaurants = Restaurant.by_country(country).search(keyword)
+
+    assert_response :success
+    assert_equal restaurants.pluck(:id).sort, ids
+
+    data.each { |record| compare_keys record, locale }
   end
 
   private

@@ -2,7 +2,7 @@ class Api::V1::RestaurantsController < Api::V1::ApiController
   before_action :set_current_country
 
   def index
-    @restaurants = Restaurant.by_country(@current_country)
+    @restaurants = Restaurant.by_country(@current_country).search(params[:keyword])
     @restaurants = @restaurants.map do |restaurant|
       cache([restaurant, :index]) do
         restaurant.formatted_hash(current_locale, [:id, :title, :full_address])
