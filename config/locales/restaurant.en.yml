@@ -1,5 +1,6 @@
 en:
   restaurant:
+    full_address_format: "%{postcode} %{city}, %{address}"
     values:
       country:
         "HU – Magyarország": "Hungary"

@@ -27,4 +27,20 @@ class RestaurantTest < ActiveSupport::TestCase
     assert_equal results_count, restaurants.count
     assert restaurants.pluck(:tags_index).to_s.include? 'söröző'
   end
+
+  test "should verify country code" do
+    assert_equal :all, Restaurant.verify_country_code(:all)
+    assert_equal :all, Restaurant.verify_country_code(:de)
+
+    Restaurant.country_codes.each { |c| assert_equal c, Restaurant.verify_country_code(c) }
+  end
+
+  test "should return country name by country code" do
+    assert_equal 'HU – Magyarország', Restaurant.country_name_for(:hu)
+    assert_equal 'SK – Szlovákia', Restaurant.country_name_for(:sk)
+    assert_equal Restaurant.countries, Restaurant.country_name_for(:all)
+
+    # returns all countries for invalid country code
+    assert_equal Restaurant.countries, Restaurant.country_name_for(:de)
+  end
 end

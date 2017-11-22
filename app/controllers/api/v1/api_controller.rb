@@ -31,6 +31,10 @@ class Api::V1::ApiController < ActionController::API
       @current_locale
     end
 
+    def current_country
+      @current_country
+    end
+
     def set_current_locale
       @current_locale = available_locales.include?(locale_param) ? locale_param : default_locale
     end
@@ -45,5 +49,12 @@ class Api::V1::ApiController < ActionController::API
 
     def default_locale
       Rails.configuration.i18n.default_locale
+    end
+
+
+    def cache(key, &block)
+      key = ['api', 'v1'] << key
+      key = key.flatten
+      Rails.cache.fetch(key) { block.call }
     end
 end

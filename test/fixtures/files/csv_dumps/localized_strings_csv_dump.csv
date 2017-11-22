@@ -1,0 +1,164 @@
+id,model,column,value,value_in_hu,value_in_de,value_in_cs,value_in_en,value_in_sk,value_in_ro,value_in_sl,value_in_cz,value_in_hr,created_at,updated_at
+1,restaurant,country,HU – Magyarország,Magyarország,Ungarn,Mađarska,Hungary,Maďarsko,Ungaria,Madžarska,Maďarsko,Mađarska,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+2,restaurant,country,CZ – Csehország,Csehország,Tschechien,Češka,Czech Republic,Česká republika,Cehia,Češka,Česká republika,Češka,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+3,restaurant,country,SK – Szlovákia,Szlovákia,Slowakei,Slovačka,Slovakia,Slovensko,Slovacia,Slovaška,Slovensko,Slovačka,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+4,restaurant,country,RO – Románia,Románia,Rumänien,Rumunija,Romania,Rumunsko,România,Romunija,Rumunsko,Rumunjska,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+5,restaurant,country,RS – Szerbia,Szerbia,Serbien,Srbija,Serbia,Srbsko,Serbia,Srbija,Srbsko,Srbija,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+6,restaurant,country,HR – Horvátország,Horváthország,Kroatien,Hrvatska,Croatia,Chorvátsko,Croația,Hrvaška,Chorvatsko,Hrvatska,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+7,restaurant,country,SI – Szlovénia,Szlovénia,Slowenien,Slovenija,Slovenia,Slovinsko,Slovenia,Slovenija,Slovinsko,Slovenija,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+8,restaurant,country,AT – Ausztria,Ausztria,Österreich,Austrija,Austria,Rakúsko,Austria,Avstrija,Rakousko,Austrija,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+9,restaurant,region,Budapest,Budapest,Budapest,Budimpešta,Budapest,Budapešť,Budapesta,Budimpešta,Budapešť,Budimpešta,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+10,restaurant,region,Észak-Magyarország,Észak-Magyarország,Nordungarn,Severna mađarska regija,Northern Hungary,Severné Maďarsko,Ungaria de Nord,Severna Madžarska,Severní Maďarsko,Sjeverna Mađarska,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+11,restaurant,region,Alföld,Alföld,Große Tiefebene,Velika mađarska nizina,The Great Plane,Veľká nížina,Marea Câmpie,Madžarska nižina,Velká nížina,Velika nizina,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+12,restaurant,region,Észak-Dunántúl,Észak-Dunántúl,Nordtransdanubien,Severni deo Prekodunavske regije,Northern Trans-Danubia,Severné Zadunajsko,Transdanubia de Nord,Severno Prekdonavje,Severní Zadunají,Sjeverno Zadunavlje,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+13,restaurant,region,Balaton és környéke,Balaton és környéke,Plattensee und Umgebung,Jezero Balaton i okolina,Balaton and area,Balaton a okolie,Zona Balaton,Blatno jezero z okolico,Balaton a okolí,Balaton i okolica,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+14,restaurant,region,Dél-Dunántúl,Dél-Dunántúl,Südtransdanubien,Južni deo Prekodunavske regije,Southern Trans-Danubia,Južné Zadunajsko,Transdanubia de Sud,Južno Prekdonavje,Jižní Zadunají,Južno Zadunavlje,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+15,restaurant,region,Dráva-Száva vidék (Nizinska Hrvatska),Dráva-Száva vidék (Nizinska Hrvatska),Save-Drau-Zwischenstromland,Nizinska Hrvatska,Region of the rivers Drava and Sava,Oblasť riek Dráva – Sáva,Regiunea Drava-Sava,Nižinska Hrvaška,Oblast Drávy a Sávy,Područje između Drave i Save,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+16,restaurant,region,Zágráb és környéke (Grad Zabreb i okolica),Zágráb és környéke (Grad Zabreb i okolica),Zagreb und Umgebung,Grad Zagreb i okolina,Zagreb and area,Záhreb a okolie,Zona Zagreb,Mesto Zagreb z okolico,Záhřeb a okolí,Zagreb i okolica,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+17,restaurant,region,Isztria és Kvarner öböl környéke  (Istra i Kvarner),Isztria és Kvarner öböl környéke  (Istra i Kvarner),Istrien und Umgebung um die Kvarner-Buch,Istra i Kvarner,Istria and Kvarner Bay area,Istria a oblasť Kvarnerského zálivu,Istria și zona golfului Kvarner ,Istra in Kvarner,Istrie a okolí zátoky Kvarner,Istra i područje Kvarnerskog zaljeva,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+18,restaurant,region,Dalmácia (Dalmacija),Dalmácia (Dalmacija),Dalmatien,Dalmacija,Dalmatia,Dalmácia,Dalmația,Dalmacija,Dalmácie,Dalmacija,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+19,restaurant,region,Partium,Partium,Partium,Partium,Partium,Partium,Crișana,Partium,Partium,Zapadna Transilvanija,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+20,restaurant,region,Bukarest,Bukarest,Bukarest,Bukarest,Bukarest,Bukurešť,București,Bukarešta,Bukurešť,Bukurešt,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+21,restaurant,region,Bukovina,Bukovina,Bukowina,Bukovina,Bukovina,Bukovina,Bucovina,Bukovina,Bukovina,Bukovina,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+22,restaurant,region,Moldva,Moldva,Moldau,Moldova (pokrajina),Moldavia,Moldavsko,Moldova,Moldavija,Moldavsko,Moldavija,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+23,restaurant,region,Erdély,Erdély,Siebenbürgen,Transilvanija,Transylvania,Sedmohradsko,Transilvania,Transilvanija,Sedmihradsko,Transilvanija,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+24,restaurant,region,Bánság,Bánság,Banat,Banat,The Banat,Banát,Banat,Banat,Banát,Banovina,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+25,restaurant,region,Olténia,Olténia,Kleine Walachei,Oltenija,Oltenia,Olténia,Oltenia,Oltenija,Olténie,Oltenija,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+26,restaurant,region,Munténia,Munténia,Große Walachei,Muntenija,Munténia,Munténia,Muntenia,Muntenija,Munténie,Muntenija,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+27,restaurant,region,Dobruzsda,Dobruzsda,Dobrudscha,Dobrudža,Dobruja,Dobrudža,Dobrogea,Dobrudža,Dobrudža,Dobružda,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+28,restaurant,region,Vajdaság,Vajdaság,Wojwodina,Vojvodina,Vojvodina,Vojvodina,Voivodina,Vojvodina,Vojvodina,Vojvodina,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+29,restaurant,region,Belgrád és környéke,Belgrád és környéke,Belgrad und Umgebung,Grad Beograd i okolina,Belgrade and area,Belehrad a okolie,Zona Belgrad,Beograd z okolico,Bělehrad a okolí,Beograd i okolica,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+30,restaurant,region,Prága és környéke,Prága és környéke,Prag und Umgebung,Grad Prag i okolina,Prague and area,Praha a okolie,Zona Praga,Praga z okolico,Praha a okolí,Prag i okolica,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+31,restaurant,region,Csehország,Csehország,Tschechien,Češka,Czech Republic,Čechy,Cehia,Češka,Česká republika,Češka,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+32,restaurant,region,Morvaország,Morvaország,Mähren,Moravska,Moravia,Morava,Moravia,Moravska,Morava,Moravska,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+33,restaurant,region,Kelet-Szlovákia,Kelet-Szlovákia,Ostslowakei,Južni deo Slovačke,Eastern Slovakia,Východné Slovensko,Slovacia de Est,Vzhodna Slovaška,Východní Slovensko,Istočna Slovačka,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+34,restaurant,region,Közép-Szlovákia,Közép-Szlovákia,Mittelslowakei,Centralni deo Slovačke,Central Slovakia,Stredné Slovensko,Slovacia Centrală,Osrednja Slovaška,Střední Slovensko,Središnja Slovačka,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+35,restaurant,region,Nyugat-Szlovákia,Nyugat-Szlovákia,Westslowakei,Zapadni deo Slovačke,Western Slovakia,Západné Slovensko,Slovacia de Vest,Zahodna Slovaška,Západní Slovensko,Zapadna Slovačka,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+36,restaurant,region,Bratislava és környéke,Bratislava és környéke,Bratislava und Umgebung,Grad Bratislava i okolina,Bratislava and area,Bratislava a okolie,Zona Bratislava,Bratislava z okolico,Bratislava a okolí,Bratislava i okolica,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+37,restaurant,region,Észak,Észak,Nord,Sever,North,Sever,Nord,Sever,Sever,Sjever,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+38,restaurant,region,Kelet,Kelet,Ost,Istok,East,Východ,Est,Vzhod,Východ,Istok,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+39,restaurant,region,Nyugat,Nyugat,West,Zapad,West,Západ,Vest,Zahod,Západ,Zapad,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+40,restaurant,region,Dél,Dél,Süd,Jug,South,Juh,Sud,Jug,Jih,Jug,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+41,restaurant,region,Ljubljana és környéke,Ljubljana és környéke,Ljubljana und Umgebung,Grad Ljubljana i okolina,Ljubljana and area,Ľubľana a okolie,Zona Ljubljana,Ljubljana z okolico,Lublaň a okolí,Ljubljana i okolica,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+42,restaurant,open_on_monday,true,nyitva hétfőn,montags geöffnet,ponedeljom otvoreno,open on Mondays,v pondelok otvorené,deschis luni,odprto v ponedeljek,otevřeno v pondělí,otvoreno ponedjeljak,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+43,restaurant,open_on_monday,false,zárva hétfőn,"","","",v pondelok zatvorené,luni închis,ob ponedeljkih zaprto,v pondělí zavřeno,"",2017-10-06 14:27:46 +0200,2017-11-10 12:41:51 +0100
+44,restaurant,open_on_sunday,true,nyitva vasárnap,sonntags geöffnet,nedeljom otvoreno,open on Sundays,v nedeľu otvorené,v nedeľu otvorené,odprto v nedeljo,otevřeno v neděli,otvoreno nedjeljom,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+45,restaurant,open_on_sunday,false,zárva vasárnap,"","","",v nedeľu zatvorené,duminică închis,ob nedeljah zaprto,v neděli zavřeno,"",2017-10-06 14:27:46 +0200,2017-11-10 12:42:11 +0100
+46,restaurant,reservation_needed,true,szükséges,erforderlich,potrebna,necessary,potrebná,necesar,potrebna,je,potrebno je,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+47,restaurant,reservation_needed,false,nem szükséges,nicht erforderlich,nije potrebna,not necessary,nie je potrebná,nu este necesar,ni potrebna,není,nije potrebno,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+48,restaurant,has_parking,true,van,vorhanden,ima,is available,áno,are,da,je,omogućeno,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+49,restaurant,has_parking,false,nincs,nicht vorhanden,nema,is not available,nie,nu are,ne,není,nije omogućeno,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+50,restaurant,wifi,true,van,vorhanden,ima,"",áno,are,da,je,omogućeno,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+51,restaurant,wifi,false,nincs,nicht vorhanden,nema,"",nie,nu are,ne,není,nije omogućeno,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+52,restaurant,credit_card,true,van,vorhanden,ima,"",áno,are,da,je,omogućeno,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+53,restaurant,credit_card,false,nincs,nicht vorhanden,nema,"",nie,nu are,ne,není,nije omogućeno,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+54,restaurant_test,price_value,nincs kitöltve,nincs kitöltve,nicht ausgefüllt,nije popunjeno,not completed,nie je vyplnený,necompletat,ni izpolnjeno,není vyplněno,nije zadovoljeno,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+55,restaurant_test,price_value,rossz,rossz,schlecht,loš,poor,zlý,slab,slabo,špatná,loše,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+56,restaurant_test,price_value,megfelelő,megfelelő,befriedigend,odgovarajući,adequate,vyhovujúci,satisfăcător,ustrezno,dostačující,odgovarajuće,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+57,restaurant_test,price_value,jó,jó,gut,dobar,good,dobrý,bun,dobro,dobrá,dobro,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+58,restaurant_test,price_value,nagyon jó,nagyon jó,sehr gut,jako dobar,very good,veľmi dobrý,foarte bun,odlično,vynikající,jako dobro,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
+59,restaurant,def_people_one_title,"konyhafőnök, tulajdonos","konyhafőnök, tulajdonos",,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+60,restaurant,def_people_one_title,executive séf,executive séf,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+61,restaurant,def_people_one_title,konyhafőnök,konyhafőnök,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+62,restaurant,def_people_one_title,üzletvezető,üzletvezető,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+63,restaurant,def_people_one_title,tulajdonos,tulajdonos,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+64,restaurant,def_people_one_title,társséfek,társséfek,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+65,restaurant,def_people_one_title,"executive séf, tulajdonos","executive séf, tulajdonos",,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+66,restaurant,def_people_one_title,vendéglős,vendéglős,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+67,restaurant,def_people_one_title,vendéglősök,vendéglősök,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+68,restaurant,def_people_one_title,"tulajdonos, konyhafőnök","tulajdonos, konyhafőnök",,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+69,restaurant,def_people_one_title,patron,patron,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+70,restaurant,def_people_one_title,kreatív séf,kreatív séf,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+71,restaurant,def_people_one_title,étteremvezető,étteremvezető,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+72,restaurant,def_people_one_title,Házigazda-Sommelier,Házigazda-Sommelier,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+73,restaurant,def_people_one_title,corporate séf,corporate séf,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+74,restaurant,def_people_one_title,head chef,head chef,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+75,restaurant,def_people_one_title,fogadósok,fogadósok,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+76,restaurant,def_people_one_title,"üzletvezető, tulajdonos","üzletvezető, tulajdonos",,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+77,restaurant,def_people_one_title,üzletvezető konyhafőnök,üzletvezető konyhafőnök,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+78,restaurant,def_people_one_title,"séf, konyhafőnök","séf, konyhafőnök",,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+79,restaurant,def_people_one_title,társséf,társséf,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+80,restaurant,def_people_one_title,chef,chef,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+81,restaurant,def_people_one_title,tulajdonosok,tulajdonosok,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+82,restaurant,def_people_one_title,"konyhafőnök, ","konyhafőnök, ",,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+83,restaurant,def_people_one_title,supervisor (?),supervisor (?),,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+84,restaurant,def_people_one_title,"konyhafőnök, tulajdonos, főborász","konyhafőnök, tulajdonos, főborász",,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+85,restaurant,def_people_one_title,staff,staff,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+86,restaurant,def_people_one_title,konyhafőnök ,konyhafőnök ,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+87,restaurant,def_people_one_title,konyhafőnökök,konyhafőnökök,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+88,restaurant,def_people_one_title,éttermi igazgató,éttermi igazgató,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+89,restaurant,def_people_one_title,tulajdonos konyhafőnök,tulajdonos konyhafőnök,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+90,restaurant,def_people_one_title,tulajdonos-konyhafőnők,tulajdonos-konyhafőnők,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+91,restaurant,def_people_one_title,Kreatív séf,Kreatív séf,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+92,restaurant,def_people_one_title,"konyhafőnök, hentes, tulajdonos,","konyhafőnök, hentes, tulajdonos,",,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+93,restaurant,def_people_one_title,"tulajdonos,","tulajdonos,",,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+94,restaurant,def_people_one_title,tulajdonos és konyhafőnök,tulajdonos és konyhafőnök,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+95,restaurant,def_people_one_title,executive chef,executive chef,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+96,restaurant,def_people_one_title,Head Chef,Head Chef,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+97,restaurant,def_people_one_title,"tulajdonos, sommelier, borkereskedő","tulajdonos, sommelier, borkereskedő",,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+98,restaurant,def_people_one_title, Restaurant manager, Restaurant manager,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+99,restaurant,def_people_one_title,Mindenes,Mindenes,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+100,restaurant,def_people_one_title,"tulajdonos, séf","tulajdonos, séf",,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+101,restaurant,def_people_two_title,séf,séf,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+102,restaurant,def_people_two_title,konyhafőnök,konyhafőnök,"","","",vedúci kuchyne,chef,šef kuhinje,vedoucí kuchyně,"",2017-10-06 14:27:56 +0200,2017-11-10 12:42:33 +0100
+103,restaurant,def_people_two_title,tulajdonos,tulajdonos,"","","",majiteľ,proprietar,"",vlastník,"",2017-10-06 14:27:56 +0200,2017-11-10 12:39:56 +0100
+104,restaurant,def_people_two_title,üzletvezető,üzletvezető,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+105,restaurant,def_people_two_title,étteremigazgató,étteremigazgató,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+106,restaurant,def_people_two_title,sommelier,sommelier,"","","",someliér,sommelier,sommelier,sommelier,"",2017-10-06 14:27:56 +0200,2017-11-10 12:42:44 +0100
+107,restaurant,def_people_two_title,társséf,társséf,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+108,restaurant,def_people_two_title,cukrász,cukrász,"","","",cukrár,cofetar,slaščičar,cukrář,"",2017-10-06 14:27:56 +0200,2017-11-10 12:42:55 +0100
+109,restaurant,def_people_two_title,sous chef,sous chef,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+110,restaurant,def_people_two_title,igazgató,igazgató,,,,,,,,,2017-10-06 14:27:56 +0200,2017-10-06 14:27:56 +0200
+111,restaurant,def_people_two_title,executive séf,executive séf,"","","",výkonný šéfkuchár,chef executiv,glavni kuhar,výkonný šéfkuchař,"",2017-10-06 14:27:57 +0200,2017-11-10 12:43:04 +0100
+112,restaurant,def_people_two_title,Főborász,Főborász,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+113,restaurant,def_people_two_title,tulajdonosok,tulajdonosok,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+114,restaurant,def_people_two_title,kreatív séf,kreatív séf,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+115,restaurant,def_people_two_title,barista,barista,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+116,restaurant,def_people_two_title,"tulajdonos, üzletvezető","tulajdonos, üzletvezető",,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+117,restaurant,def_people_two_title,sous-chef,sous-chef,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+118,restaurant,def_people_two_title,ügyvezető igazgató,ügyvezető igazgató,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+119,restaurant,def_people_two_title,étteremvezető,étteremvezető,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+120,restaurant,def_people_two_title,desszertek,desszertek,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+121,restaurant,def_people_two_title,főszakács,főszakács,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+122,restaurant,def_people_two_title,patron,patron,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+123,restaurant,def_people_two_title,halászléfőző,halászléfőző,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+124,restaurant,def_people_two_title,pohárnok,pohárnok,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+125,restaurant,def_people_two_title,üzletvezetők,üzletvezetők,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+126,restaurant,def_people_two_title,ügyvezető,ügyvezető,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+127,restaurant,def_people_two_title,A'la Carte Chef,A'la Carte Chef,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+128,restaurant,def_people_two_title,üzemeltető,üzemeltető,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+129,restaurant,def_people_two_title,"manager, sommelier","manager, sommelier",,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+130,restaurant,def_people_two_title,manager,manager,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+131,restaurant,def_people_two_title,pék,pék,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+132,restaurant,def_people_three_title,üzletvezető,üzletvezető,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+133,restaurant,def_people_three_title,Borrendi Ceremóniamester,Borrendi Ceremóniamester,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+134,restaurant,def_people_three_title,konyhafőnök,konyhafőnök,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+135,restaurant,def_people_three_title,tulajdonos,tulajdonos,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+136,restaurant,def_people_three_title,ügyvezető igazgató,ügyvezető igazgató,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+137,restaurant,def_people_three_title,társséf,társséf,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+138,restaurant,def_people_three_title,sommelier,sommelier,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+139,restaurant,def_people_three_title,"tulajdonos, üzletvezető","tulajdonos, üzletvezető",,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+140,restaurant,def_people_three_title,séf,séf,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+141,restaurant,def_people_three_title,tanácsadó,tanácsadó,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+142,restaurant,def_people_three_title,kreatív séf,kreatív séf,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+143,restaurant,def_people_three_title,executive séf,executive séf,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+144,restaurant,def_people_three_title,pastry chef,pastry chef,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+145,restaurant,def_people_three_title,cukrász,cukrász,,,,,,,,,2017-10-06 14:27:57 +0200,2017-10-06 14:27:57 +0200
+146,restaurant,def_people_one_title,ügyvezető igazgató,ügyvezető igazgató,,,,,,,,,2017-10-10 12:05:02 +0200,2017-10-10 12:05:02 +0200
+147,restaurant,def_people_three_title,tulajdonosok,tulajdonosok,,,,,,,,,2017-10-10 16:17:29 +0200,2017-10-10 16:17:29 +0200
+148,restaurant,open_info,június 20-tól szeptember 20-ig,június 20-tól szeptember 20-ig,,,,,,,,,2017-10-11 15:03:15 +0200,2017-10-11 15:03:15 +0200
+149,restaurant,open_on_tuesday,true,nyitva kedden,,,,,,,,,2017-10-12 08:47:00 +0200,2017-10-12 08:47:00 +0200
+150,restaurant,open_on_wednesday,true,nyitva szerdán,,,,,,,,,2017-10-12 08:47:00 +0200,2017-10-12 08:47:00 +0200
+151,restaurant,open_on_thursday,true,nyitva csütörtökön,,,,,,,,,2017-10-12 08:47:00 +0200,2017-10-12 08:47:00 +0200
+152,restaurant,open_on_friday,true,nyitva pénteken,,,,,,,,,2017-10-12 08:47:00 +0200,2017-10-12 08:47:00 +0200
+153,restaurant,open_on_saturday,true,nyitva szombaton,,,,,,,,,2017-10-12 08:47:00 +0200,2017-10-12 08:47:00 +0200
+159,restaurant,open_info,konyhai szünet: 11:00-11:30 és 16:00-18:00,konyhai szünet: 11:00-11:30 és 16:00-18:00,,,,,,,,,2017-10-12 12:15:29 +0200,2017-10-12 12:15:29 +0200
+160,restaurant,open_on_tuesday,false,zárva kedden,,,,,,,,,2017-10-12 15:25:10 +0200,2017-10-12 15:25:10 +0200
+161,restaurant,open_on_wednesday,false,zárva szerdán,,,,,,,,,2017-10-12 15:25:10 +0200,2017-10-12 15:25:10 +0200
+164,restaurant,open_on_thursday,false,zárva csütörtökön,,,,,,,,,2017-10-13 08:31:04 +0200,2017-10-13 08:31:04 +0200
+165,restaurant,open_on_friday,false,zárva pénteken,,,,,,,,,2017-10-13 08:31:04 +0200,2017-10-13 08:31:04 +0200
+166,restaurant,open_on_saturday,false,zárva szombaton,,,,,,,,,2017-10-13 08:31:04 +0200,2017-10-13 08:31:04 +0200
+168,restaurant,open_info,csak rendelésre nyitnak ki,csak rendelésre nyitnak ki,,,,,,,,,2017-10-17 13:03:08 +0200,2017-10-17 13:03:08 +0200
+169,restaurant,def_people_two_title,pastry chef,pastry chef,,,,,,,,,2017-10-25 15:51:36 +0200,2017-10-25 15:51:36 +0200
+170,restaurant,def_people_three_title,head sommelier,head sommelier,,,,,,,,,2017-10-25 15:51:37 +0200,2017-10-25 15:51:37 +0200
+171,restaurant,open_info,Őszi szünet!,Őszi szünet!,,,,,,,,,2017-11-11 00:14:17 +0100,2017-11-11 00:14:17 +0100

@@ -16,4 +16,12 @@ class ActiveSupport::TestCase
   def generate_localized_strings
     Restaurant.all.each(&:create_localized_strings)
   end
+
+  def authorization_token_for_user(user)
+    # user should have valid subscription
+    user.update expires_at: 1.week.from_now
+
+    token = Token.encode({ unique_hash: user.unique_hash })
+    token
+  end
 end

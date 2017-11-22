@@ -76,7 +76,7 @@ class CSVDump
     @data.shift(1)
   end
 
-  def import(remove_existing: true)
+  def import(remove_existing: true, generate_log: true)
     model_name = name.split("_#{self.class.csv_dump_name}")[0].singularize
     model_name_mapped = self.class.table_map.try(:[], model_name)
     model_name = model_name_mapped if model_name_mapped.present?
@@ -105,7 +105,7 @@ class CSVDump
 
       record.save
 
-      log "imported record #{model_name} ##{record.id}"
+      log "imported record #{model_name} ##{record.id}" if generate_log
     end
 
     @imported = true
