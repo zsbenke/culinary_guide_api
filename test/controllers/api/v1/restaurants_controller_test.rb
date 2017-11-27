@@ -89,7 +89,12 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
   end
 
   test "should search on index" do
-    get api_v1_restaurants_path, params: { keyword: 'Budapest' }, headers: @headers
+    params = {
+      tokens: [
+        { 'column' => 'search', 'value' => 'Budapest'},
+      ]
+    }
+    get api_v1_restaurants_path, params: params, headers: @headers
 
     data = JSON.parse(response.body)['data']
     ids = data.map { |r| r['id'].to_i }.sort
@@ -105,7 +110,13 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     locale = :ro
     country = :ro
     keyword = 'nyitva vasárnap'
-    params = { locale: :ro, county: country, keyword: keyword }
+    params = {
+      locale: :ro,
+      county: country,
+      tokens: [
+        { 'column' => 'search', 'value' => keyword}
+      ]
+    }
 
     get api_v1_restaurants_path, params: params, headers: @headers
 
@@ -117,6 +128,26 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     assert_equal restaurants.pluck(:id).sort, ids
 
     data.each { |record| compare_keys record, locale }
+  end
+
+  test "should search by column tokens" do
+    params = {
+      tokens: [
+        { 'column' => 'city', 'value' => 'Budapest' },
+        { 'column' => 'wifi', 'value' => 'true' }
+      ]
+    }
+
+    get api_v1_restaurants_path, params: params, headers: @headers
+
+    data = JSON.parse(response.body)['data']
+    ids = data.map { |r| r['id'].to_i }.sort
+    restaurants = Restaurant.filter(params[:tokens])
+
+    assert_response :success
+    assert_equal restaurants.pluck(:id).sort, ids
+
+    data.each { |record| compare_keys record }
   end
 
   private
