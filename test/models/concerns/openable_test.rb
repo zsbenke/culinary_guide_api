@@ -39,4 +39,22 @@ class OpenableTest < ActiveSupport::TestCase
     assertion = 'Mon: 9:00am-3:00pm, Tue: 9:00am-12:00pm 1:00pm-5:00pm, Wed: Closed'
     assert_equal assertion, restaurant.open_results(locale: :en)
   end
+
+  test "should filter currently opened records for specific dates" do
+    CSVDump.find('restaurants_csv_dump.csv').import(generate_log: false)
+
+    # empty params
+    restaurants = Restaurant.open_at(nil)
+    assert_equal Restaurant.count, restaurants.count
+
+    # invalid time
+    restaurants = Restaurant.open_at('2017-11-27 24:56')
+    assert restaurants.empty?
+
+    restaurants = Restaurant.open_at('2017-11-27 10:33')
+    assert_equal 7,  restaurants.count
+
+    restaurants = Restaurant.open_at('2017-11-27 23:00')
+    assert_equal 5,  restaurants.count
+  end
 end

@@ -2,6 +2,44 @@ module Openable
   extend ActiveSupport::Concern
 
   included do
+
+    scope :open_at, -> (date) {
+      return unless date.present?
+
+      begin
+        date = Time.parse(date)
+      rescue
+        return none
+      end
+
+      to_time = -> (time) { "to_timestamp(#{time}, 'HH24:MI')::time" }
+      time = date.strftime('%H:%M')
+      long_day_name  = date.strftime("%A").downcase
+      day_name       = date.strftime("%a").downcase
+
+      open_on_morning   = where("open_on_#{long_day_name}" => true).
+                          where.not(
+                            "open_#{day_name}_morning_start" => ['--', 'Zárva'],
+                            "open_#{day_name}_morning_end" => ['--', 'Zárva']
+                          )
+      open_on_afternoon = where("open_on_#{long_day_name}" => true).
+                          where.not(
+                            "open_#{day_name}_afternoon_start" => ['--', 'Zárva'],
+                            "open_#{day_name}_afternoon_end" => ['--', 'Zárva']
+                          )
+      open_on_morning = open_on_morning.where(
+        "#{to_time.call('?')} BETWEEN "\
+        "#{to_time.call("open_#{day_name}_morning_start")} AND "\
+        "#{to_time.call("open_#{day_name}_morning_end")}", "#{time}"
+      )
+      open_on_afternoon = open_on_afternoon.where(
+        "#{to_time.call('?')} BETWEEN "\
+        "#{to_time.call("open_#{day_name}_afternoon_start")} AND "\
+        "#{to_time.call("open_#{day_name}_afternoon_end")}", "#{time}"
+      )
+      where(id: open_on_morning.pluck(:id) + open_on_afternoon.pluck(:id))
+    }
+
     def open_times_label(day_name, locale: :hu)
       day_name_index = I18n.t('date.day_names', locale: :en).map(&:downcase).index(day_name.to_s)
       day_name = I18n.t('date.abbr_day_names', locale: :en).map(&:downcase)[day_name_index]
@@ -50,5 +88,6 @@ module Openable
       full_label
     end
     alias_method :open_results_as_formatted, :open_results
+
   end
 end
