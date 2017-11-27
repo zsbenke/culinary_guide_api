@@ -130,7 +130,7 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     data.each { |record| compare_keys record, locale }
   end
 
-  test "should search by column tokens" do
+  test "should filter by column tokens" do
     params = {
       tokens: [
         { 'column' => 'city', 'value' => 'Budapest' },
@@ -146,6 +146,88 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_equal restaurants.pluck(:id).sort, ids
+
+    data.each { |record| compare_keys record }
+  end
+
+  test "should filter open restaurants by date" do
+    # We just use a subset of restaurants, to get the same results as in OpenableTest
+    CSVDump.find('restaurants_csv_dump.csv').import(generate_log: false)
+
+    params = {
+      tokens: [
+        { 'column' => 'open_at', 'value' => '2017-11-27 10:33' }
+      ]
+    }
+
+    get api_v1_restaurants_path, params: params, headers: @headers
+
+    data = JSON.parse(response.body)['data']
+    ids = data.map { |r| r['id'].to_i }.sort
+    restaurants = Restaurant.filter(params[:tokens])
+
+    assert_response :success
+    assert_equal restaurants.pluck(:id).sort, ids
+    assert_equal 7, ids.count
+
+    data.each { |record| compare_keys record }
+
+    params = {
+      tokens: [
+        { 'column' => 'open_at', 'value' => '2017-11-27 23:00' }
+      ]
+    }
+
+    get api_v1_restaurants_path, params: params, headers: @headers
+
+    data = JSON.parse(response.body)['data']
+    ids = data.map { |r| r['id'].to_i }.sort
+    restaurants = Restaurant.filter(params[:tokens])
+
+    assert_response :success
+    assert_equal restaurants.pluck(:id).sort, ids
+    assert_equal 5, ids.count
+
+    data.each { |record| compare_keys record }
+
+    # filter with other columns
+    params = {
+      tokens: [
+        { 'column' => 'open_at', 'value' => '2017-11-27 23:00' },
+        { 'column' => 'city', 'value' => 'Fülöpszállás' }
+      ]
+    }
+
+    get api_v1_restaurants_path, params: params, headers: @headers
+
+    data = JSON.parse(response.body)['data']
+    ids = data.map { |r| r['id'].to_i }.sort
+    restaurants = Restaurant.filter(params[:tokens])
+
+    assert_response :success
+    assert_equal restaurants.pluck(:id).sort, ids
+    assert_equal 1, ids.count
+
+    data.each { |record| compare_keys record }
+
+    # search with other columns
+    params = {
+      tokens: [
+        { 'column' => 'open_at', 'value' => '2017-11-27 23:00' },
+        { 'column' => 'search', 'value' => 'zing' }
+      ]
+    }
+
+    get api_v1_restaurants_path, params: params, headers: @headers
+
+    data = JSON.parse(response.body)['data']
+    ids = data.map { |r| r['id'].to_i }.sort
+    restaurants = Restaurant.filter(params[:tokens])
+
+    assert_response :success
+    assert_equal restaurants.pluck(:id).sort, ids
+    assert_equal 1, ids.count
+    assert_equal 'Zing Burger', data.first['title']
 
     data.each { |record| compare_keys record }
   end

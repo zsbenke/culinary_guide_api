@@ -41,6 +41,7 @@ module Filterable
                     end
           end
 
+          query = query.open_at(token_values.first) if column == 'open_at'
           query = query.search(token_values) if column == 'search'
         end
 
