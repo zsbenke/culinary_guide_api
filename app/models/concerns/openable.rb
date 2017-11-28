@@ -2,6 +2,7 @@ module Openable
   extend ActiveSupport::Concern
 
   included do
+    before_save :cache_open_day_names
 
     scope :open_at, -> (date) {
       return unless date.present?
@@ -39,6 +40,10 @@ module Openable
       )
       where(id: open_on_morning.pluck(:id) + open_on_afternoon.pluck(:id))
     }
+
+    def open_at?(date)
+      self.class.open_at(date).pluck(:id).include? id
+    end
 
     def open_times_label(day_name, locale: :hu)
       day_name_index = I18n.t('date.day_names', locale: :en).map(&:downcase).index(day_name.to_s)
@@ -89,5 +94,14 @@ module Openable
     end
     alias_method :open_results_as_formatted, :open_results
 
+    private
+      def cache_open_day_names
+        I18n.t('date.day_names', locale: :en).map(&:downcase).each do |day_name|
+          next unless self.respond_to?("open_on_#{day_name}")
+          closed_label_in_hu = I18n.t('restaurant.values.open_times', locale: :hu)[:Zárva]
+          open_value = open_times_label(day_name).present? && open_times_label(day_name) != closed_label_in_hu
+          self.send("open_on_#{day_name}=", open_value)
+        end
+      end
   end
 end
