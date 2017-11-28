@@ -58,6 +58,21 @@ class OpenableTest < ActiveSupport::TestCase
     assert_equal 5,  restaurants.count
   end
 
+  test "should determine the open status" do
+    restaurant = restaurants(:lacikonyha)
+    restaurant.open_mon_morning_start = '10:00'
+    restaurant.open_mon_morning_end = '12:00'
+    restaurant.open_mon_afternoon_start = '14:00'
+    restaurant.open_mon_afternoon_end = '22:00'
+    restaurant.save
+
+    travel_to Time.parse('2017-11-27 11:12')
+    assert restaurant.open?
+
+    travel_to Time.parse('2017-11-27 12:15')
+    assert_not restaurant.open?
+  end
+
   test "should determine the open status for specific dates" do
     restaurant = restaurants(:lacikonyha)
     restaurant.open_mon_morning_start = '10:00'
@@ -74,4 +89,5 @@ class OpenableTest < ActiveSupport::TestCase
     assert_not restaurant.open_at?('2017-11-27 23:00')
     assert_not restaurant.open_at?('2017-11-27')
   end
+
 end

@@ -45,6 +45,10 @@ module Openable
       self.class.open_at(date).pluck(:id).include? id
     end
 
+    def open?
+      open_at?(Time.current.strftime('%Y-%m-%d %H:%M'))
+    end
+
     def open_times_label(day_name, locale: :hu)
       day_name_index = I18n.t('date.day_names', locale: :en).map(&:downcase).index(day_name.to_s)
       day_name = I18n.t('date.abbr_day_names', locale: :en).map(&:downcase)[day_name_index]
