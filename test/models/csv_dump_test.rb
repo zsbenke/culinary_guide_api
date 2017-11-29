@@ -53,7 +53,7 @@ class CSVDumpTest < ActiveSupport::TestCase
     csv_dump = CSVDump.find('restaurants_csv_dump.csv')
     csv_dump.read
     assert_equal 115, csv_dump.headers.count
-    assert_equal 8, csv_dump.data.count
+    assert_equal 17, csv_dump.data.count
 
     csv_dump = CSVDump.find('restaurants_csv_dump.csv.gz')
     csv_dump.read
