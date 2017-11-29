@@ -196,6 +196,10 @@ CREATE TABLE restaurants (
     search_cache text,
     tags_index character varying,
     "position" integer,
+    rating character varying,
+    price_value character varying,
+    price_information character varying,
+    price_information_rating integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     tsv tsvector
