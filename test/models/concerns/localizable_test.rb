@@ -30,8 +30,10 @@ class LocalizableTest < ActiveSupport::TestCase
 
   test "should return localized open times columns" do
     restaurant = restaurants(:lacikonyha)
-    restaurant.open_on_monday = true
-    restaurant.open_on_sunday = true
+    restaurant.open_mon_morning_start = '10:00'
+    restaurant.open_mon_morning_end = '12:00'
+    restaurant.open_sun_morning_start = '10:00'
+    restaurant.open_sun_morning_end = '12:00'
     restaurant.save
     generate_localized_strings
 
@@ -41,8 +43,10 @@ class LocalizableTest < ActiveSupport::TestCase
     assertion = I18n.t('restaurant.values.open_on_sunday.true', locale: :hu)
     assert_equal assertion, restaurant.open_on_sunday_localized_to_hu
 
-    restaurant.open_on_monday = false
-    restaurant.open_on_sunday = false
+    restaurant.open_mon_morning_start = 'Zárva'
+    restaurant.open_mon_morning_end = '--'
+    restaurant.open_sun_morning_start = 'Zárva'
+    restaurant.open_sun_morning_end = '--'
     restaurant.save
     generate_localized_strings
 
