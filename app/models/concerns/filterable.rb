@@ -16,7 +16,7 @@ module Filterable
       if tokens
         columns = columns_hash
         table = arel_table
-        query = unscoped
+        query = where(nil)
         tokens_hash = {}
 
         tokens.each do |token|

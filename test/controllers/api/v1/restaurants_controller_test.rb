@@ -5,11 +5,11 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     @user = users :user
     @headers = authorization_header authorization_token_for_user @user
 
+    CSVDump.find('localized_strings_csv_dump.csv').import(generate_log: false)
     CSVDump.find('restaurants_csv_dump.csv.gz').import(generate_log: false)
     CSVDump.find('restaurants_csv_dump_cz.csv').import(remove_existing: false, generate_log: false)
     CSVDump.find('restaurants_csv_dump_sk.csv').import(remove_existing: false, generate_log: false)
     CSVDump.find('restaurants_csv_dump_ro.csv').import(remove_existing: false, generate_log: false)
-    CSVDump.find('localized_strings_csv_dump.csv').import(generate_log: false)
 
     Rails.cache.clear
   end
@@ -57,6 +57,8 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     restaurants = Restaurant.by_country(country)
 
     assert_response :success
+    assert_not restaurants.empty?
+    assert_equal ['HU – Magyarország'], restaurants.pluck(:country).uniq
     assert_equal restaurants.pluck(:id).sort, ids
 
     data.each { |record| compare_keys record, :en }
@@ -101,6 +103,7 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     restaurants = Restaurant.search('budapest')
 
     assert_response :success
+    assert_not restaurants.empty?
     assert_equal restaurants.pluck(:id).sort, ids
 
     data.each { |record| compare_keys record, :en }
@@ -112,7 +115,7 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     keyword = 'nyitva vasárnap'
     params = {
       locale: :ro,
-      county: country,
+      country: country,
       tokens: [
         { 'column' => 'search', 'value' => keyword}
       ]
@@ -122,9 +125,11 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
 
     data = JSON.parse(response.body)['data']
     ids = data.map { |r| r['id'].to_i }.sort
-    restaurants = Restaurant.by_country(country).search(keyword)
+    restaurants = Restaurant.by_country(country).filter(params[:tokens])
 
     assert_response :success
+    assert_not restaurants.empty?
+    assert_equal ['RO – Románia'], Restaurant.where(id: ids).pluck(:country).uniq
     assert_equal restaurants.pluck(:id).sort, ids
 
     data.each { |record| compare_keys record, locale }
@@ -145,6 +150,9 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     restaurants = Restaurant.filter(params[:tokens])
 
     assert_response :success
+    assert_not restaurants.empty?
+    assert_equal ['Budapest'], restaurants.pluck(:city).uniq
+    assert_equal [true], restaurants.pluck(:wifi).uniq
     assert_equal restaurants.pluck(:id).sort, ids
 
     data.each { |record| compare_keys record }
@@ -164,9 +172,10 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
 
     data = JSON.parse(response.body)['data']
     ids = data.map { |r| r['id'].to_i }.sort
-    restaurants = Restaurant.filter(params[:tokens])
+    restaurants = Restaurant.open_at(params[:tokens][0]['value'])
 
     assert_response :success
+    assert_not restaurants.empty?
     assert_equal restaurants.pluck(:id).sort, ids
     assert_equal 7, ids.count
 
@@ -182,9 +191,10 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
 
     data = JSON.parse(response.body)['data']
     ids = data.map { |r| r['id'].to_i }.sort
-    restaurants = Restaurant.filter(params[:tokens])
+    restaurants = Restaurant.open_at(params[:tokens][0]['value'])
 
     assert_response :success
+    assert_not restaurants.empty?
     assert_equal restaurants.pluck(:id).sort, ids
     assert_equal 5, ids.count
 
@@ -202,9 +212,11 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
 
     data = JSON.parse(response.body)['data']
     ids = data.map { |r| r['id'].to_i }.sort
-    restaurants = Restaurant.filter(params[:tokens])
+    restaurants = Restaurant.open_at(params[:tokens][0]['value']).where(city: 'Fülöpszállás')
 
     assert_response :success
+    assert_not restaurants.empty?
+    assert_equal ['Fülöpszállás'], restaurants.pluck(:city).uniq
     assert_equal restaurants.pluck(:id).sort, ids
     assert_equal 1, ids.count
 
@@ -225,6 +237,7 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     restaurants = Restaurant.filter(params[:tokens])
 
     assert_response :success
+    assert_not restaurants.empty?
     assert_equal restaurants.pluck(:id).sort, ids
     assert_equal 1, ids.count
     assert_equal 'Zing Burger', data.first['title']
@@ -236,11 +249,8 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     def compare_keys(record, locale = :en)
       restaurant = Restaurant.find(record['id'])
       record.keys.each do |key|
-        if %w(title id).include? key
-          assert_equal restaurant[key], record[key]
-        else
-          assert_equal restaurant.send("#{key}_to_#{locale}"), record[key]
-        end
+        formatted_hash = restaurant.formatted_hash(locale, [key.to_sym])
+        assert_equal formatted_hash.send(:[], key.to_sym), record[key]
       end
     end
 end
