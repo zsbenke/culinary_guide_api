@@ -3,13 +3,13 @@ require 'test_helper'
 class RestaurantTest < ActiveSupport::TestCase
   def setup
     # import restaurants to work with
-    CSVDump.find('restaurants_csv_dump.csv.gz').import(generate_log: false)
     CSVDump.find('localized_strings_csv_dump.csv').import(generate_log: false)
+    CSVDump.find('restaurants_csv_dump.csv.gz').import(generate_log: false)
   end
 
   test "should search for restaurants" do
     results_count = Restaurant.where(city: 'Budapest').count
-    restaurants = Restaurant.search 'budapest'
+    restaurants = Restaurant.filter([{ 'column' => 'search', 'value' => 'budapest'}])
 
     assert restaurants.count < Restaurant.all.count
     assert_equal results_count, restaurants.count
@@ -66,5 +66,16 @@ class RestaurantTest < ActiveSupport::TestCase
 
     # returns all countries for invalid country code
     assert_equal Restaurant.countries, Restaurant.country_name_for(:de)
+  end
+
+  test "should cache searchable text on multiple languages" do
+    restaurant = Restaurant.order("RANDOM()").limit(1).last
+
+    Rails.configuration.available_locales.each do |locale|
+      hash = restaurant.formatted_hash(locale, Restaurant.cachable_columns_for_search)
+      hash.values.each do |value|
+        assert_includes restaurant.search_cache, value.to_s
+      end
+    end
   end
 end
