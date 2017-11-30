@@ -2,6 +2,7 @@ class Restaurant < ApplicationRecord
   include Localizable
   include Openable
   include Filterable
+  include Taggable
 
   has_many :restaurant_reviews
 
@@ -61,7 +62,7 @@ class Restaurant < ApplicationRecord
       ]
 
       I18n.t('date.day_names', locale: :en).each do |day_name|
-        columns << "open_on_#{day_name.downcase}".to_s
+        columns << "open_on_#{day_name.downcase}".to_sym
       end
 
       columns
@@ -80,15 +81,18 @@ class Restaurant < ApplicationRecord
 
   private
     def update_search_cache
-      # tags_index_text = self.tags.map { |t| t.name }.join(', ')
       search_cache_text = []
+
       Rails.configuration.available_locales.each do |locale|
         search_cache_text << formatted_hash(locale, self.class.cachable_columns_for_search).values
       end
 
+      tags.each do |tag|
+        tag.name_columns.each { |nc| search_cache_text << tag.try(nc) }
+      end
+
       search_cache_text = search_cache_text.flatten.uniq.compact.join(" ")
 
-      # update_attribute :tags_index, tags_index_text
       update_attribute :search_cache, search_cache_text
     end
   end

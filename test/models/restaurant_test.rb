@@ -4,6 +4,7 @@ class RestaurantTest < ActiveSupport::TestCase
   def setup
     # import restaurants to work with
     CSVDump.find('localized_strings_csv_dump.csv').import(generate_log: false)
+    CSVDump.find('tags_csv_dump.csv').import(generate_log: false)
     CSVDump.find('restaurants_csv_dump.csv.gz').import(generate_log: false)
   end
 
@@ -17,16 +18,16 @@ class RestaurantTest < ActiveSupport::TestCase
   end
 
   test "should search for tags" do
-    Restaurant.all[0..2].each { |r| r.update tags_index: 'söröző, éjszakai' }
-    Restaurant.all[3..6].each { |r| r.update tags_index: 'söröző' }
+    Restaurant.all[0..2].each { |r| r.update tags_index: 'sör, éjszakai' }
+    Restaurant.all[3..6].each { |r| r.update tags_index: 'sör' }
 
-    results_count = Restaurant.where(tags_index: 'söröző').count +
-                    Restaurant.where(tags_index: 'söröző, éjszakai').count
-    restaurants = Restaurant.search 'söröző'
+    results_count = Restaurant.where(tags_index: 'sör').count +
+                    Restaurant.where(tags_index: 'sör, éjszakai').count
+    restaurants = Restaurant.search 'sör'
 
     assert restaurants.count < Restaurant.all.count
     assert_equal results_count, restaurants.count
-    assert restaurants.pluck(:tags_index).to_s.include? 'söröző'
+    assert restaurants.pluck(:tags_index).to_s.include? 'sör'
   end
 
   test "should format hash from values" do
@@ -75,6 +76,12 @@ class RestaurantTest < ActiveSupport::TestCase
       hash = restaurant.formatted_hash(locale, Restaurant.cachable_columns_for_search)
       hash.values.each do |value|
         assert_includes restaurant.search_cache, value.to_s
+      end
+    end
+
+    restaurant.tags.each do |tag|
+      tag.name_columns.each do |nc|
+        assert_includes restaurant.search_cache, tag.try(nc)
       end
     end
   end

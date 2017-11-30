@@ -7,7 +7,7 @@ class AddTsvectorColumnsToRestaurants < ActiveRecord::Migration[5.1]
       CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE
       ON restaurants FOR EACH ROW EXECUTE PROCEDURE
       tsvector_update_trigger(
-        tsv, 'pg_catalog.simple', search_cache, tags_index
+        tsv, 'pg_catalog.simple', search_cache
       );
     SQL
 
