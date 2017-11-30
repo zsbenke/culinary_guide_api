@@ -4,6 +4,7 @@ class LocalizableTest < ActiveSupport::TestCase
   include Rails.application.routes.url_helpers
 
   def setup
+    CSVDump.find('localized_strings_csv_dump.csv').import(generate_log: false)
     generate_localized_strings
   end
 
@@ -21,10 +22,10 @@ class LocalizableTest < ActiveSupport::TestCase
   test "should return localized region" do
     restaurant = restaurants(:lacikonyha)
 
-    assertion = I18n.t('restaurant.values.region', locale: :hu)[:'Budapest']
+    assertion = I18n.t('restaurant.values.region.hu', locale: :hu)[:'Budapest']
     assert_equal assertion, restaurant.region_localized_to_hu
 
-    assertion = I18n.t('restaurant.values.region', locale: :en)[:'Budapest']
+    assertion = I18n.t('restaurant.values.region.hu', locale: :en)[:'Budapest']
     assert_equal assertion, restaurant.region_localized_to_en
   end
 
