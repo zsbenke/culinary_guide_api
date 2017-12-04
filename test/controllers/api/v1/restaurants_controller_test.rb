@@ -158,6 +158,56 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     data.each { |record| compare_restaurant_keys record }
   end
 
+  test "should filter restaurants by rating" do
+    restaurant_1 = Restaurant.last
+    restaurant_2 = Restaurant.first
+    restaurant_3 = Restaurant.second
+
+    restaurant_1.update rating: '10', pop: false
+    restaurant_2.update rating: '11', pop: false
+    restaurant_3.update pop: true
+
+    params = {
+      tokens: [
+        { 'column' => 'rating', 'value' => '10' }
+      ]
+    }
+
+    get api_v1_restaurants_path, params: params, headers: @headers
+
+    data = JSON.parse(response.body)['data']
+    ids = data.map { |r| r['id'].to_i }.sort
+    restaurants = Restaurant.filter(params[:tokens])
+
+    assert_response :success
+    assert_not restaurants.empty?
+    assert_equal ['10'], restaurants.pluck(:rating).uniq
+    assert_equal restaurants.pluck(:id).sort, ids
+
+    data.each { |record| compare_restaurant_keys record }
+
+    params = {
+      tokens: [
+        { 'column' => 'rating', 'value' => '10' },
+        { 'column' => 'rating', 'value' => '11' },
+        { 'column' => 'rating', 'value' => 'pop' }
+      ]
+    }
+
+    get api_v1_restaurants_path, params: params, headers: @headers
+
+    data = JSON.parse(response.body)['data']
+    ids = data.map { |r| r['id'].to_i }.sort
+    restaurants = Restaurant.filter(params[:tokens])
+
+    assert_response :success
+    assert_not restaurants.empty?
+    assert_equal ['10', '11', 'pop'], restaurants.pluck(:rating).uniq.sort
+    assert_equal restaurants.pluck(:id).sort, ids
+
+    data.each { |record| compare_restaurant_keys record }
+  end
+
   test "should filter open restaurants by date" do
     # We just use a subset of restaurants, to get the same results as in OpenableTest
     CSVDump.find('restaurants_csv_dump.csv').import(generate_log: false)

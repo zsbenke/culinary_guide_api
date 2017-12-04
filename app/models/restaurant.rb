@@ -12,7 +12,7 @@ class Restaurant < ApplicationRecord
             :reservation_needed, :has_parking, :wifi, :credit_card,
             :def_people_one_title, :def_people_two_title, :def_people_three_title
 
-  after_save :update_search_cache
+  after_save :update_search_cache, :override_rating_with_pop
 
   scope :by_country, -> (country_code) {
     if country_code.present?
@@ -67,7 +67,10 @@ class Restaurant < ApplicationRecord
 
       columns
     end
+  end
 
+  def override_rating_with_pop
+    update_attribute :rating, 'pop' if pop?
   end
 
   private

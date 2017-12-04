@@ -17,4 +17,21 @@ class RestaurantReviewTest < ActiveSupport::TestCase
     assert_equal restaurant.price_information, review.price_information
     assert_equal restaurant.price_information_rating, review.price_information_rating
   end
+
+  test "should cache rating unless restaurant pop" do
+    restaurant = restaurants :lacikonyha
+    restaurant.update pop: true
+
+    review = restaurant.restaurant_reviews.create({
+      title: 'Test Review',
+      rating: '12',
+      price_value: 'jó',
+      price_information: '3000',
+      price_information_rating: '2'
+    })
+    restaurant.reload
+
+    assert_not_equal restaurant.rating, review.rating
+    assert_equal 'pop', restaurant.rating
+  end
 end

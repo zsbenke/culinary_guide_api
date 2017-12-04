@@ -15,6 +15,7 @@ class RestaurantReview < ApplicationRecord
     def update_restaurant_rating_column
       if restaurant.present?
         restaurant.update_attribute :rating, rating
+        restaurant.override_rating_with_pop
       end
     end
 end
