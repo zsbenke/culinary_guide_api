@@ -30,29 +30,6 @@ class RestaurantTest < ActiveSupport::TestCase
     assert restaurants.pluck(:tags_index).to_s.include? 'sör'
   end
 
-  test "should format hash from values" do
-    restaurant = Restaurant.first
-    asserted_hash = {
-      id: restaurant.id,
-      title: restaurant.title,
-      country: restaurant.country_localized_to_sk,
-      full_address: restaurant.full_address_to_sk,
-      invalid_value: nil
-    }
-    formatted_hash = restaurant.formatted_hash(:sk, [:id, :title, :country, :full_address, :invalid_value])
-    assert_equal asserted_hash, formatted_hash
-
-    asserted_hash = {
-      id: restaurant.id,
-      title: restaurant.title,
-      country: restaurant.country_localized_to_en,
-      full_address: restaurant.full_address_to_en,
-      invalid_value: nil
-    }
-    formatted_hash = restaurant.formatted_hash(:en, [:id, :title, :country, :full_address, :invalid_value])
-    assert_equal asserted_hash, formatted_hash
-  end
-
   test "should verify country code" do
     assert_equal :all, Restaurant.verify_country_code(:all)
     assert_equal :all, Restaurant.verify_country_code(:de)
