@@ -35,7 +35,7 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal data.count, Restaurant.count
 
-    data.each { |record| compare_keys record, :en }
+    data.each { |record| compare_restaurant_keys record, :en }
   end
 
   test "should translate restaurants when locale set on index" do
@@ -45,7 +45,7 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     data = JSON.parse(response.body)['data']
     assert_response :success
 
-    data.each { |record| compare_keys record, locale }
+    data.each { |record| compare_restaurant_keys record, locale }
   end
 
   test "should filter country on index when country param is set" do
@@ -61,7 +61,7 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     assert_equal ['HU – Magyarország'], restaurants.pluck(:country).uniq
     assert_equal restaurants.pluck(:id).sort, ids
 
-    data.each { |record| compare_keys record, :en }
+    data.each { |record| compare_restaurant_keys record, :en }
 
     country = :all
     get api_v1_restaurants_path, params: { country: country }, headers: @headers
@@ -73,7 +73,7 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal restaurants.pluck(:id).sort, ids
 
-    data.each { |record| compare_keys record, :en }
+    data.each { |record| compare_restaurant_keys record, :en }
   end
 
   test "should filter for every available country on index when country param is invalid" do
@@ -87,7 +87,7 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal restaurants.pluck(:id).sort, ids
 
-    data.each { |record| compare_keys record, :en }
+    data.each { |record| compare_restaurant_keys record, :en }
   end
 
   test "should search on index" do
@@ -106,7 +106,7 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     assert_not restaurants.empty?
     assert_equal restaurants.pluck(:id).sort, ids
 
-    data.each { |record| compare_keys record, :en }
+    data.each { |record| compare_restaurant_keys record, :en }
   end
 
   test "should narrow search to current country on index when country is set" do
@@ -132,7 +132,7 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     assert_equal ['RO – Románia'], Restaurant.where(id: ids).pluck(:country).uniq
     assert_equal restaurants.pluck(:id).sort, ids
 
-    data.each { |record| compare_keys record, locale }
+    data.each { |record| compare_restaurant_keys record, locale }
   end
 
   test "should filter by column tokens" do
@@ -155,7 +155,7 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     assert_equal [true], restaurants.pluck(:wifi).uniq
     assert_equal restaurants.pluck(:id).sort, ids
 
-    data.each { |record| compare_keys record }
+    data.each { |record| compare_restaurant_keys record }
   end
 
   test "should filter open restaurants by date" do
@@ -179,7 +179,7 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     assert_equal restaurants.pluck(:id).sort, ids
     assert_equal 7, ids.count
 
-    data.each { |record| compare_keys record }
+    data.each { |record| compare_restaurant_keys record }
 
     params = {
       tokens: [
@@ -198,7 +198,7 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     assert_equal restaurants.pluck(:id).sort, ids
     assert_equal 5, ids.count
 
-    data.each { |record| compare_keys record }
+    data.each { |record| compare_restaurant_keys record }
 
     # filter with other columns
     params = {
@@ -220,7 +220,7 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     assert_equal restaurants.pluck(:id).sort, ids
     assert_equal 1, ids.count
 
-    data.each { |record| compare_keys record }
+    data.each { |record| compare_restaurant_keys record }
 
     # search with other columns
     params = {
@@ -242,15 +242,36 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     assert_equal 1, ids.count
     assert_equal 'Zing Burger', data.first['title']
 
-    data.each { |record| compare_keys record }
+    data.each { |record| compare_restaurant_keys record }
+  end
+end
+
+class Api::V1::RestaurantsControllerShowTest < ActionDispatch::IntegrationTest
+  def setup
+    @user = users :user
+    @headers = authorization_header authorization_token_for_user @user
+
+    CSVDump.find('localized_strings_csv_dump.csv').import(generate_log: false)
+    CSVDump.find('restaurants_csv_dump.csv.gz').import(generate_log: false)
+    CSVDump.find('restaurants_csv_dump_cz.csv').import(remove_existing: false, generate_log: false)
+    CSVDump.find('restaurants_csv_dump_sk.csv').import(remove_existing: false, generate_log: false)
+    CSVDump.find('restaurants_csv_dump_ro.csv').import(remove_existing: false, generate_log: false)
+
+    Rails.cache.clear
+    @random_restaurant = Restaurant.order("RANDOM()").limit(1).last
   end
 
-  private
-    def compare_keys(record, locale = :en)
-      restaurant = Restaurant.find(record['id'])
-      record.keys.each do |key|
-        formatted_hash = restaurant.formatted_hash(locale, [key.to_sym])
-        assert_equal formatted_hash.send(:[], key.to_sym), record[key]
-      end
-    end
+  test "should deny show for bad token" do
+    token = 'b4dt0ken'
+    get api_v1_restaurant_path(@random_restaurant), params: nil, headers: authorization_header(token)
+
+    assert_response :unauthorized
+  end
+
+  test "should deny showx for missing unique_hash key in encoded token" do
+    token = Token.encode({ foo: 'bar' })
+    get api_v1_restaurant_path(@random_restaurant), params: nil, headers: authorization_header(token)
+
+    assert_response :unauthorized
+  end
 end

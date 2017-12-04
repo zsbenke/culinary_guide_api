@@ -11,6 +11,10 @@ class Api::V1::RestaurantsController < Api::V1::ApiController
     json_response @restaurants
   end
 
+  def show
+
+  end
+
   private
     def set_current_country
       country_param = (params.fetch(:country) { Restaurant.default_country_code }).to_sym

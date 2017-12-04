@@ -24,4 +24,12 @@ class ActiveSupport::TestCase
     token = Token.encode({ unique_hash: user.unique_hash })
     token
   end
+
+  def compare_restaurant_keys(record, locale = :en)
+    restaurant = Restaurant.find(record['id'])
+    record.keys.each do |key|
+      formatted_hash = restaurant.formatted_hash(locale, [key.to_sym])
+      assert_equal formatted_hash.send(:[], key.to_sym), record[key]
+    end
+  end
 end
