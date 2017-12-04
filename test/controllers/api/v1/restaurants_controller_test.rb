@@ -324,4 +324,15 @@ class Api::V1::RestaurantsControllerShowTest < ActionDispatch::IntegrationTest
 
     assert_response :unauthorized
   end
+
+  test "should translate restaurants when locale set on show" do
+    locale = :sk
+    get api_v1_restaurant_path(@random_restaurant), params: { locale: locale }, headers: @headers
+
+    record = JSON.parse(response.body)['data']
+    assert_response :success
+
+    puts record.inspect
+    compare_restaurant_keys record, locale
+  end
 end

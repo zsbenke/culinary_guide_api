@@ -29,7 +29,8 @@ class ActiveSupport::TestCase
     restaurant = Restaurant.find(record['id'])
     record.keys.each do |key|
       formatted_hash = restaurant.formatted_hash(locale, [key.to_sym])
-      assert_equal formatted_hash.send(:[], key.to_sym), record[key]
+      formatted_value = formatted_hash.send(:[], key.to_sym)
+      assert_equal(formatted_value, record[key]) unless formatted_value.nil?
     end
   end
 end
