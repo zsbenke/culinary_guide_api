@@ -70,7 +70,7 @@ class Restaurant < ApplicationRecord
   end
 
   def override_rating_with_pop
-    update_attribute :rating, 'pop' if pop?
+    update_column :rating, 'pop' if pop?
   end
 
   private
