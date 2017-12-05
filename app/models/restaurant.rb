@@ -5,6 +5,7 @@ class Restaurant < ApplicationRecord
   include Taggable
 
   has_many :restaurant_reviews
+  has_many :restaurant_images
 
   localized :open_on_monday, :open_on_tuesday, :open_on_wednesday, :open_on_thursday,
             :open_on_friday, :open_on_saturday, :open_on_sunday, :open_info,
@@ -87,6 +88,6 @@ class Restaurant < ApplicationRecord
 
       search_cache_text = search_cache_text.flatten.uniq.compact.join(" ")
 
-      update_attribute :search_cache, search_cache_text
+      update_column :search_cache, search_cache_text
     end
   end

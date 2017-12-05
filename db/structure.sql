@@ -82,6 +82,41 @@ ALTER SEQUENCE localized_strings_id_seq OWNED BY localized_strings.id;
 
 
 --
+-- Name: restaurant_images; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE restaurant_images (
+    id bigint NOT NULL,
+    restaurant_id bigint,
+    name character varying,
+    restaurant_image_file_name character varying,
+    restaurant_image_content_type character varying,
+    restaurant_image_file_size integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: restaurant_images_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE restaurant_images_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: restaurant_images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE restaurant_images_id_seq OWNED BY restaurant_images.id;
+
+
+--
 -- Name: restaurant_reviews; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -313,6 +348,13 @@ ALTER TABLE ONLY localized_strings ALTER COLUMN id SET DEFAULT nextval('localize
 
 
 --
+-- Name: restaurant_images id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY restaurant_images ALTER COLUMN id SET DEFAULT nextval('restaurant_images_id_seq'::regclass);
+
+
+--
 -- Name: restaurant_reviews id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -357,6 +399,14 @@ ALTER TABLE ONLY localized_strings
 
 
 --
+-- Name: restaurant_images restaurant_images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY restaurant_images
+    ADD CONSTRAINT restaurant_images_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: restaurant_reviews restaurant_reviews_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -397,6 +447,13 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: index_restaurant_images_on_restaurant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_restaurant_images_on_restaurant_id ON restaurant_images USING btree (restaurant_id);
+
+
+--
 -- Name: index_restaurants_on_tsv; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -418,6 +475,14 @@ CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON restaurants FOR EACH RO
 
 
 --
+-- Name: restaurant_images fk_rails_3ede18e470; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY restaurant_images
+    ADD CONSTRAINT fk_rails_3ede18e470 FOREIGN KEY (restaurant_id) REFERENCES restaurants(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -429,6 +494,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171108145704'),
 ('20171108154745'),
 ('20171115140509'),
-('20171115141540');
+('20171115141540'),
+('20171205143744');
 
 
