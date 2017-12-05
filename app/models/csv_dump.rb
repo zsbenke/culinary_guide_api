@@ -103,7 +103,12 @@ class CSVDump
         record.send("#{column}=", value) if record.respond_to?("#{column}=")
       end
 
-      record.save
+      begin
+        record.save
+      rescue ActiveRecord::InvalidForeignKey
+        log "couldn't import record #{model_name} ##{record.id}: InvalidForeignKey" if generate_log
+        next
+      end
 
       log "imported record #{model_name} ##{record.id}" if generate_log
     end
