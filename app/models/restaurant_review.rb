@@ -1,5 +1,5 @@
 class RestaurantReview < ApplicationRecord
-  belongs_to :restaurant
+  belongs_to :restaurant, optional: true
 
   after_save :update_restaurant_price_columns, :update_restaurant_rating_column
 
