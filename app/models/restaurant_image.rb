@@ -1,5 +1,5 @@
 class RestaurantImage < ApplicationRecord
-  belongs_to :restaurant, optional: true
+  belongs_to :restaurant
 
   class << self
     def asset_host

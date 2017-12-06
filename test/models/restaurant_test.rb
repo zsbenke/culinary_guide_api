@@ -62,4 +62,33 @@ class RestaurantTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test "should store hero image and returns it's URL" do
+    restaurant = Restaurant.order("RANDOM()").limit(1).last
+    1..5.times do |i|
+      restaurant.restaurant_images.create(
+        name: "image #{i}",
+        restaurant_image_file_name: "image_#{i}.png",
+        restaurant_image_content_type: 'image/png',
+        restaurant_image_file_size: 334
+      )
+    end
+
+    restaurant_image = restaurant.restaurant_images.order('RANDOM()').limit(1).last
+    restaurant.hero_image = restaurant_image
+    restaurant.save
+    restaurant.reload
+
+    assert_equal restaurant.hero_image, restaurant_image
+    assert_equal restaurant.hero_image_id, restaurant_image.id
+    assert_equal restaurant.hero_image_url, restaurant_image.url
+
+    restaurant.hero_image = nil
+    restaurant.save
+    restaurant.reload
+
+    assert_nil restaurant.hero_image
+    assert_nil restaurant.hero_image_id
+    assert_nil restaurant.hero_image_url
+  end
 end

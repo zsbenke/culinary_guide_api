@@ -90,7 +90,7 @@ class CSVDump
       raise MissingIDColumnError if index_of_id.nil?
       max_id = @data.map { |r| r[index_of_id].to_i }.max + 1
 
-      model_class.delete_all
+      model_class.find_each(&:destroy)
       model_class.connection.execute("ALTER SEQUENCE #{model_name.pluralize}_id_seq RESTART WITH #{max_id}")
     end
 

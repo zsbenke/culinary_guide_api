@@ -237,7 +237,8 @@ CREATE TABLE restaurants (
     price_information_rating integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    tsv tsvector
+    tsv tsvector,
+    hero_image_id integer
 );
 
 
@@ -495,6 +496,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171108154745'),
 ('20171115140509'),
 ('20171115141540'),
-('20171205143744');
+('20171205143744'),
+('20171206154248');
 
 

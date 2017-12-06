@@ -4,8 +4,9 @@ class Restaurant < ApplicationRecord
   include Filterable
   include Taggable
 
-  has_many :restaurant_reviews
-  has_many :restaurant_images
+  has_many :restaurant_reviews, dependent: :destroy
+  has_many :restaurant_images, dependent: :destroy
+  belongs_to :hero_image, class_name: 'RestaurantImage', foreign_key: 'hero_image_id', optional: true
 
   localized :open_on_monday, :open_on_tuesday, :open_on_wednesday, :open_on_thursday,
             :open_on_friday, :open_on_saturday, :open_on_sunday, :open_info,
@@ -68,6 +69,10 @@ class Restaurant < ApplicationRecord
 
       columns
     end
+  end
+
+  def hero_image_url
+    hero_image.try(:url)
   end
 
   def override_rating_with_pop
