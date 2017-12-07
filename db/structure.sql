@@ -235,10 +235,10 @@ CREATE TABLE restaurants (
     price_value character varying,
     price_information character varying,
     price_information_rating integer,
+    hero_image_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    tsv tsvector,
-    hero_image_id integer
+    tsv tsvector
 );
 
 
@@ -285,6 +285,7 @@ CREATE TABLE tags (
     name_in_cz character varying,
     name_in_sl character varying,
     name_in_hr character varying,
+    app_home_screen_section character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -455,6 +456,13 @@ CREATE INDEX index_restaurant_images_on_restaurant_id ON restaurant_images USING
 
 
 --
+-- Name: index_restaurants_on_hero_image_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_restaurants_on_hero_image_id ON restaurants USING btree (hero_image_id);
+
+
+--
 -- Name: index_restaurants_on_tsv; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -496,7 +504,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171108154745'),
 ('20171115140509'),
 ('20171115141540'),
-('20171205143744'),
-('20171206154248');
+('20171205143744');
 
 

@@ -73,6 +73,7 @@ class CreateRestaurants < ActiveRecord::Migration[5.1]
       t.string :price_value
       t.string :price_information
       t.integer :price_information_rating
+      t.integer :hero_image_id, index: true
 
       t.timestamps
     end

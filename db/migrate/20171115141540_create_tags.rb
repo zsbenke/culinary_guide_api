@@ -12,6 +12,7 @@ class CreateTags < ActiveRecord::Migration[5.1]
        "name_in_hr"].each do |column|
         t.string column.to_s
       end
+      t.string :app_home_screen_section
       t.timestamps
     end
   end
