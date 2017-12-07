@@ -50,6 +50,7 @@ CREATE TABLE facets (
     value character varying,
     icon character varying,
     locale character varying,
+    country character varying,
     home_screen_section character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL

@@ -6,6 +6,7 @@ class CreateFacets < ActiveRecord::Migration[5.1]
       t.string :value
       t.string :icon
       t.string :locale
+      t.string :country
       t.string :home_screen_section
 
       t.timestamps
