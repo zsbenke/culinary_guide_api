@@ -15,16 +15,21 @@ class FacetTest < ActiveSupport::TestCase
     tags.update_all(app_home_screen_section: :what)
     Facet.generate(:restaurant)
 
-    Rails.configuration.available_locales.each do |locale|
-      asserted_tags = Tag.all.map(&:"name_in_#{locale}").uniq.compact.sort
-      facets = Facet.where(model: :restaurant, column: :tags_cache, locale: locale).pluck(:value).sort
-      assert_equal asserted_tags, facets
-    end
+    Restaurant.country_codes.each do |country_code|
+      restaurants = Restaurant.by_country(country_code)
+      next if restaurants.empty?
 
-    assert_not Facet.where(home_screen_section: :what).empty?
+      Rails.configuration.available_locales.each do |locale|
+        asserted_tags = []
+        restaurants.each { |r| r.tags.each { |t| asserted_tags << t.send("name_in_#{locale}") } }
+        asserted_tags = asserted_tags.clean_and_sort
+        facets = Facet.where(model: :restaurant, column: :tags_cache, locale: locale, country: country_code).pluck(:value).sort
+        assert_equal asserted_tags, facets
+      end
+    end
   end
 
-  test "should generate facets from regions" do
+  test "should generate facets from columns" do
     Facet.generate(:restaurant)
 
     Restaurant.country_codes.each do |country_code|
@@ -32,10 +37,18 @@ class FacetTest < ActiveSupport::TestCase
       next if restaurants.empty?
 
       Rails.configuration.available_locales.each do |locale|
-        asserted_regions = restaurants.map(&"region_localized_to_#{locale}".to_sym).uniq.compact.sort
-        facets = Facet.where(model: :restaurant, column: :region, locale: locale, country: country_code).pluck(:value).sort
-        assert_equal asserted_regions, facets
+        Facet.generatable_columns.each do |column|
+          asserted_values = restaurants.map(&"#{column[:name]}_localized_to_#{locale}".to_sym).clean_and_sort
+          facets = Facet.where(model: :restaurant, column: column[:name], locale: locale, country: country_code).pluck(:value).sort
+          assert_equal asserted_values, facets
+        end
       end
     end
+  end
+end
+
+class Array
+  def clean_and_sort
+    self.flatten.uniq.compact.reject(&:blank?).sort
   end
 end
