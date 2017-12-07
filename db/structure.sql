@@ -40,6 +40,42 @@ CREATE TABLE ar_internal_metadata (
 
 
 --
+-- Name: facets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE facets (
+    id bigint NOT NULL,
+    model character varying,
+    "column" character varying,
+    value character varying,
+    icon character varying,
+    locale character varying,
+    home_screen_section character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: facets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE facets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: facets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE facets_id_seq OWNED BY facets.id;
+
+
+--
 -- Name: localized_strings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -379,6 +415,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
+-- Name: facets id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY facets ALTER COLUMN id SET DEFAULT nextval('facets_id_seq'::regclass);
+
+
+--
 -- Name: localized_strings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -433,6 +476,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 ALTER TABLE ONLY ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: facets facets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY facets
+    ADD CONSTRAINT facets_pkey PRIMARY KEY (id);
 
 
 --
@@ -556,6 +607,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171115140509'),
 ('20171115141540'),
 ('20171205143744'),
-('20171207152354');
+('20171207152354'),
+('20171207152421');
 
 
