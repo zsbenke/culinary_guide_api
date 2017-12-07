@@ -58,7 +58,7 @@ class RestaurantTest < ActiveSupport::TestCase
 
     restaurant.tags.each do |tag|
       tag.name_columns.each do |nc|
-        assert_includes restaurant.search_cache, tag.try(nc)
+        assert_includes restaurant.tags_cache, tag.try(nc)
       end
     end
   end

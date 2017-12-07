@@ -82,17 +82,20 @@ class Restaurant < ApplicationRecord
   private
     def update_search_cache
       search_cache_text = []
+      tags_cache_text = []
 
       Rails.configuration.available_locales.each do |locale|
         search_cache_text << formatted_hash(locale, self.class.cachable_columns_for_search).values
       end
 
       tags.each do |tag|
-        tag.name_columns.each { |nc| search_cache_text << tag.try(nc) }
+        tag.name_columns.each { |nc| tags_cache_text << tag.try(nc) }
       end
 
       search_cache_text = search_cache_text.flatten.uniq.compact.join(" ")
+      tags_cache_text = tags_cache_text.flatten.uniq.compact.join(" ")
 
       update_column :search_cache, search_cache_text
+      update_column :tags_cache, tags_cache_text
     end
   end

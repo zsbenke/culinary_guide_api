@@ -229,6 +229,7 @@ CREATE TABLE restaurants (
     open_sun_afternoon_end character varying,
     year character varying,
     search_cache text,
+    tags_cache text,
     tags_index character varying,
     "position" integer,
     rating character varying,
@@ -311,6 +312,41 @@ ALTER SEQUENCE tags_id_seq OWNED BY tags.id;
 
 
 --
+-- Name: tokens; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE tokens (
+    id bigint NOT NULL,
+    model character varying,
+    "column" character varying,
+    value character varying,
+    icon character varying,
+    locale character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE tokens_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE tokens_id_seq OWNED BY tokens.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -378,6 +414,13 @@ ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclas
 
 
 --
+-- Name: tokens id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tokens ALTER COLUMN id SET DEFAULT nextval('tokens_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -441,6 +484,14 @@ ALTER TABLE ONLY tags
 
 
 --
+-- Name: tokens tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tokens
+    ADD CONSTRAINT tokens_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -480,7 +531,7 @@ CREATE UNIQUE INDEX index_users_on_unique_hash ON users USING btree (unique_hash
 -- Name: restaurants tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON restaurants FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger('tsv', 'pg_catalog.simple', 'search_cache');
+CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON restaurants FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger('tsv', 'pg_catalog.simple', 'search_cache', 'tags_cache');
 
 
 --
@@ -504,6 +555,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171108154745'),
 ('20171115140509'),
 ('20171115141540'),
-('20171205143744');
+('20171205143744'),
+('20171207152354');
 
 

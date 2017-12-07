@@ -67,6 +67,7 @@ class CreateRestaurants < ActiveRecord::Migration[5.1]
       t.string :open_sun_afternoon_end
       t.string :year
       t.text :search_cache
+      t.text :tags_cache
       t.string :tags_index
       t.integer :position
       t.string :rating
