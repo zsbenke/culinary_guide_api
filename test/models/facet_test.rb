@@ -38,12 +38,37 @@ class FacetTest < ActiveSupport::TestCase
 
       Rails.configuration.available_locales.each do |locale|
         Facet.generatable_columns.each do |column|
-          asserted_values = restaurants.map(&"#{column[:name]}_localized_to_#{locale}".to_sym).clean_and_sort
+          asserted_values = if column[:localized]
+                              restaurants.map(&"#{column[:name]}_localized_to_#{locale}".to_sym).clean_and_sort
+                            else
+                              restaurants.pluck(column[:name]).clean_and_sort
+                            end
           facets = Facet.where(model: :restaurant, column: column[:name], locale: locale, country: country_code).pluck(:value).sort
           assert_equal asserted_values, facets
         end
       end
     end
+  end
+
+end
+
+class FacetCustomCallbackTest < ActiveSupport::TestCase
+  test "should run custom generate facet callback" do
+    # we need a couple of dummy restaurants to test against
+    Restaurant.destroy_all
+    20.times do |i|
+      Restaurant.create(title: "Test #{i}", city: "City #{i}", country: "HU – Magyarország")
+    end
+
+    # Restaurant should collect top cities and add it's facets to the home screen
+    Facet.generate(:restaurant)
+
+    top_cities = Restaurant.group(:city).count.sort_by { |k, v| v }.reverse.take(10).to_h.keys.sort
+    cities_on_home_screen = Facet.where(model: :restaurant, value: top_cities)
+    cities_not_on_home_screen = Facet.where(model: :restaurant).where.not(value: top_cities)
+
+    assert_equal ['where'], cities_on_home_screen.pluck(:home_screen_section).uniq
+    assert cities_not_on_home_screen.pluck(:home_screen_section).uniq.compact.empty?
   end
 end
 

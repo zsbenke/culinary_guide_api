@@ -25,8 +25,13 @@ class Facet < ApplicationRecord
             generatable_columns.each do |column|
               column_name = column[:name]
               column_home_screen_section = column[:home_screen_section]
+              column_localized = column[:localized]
 
-              value = record.try("#{column_name}_localized_to_#{locale}")
+              value = if column_localized
+                        record.send("#{column_name}_localized_to_#{locale}")
+                      else
+                        record.send(column_name)
+                      end
               facet = Facet.find_or_create_by(
                 model: model,
                 column: column_name,
@@ -39,13 +44,16 @@ class Facet < ApplicationRecord
           end
         end
       end
+
+      model_class.try(:generate_facets)
     end
 
     def generatable_columns
       columns = []
-      columns << HashWithIndifferentAccess.new(name: :region, home_screen_section: :where)
+      columns << HashWithIndifferentAccess.new(name: :region, home_screen_section: :where, localized: true)
+      columns << HashWithIndifferentAccess.new(name: :city, home_screen_section: :where, localized: false)
       I18n.t('date.day_names', locale: :en).each do |dn|
-        columns << HashWithIndifferentAccess.new(name: "open_on_#{dn.downcase}", home_screen_section: :when)
+        columns << HashWithIndifferentAccess.new(name: "open_on_#{dn.downcase}", home_screen_section: :when, localized: true)
       end
       columns
     end
