@@ -1,6 +1,5 @@
 SET statement_timeout = 0;
 SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -416,63 +415,63 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: facets id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY facets ALTER COLUMN id SET DEFAULT nextval('facets_id_seq'::regclass);
 
 
 --
--- Name: localized_strings id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY localized_strings ALTER COLUMN id SET DEFAULT nextval('localized_strings_id_seq'::regclass);
 
 
 --
--- Name: restaurant_images id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY restaurant_images ALTER COLUMN id SET DEFAULT nextval('restaurant_images_id_seq'::regclass);
 
 
 --
--- Name: restaurant_reviews id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY restaurant_reviews ALTER COLUMN id SET DEFAULT nextval('restaurant_reviews_id_seq'::regclass);
 
 
 --
--- Name: restaurants id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY restaurants ALTER COLUMN id SET DEFAULT nextval('restaurants_id_seq'::regclass);
 
 
 --
--- Name: tags id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclass);
 
 
 --
--- Name: tokens id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tokens ALTER COLUMN id SET DEFAULT nextval('tokens_id_seq'::regclass);
 
 
 --
--- Name: users id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ar_internal_metadata
@@ -480,7 +479,7 @@ ALTER TABLE ONLY ar_internal_metadata
 
 
 --
--- Name: facets facets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: facets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY facets
@@ -488,7 +487,7 @@ ALTER TABLE ONLY facets
 
 
 --
--- Name: localized_strings localized_strings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: localized_strings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY localized_strings
@@ -496,7 +495,7 @@ ALTER TABLE ONLY localized_strings
 
 
 --
--- Name: restaurant_images restaurant_images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: restaurant_images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY restaurant_images
@@ -504,7 +503,7 @@ ALTER TABLE ONLY restaurant_images
 
 
 --
--- Name: restaurant_reviews restaurant_reviews_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: restaurant_reviews_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY restaurant_reviews
@@ -512,7 +511,7 @@ ALTER TABLE ONLY restaurant_reviews
 
 
 --
--- Name: restaurants restaurants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: restaurants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY restaurants
@@ -520,7 +519,7 @@ ALTER TABLE ONLY restaurants
 
 
 --
--- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY schema_migrations
@@ -528,7 +527,7 @@ ALTER TABLE ONLY schema_migrations
 
 
 --
--- Name: tags tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tags
@@ -536,7 +535,7 @@ ALTER TABLE ONLY tags
 
 
 --
--- Name: tokens tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY tokens
@@ -544,7 +543,7 @@ ALTER TABLE ONLY tokens
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -580,14 +579,14 @@ CREATE UNIQUE INDEX index_users_on_unique_hash ON users USING btree (unique_hash
 
 
 --
--- Name: restaurants tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
+-- Name: tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
 --
 
 CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON restaurants FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger('tsv', 'pg_catalog.simple', 'search_cache', 'tags_cache');
 
 
 --
--- Name: restaurant_images fk_rails_3ede18e470; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_3ede18e470; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY restaurant_images
