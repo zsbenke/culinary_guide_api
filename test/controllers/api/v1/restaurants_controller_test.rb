@@ -332,7 +332,6 @@ class Api::V1::RestaurantsControllerShowTest < ActionDispatch::IntegrationTest
     record = JSON.parse(response.body)['data']
     assert_response :success
 
-    puts record.inspect
     compare_restaurant_keys record, locale
   end
 end
