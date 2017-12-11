@@ -51,7 +51,6 @@ class Api::V1::ApiController < ActionController::API
       Rails.configuration.i18n.default_locale
     end
 
-
     def cache(key, &block)
       key = ['api', 'v1'] << key
       key = key.flatten

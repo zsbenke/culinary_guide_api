@@ -1,8 +1,15 @@
 class Facet < ApplicationRecord
+  include PgSearch
 
   validates :model, :column, :value, :locale, :country, presence: true
 
+  pg_search_scope :by_keyword, against: :value, using: { tsearch: { prefix: true } }
+  scope :search, -> (keyword) { by_keyword(keyword) if keyword.present? }
+
   class << self
+    def home_screen_sections
+      [:when, :where, :what]
+    end
 
     def generate(model)
       model_class = model.to_s.classify.constantize

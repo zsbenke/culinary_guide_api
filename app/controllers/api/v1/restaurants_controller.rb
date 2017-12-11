@@ -1,5 +1,5 @@
 class Api::V1::RestaurantsController < Api::V1::ApiController
-  before_action :set_current_country, only: :index
+  before_action :set_current_country, only: [:index, :autocomplete]
   before_action :set_restaurant, only: :show
 
   def index
@@ -17,6 +17,35 @@ class Api::V1::RestaurantsController < Api::V1::ApiController
       @restaurant.formatted_hash(current_locale, restaurant_columns)
     end
     json_response @restaurant
+  end
+
+  def autocomplete
+    @facets = Facet.where(
+      model: :restaurant,
+      country: @current_country,
+      locale: current_locale
+    )
+
+    @facets = if params[:search].present?
+      @facets.search(params[:search])
+    else
+      @facets.where(home_screen_section: Facet.home_screen_sections)
+    end
+
+    @facets = @facets.map do |facet|
+      cache([facet, :autocomplete]) do
+        {
+          id: facet.id,
+          model: facet.model,
+          value: facet.value,
+          locale: facet.locale,
+          country: facet.country,
+          home_screen_section: facet.home_screen_section
+        }
+      end
+    end
+
+    json_response @facets
   end
 
   private
