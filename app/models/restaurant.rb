@@ -1,5 +1,6 @@
 class Restaurant < ApplicationRecord
   include Localizable
+  include Locatable
   include Openable
   include Filterable
   include Taggable
@@ -16,41 +17,8 @@ class Restaurant < ApplicationRecord
 
   after_save :update_search_cache, :override_rating_with_pop
 
-  scope :by_country, -> (country_code) {
-    if country_code.present?
-      country = country_name_for(country_code)
-      where country: country
-    end
-  }
 
   class << self
-    def verify_country_code(country_code)
-      return country_code if country_codes.include?(country_code)
-      default_country_code
-    end
-
-    def country_name_for(country_code)
-      country_code = verify_country_code(country_code)
-      return countries if country_code == default_country_code
-      country_code = "#{country_code.to_s.upcase} – "
-
-      countries.select { |c| c.match(country_code) }.first
-    end
-
-    def country_codes
-      codes = countries.map { |c| c.split('–')[0].strip.downcase.to_sym }
-      codes << default_country_code
-      codes
-    end
-
-    def countries
-      I18n.t('restaurant.values.country').keys.map(&:to_s)
-    end
-
-    def default_country_code
-      :all
-    end
-
     def cachable_columns_for_search
       columns = [
         :title,
