@@ -4,6 +4,7 @@ class LocalizableTest < ActiveSupport::TestCase
   include Rails.application.routes.url_helpers
 
   def setup
+    CSVDump.find('localized_strings_csv_dump.csv').import(generate_log: false)
     generate_localized_strings
   end
 
@@ -21,10 +22,10 @@ class LocalizableTest < ActiveSupport::TestCase
   test "should return localized region" do
     restaurant = restaurants(:lacikonyha)
 
-    assertion = I18n.t('restaurant.values.region', locale: :hu)[:'Budapest']
+    assertion = I18n.t('restaurant.values.region.hu', locale: :hu)[:'Budapest']
     assert_equal assertion, restaurant.region_localized_to_hu
 
-    assertion = I18n.t('restaurant.values.region', locale: :en)[:'Budapest']
+    assertion = I18n.t('restaurant.values.region.hu', locale: :en)[:'Budapest']
     assert_equal assertion, restaurant.region_localized_to_en
   end
 
@@ -100,6 +101,29 @@ class LocalizableTest < ActiveSupport::TestCase
 
     localization.update_attribute :value_in_en, ''
     assert_equal '', restaurant.region_localized_to_cs
+  end
+
+  test "should format hash from values" do
+    restaurant = Restaurant.first
+    asserted_hash = {
+      id: restaurant.id,
+      title: restaurant.title,
+      country: restaurant.country_localized_to_sk,
+      full_address: restaurant.full_address_to_sk,
+      invalid_value: nil
+    }
+    formatted_hash = restaurant.formatted_hash(:sk, [:id, :title, :country, :full_address, :invalid_value])
+    assert_equal asserted_hash, formatted_hash
+
+    asserted_hash = {
+      id: restaurant.id,
+      title: restaurant.title,
+      country: restaurant.country_localized_to_en,
+      full_address: restaurant.full_address_to_en,
+      invalid_value: nil
+    }
+    formatted_hash = restaurant.formatted_hash(:en, [:id, :title, :country, :full_address, :invalid_value])
+    assert_equal asserted_hash, formatted_hash
   end
 end
 

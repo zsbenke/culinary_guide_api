@@ -4,6 +4,7 @@ class RestaurantTest < ActiveSupport::TestCase
   def setup
     # import restaurants to work with
     CSVDump.find('localized_strings_csv_dump.csv').import(generate_log: false)
+    CSVDump.find('tags_csv_dump.csv').import(generate_log: false)
     CSVDump.find('restaurants_csv_dump.csv.gz').import(generate_log: false)
   end
 
@@ -17,39 +18,16 @@ class RestaurantTest < ActiveSupport::TestCase
   end
 
   test "should search for tags" do
-    Restaurant.all[0..2].each { |r| r.update tags_index: 'söröző, éjszakai' }
-    Restaurant.all[3..6].each { |r| r.update tags_index: 'söröző' }
+    Restaurant.all[0..2].each { |r| r.update tags_index: 'sör, éjszakai' }
+    Restaurant.all[3..6].each { |r| r.update tags_index: 'sör' }
 
-    results_count = Restaurant.where(tags_index: 'söröző').count +
-                    Restaurant.where(tags_index: 'söröző, éjszakai').count
-    restaurants = Restaurant.search 'söröző'
+    results_count = Restaurant.where(tags_index: 'sör').count +
+                    Restaurant.where(tags_index: 'sör, éjszakai').count
+    restaurants = Restaurant.search 'sör'
 
     assert restaurants.count < Restaurant.all.count
     assert_equal results_count, restaurants.count
-    assert restaurants.pluck(:tags_index).to_s.include? 'söröző'
-  end
-
-  test "should format hash from values" do
-    restaurant = Restaurant.first
-    asserted_hash = {
-      id: restaurant.id,
-      title: restaurant.title,
-      country: restaurant.country_localized_to_sk,
-      full_address: restaurant.full_address_to_sk,
-      invalid_value: nil
-    }
-    formatted_hash = restaurant.formatted_hash(:sk, [:id, :title, :country, :full_address, :invalid_value])
-    assert_equal asserted_hash, formatted_hash
-
-    asserted_hash = {
-      id: restaurant.id,
-      title: restaurant.title,
-      country: restaurant.country_localized_to_en,
-      full_address: restaurant.full_address_to_en,
-      invalid_value: nil
-    }
-    formatted_hash = restaurant.formatted_hash(:en, [:id, :title, :country, :full_address, :invalid_value])
-    assert_equal asserted_hash, formatted_hash
+    assert restaurants.pluck(:tags_index).to_s.include? 'sör'
   end
 
   test "should verify country code" do
@@ -77,5 +55,40 @@ class RestaurantTest < ActiveSupport::TestCase
         assert_includes restaurant.search_cache, value.to_s
       end
     end
+
+    restaurant.tags.each do |tag|
+      tag.name_columns.each do |nc|
+        assert_includes restaurant.tags_cache, tag.try(nc)
+      end
+    end
+  end
+
+  test "should store hero image and returns it's URL" do
+    restaurant = Restaurant.order("RANDOM()").limit(1).last
+    1..5.times do |i|
+      restaurant.restaurant_images.create(
+        name: "image #{i}",
+        restaurant_image_file_name: "image_#{i}.png",
+        restaurant_image_content_type: 'image/png',
+        restaurant_image_file_size: 334
+      )
+    end
+
+    restaurant_image = restaurant.restaurant_images.order('RANDOM()').limit(1).last
+    restaurant.hero_image = restaurant_image
+    restaurant.save
+    restaurant.reload
+
+    assert_equal restaurant.hero_image, restaurant_image
+    assert_equal restaurant.hero_image_id, restaurant_image.id
+    assert_equal restaurant.hero_image_url, restaurant_image.url
+
+    restaurant.hero_image = nil
+    restaurant.save
+    restaurant.reload
+
+    assert_nil restaurant.hero_image
+    assert_nil restaurant.hero_image_id
+    assert_nil restaurant.hero_image_url
   end
 end

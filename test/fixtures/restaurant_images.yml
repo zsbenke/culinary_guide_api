@@ -1,0 +1,13 @@
+lacikonyha_hero:
+  restaurant: lacikonyha
+  name: 'hero image'
+  restaurant_image_file_name: 'something.png'
+  restaurant_image_content_type: "image/png"
+  restaurant_image_file_size: 334
+
+restaurant_image:
+  restaurant: lacikonyha
+  name: 'image'
+  restaurant_image_file_name: 'image.png'
+  restaurant_image_content_type: "image/png"
+  restaurant_image_file_size: 334

@@ -40,6 +40,42 @@ CREATE TABLE ar_internal_metadata (
 
 
 --
+-- Name: facets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE facets (
+    id bigint NOT NULL,
+    model character varying,
+    "column" character varying,
+    value character varying,
+    locale character varying,
+    country character varying,
+    home_screen_section character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: facets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE facets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: facets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE facets_id_seq OWNED BY facets.id;
+
+
+--
 -- Name: localized_strings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -79,6 +115,41 @@ CREATE SEQUENCE localized_strings_id_seq
 --
 
 ALTER SEQUENCE localized_strings_id_seq OWNED BY localized_strings.id;
+
+
+--
+-- Name: restaurant_images; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE restaurant_images (
+    id bigint NOT NULL,
+    restaurant_id bigint,
+    name character varying,
+    restaurant_image_file_name character varying,
+    restaurant_image_content_type character varying,
+    restaurant_image_file_size integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: restaurant_images_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE restaurant_images_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: restaurant_images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE restaurant_images_id_seq OWNED BY restaurant_images.id;
 
 
 --
@@ -194,12 +265,14 @@ CREATE TABLE restaurants (
     open_sun_afternoon_end character varying,
     year character varying,
     search_cache text,
+    tags_cache text,
     tags_index character varying,
     "position" integer,
     rating character varying,
     price_value character varying,
     price_information character varying,
     price_information_rating integer,
+    hero_image_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     tsv tsvector
@@ -249,6 +322,7 @@ CREATE TABLE tags (
     name_in_cz character varying,
     name_in_sl character varying,
     name_in_hr character varying,
+    app_home_screen_section character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -271,6 +345,41 @@ CREATE SEQUENCE tags_id_seq
 --
 
 ALTER SEQUENCE tags_id_seq OWNED BY tags.id;
+
+
+--
+-- Name: tokens; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE tokens (
+    id bigint NOT NULL,
+    model character varying,
+    "column" character varying,
+    value character varying,
+    icon character varying,
+    locale character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE tokens_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE tokens_id_seq OWNED BY tokens.id;
 
 
 --
@@ -306,10 +415,24 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
+-- Name: facets id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY facets ALTER COLUMN id SET DEFAULT nextval('facets_id_seq'::regclass);
+
+
+--
 -- Name: localized_strings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY localized_strings ALTER COLUMN id SET DEFAULT nextval('localized_strings_id_seq'::regclass);
+
+
+--
+-- Name: restaurant_images id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY restaurant_images ALTER COLUMN id SET DEFAULT nextval('restaurant_images_id_seq'::regclass);
 
 
 --
@@ -334,6 +457,13 @@ ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclas
 
 
 --
+-- Name: tokens id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tokens ALTER COLUMN id SET DEFAULT nextval('tokens_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -349,11 +479,27 @@ ALTER TABLE ONLY ar_internal_metadata
 
 
 --
+-- Name: facets facets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY facets
+    ADD CONSTRAINT facets_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: localized_strings localized_strings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY localized_strings
     ADD CONSTRAINT localized_strings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: restaurant_images restaurant_images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY restaurant_images
+    ADD CONSTRAINT restaurant_images_pkey PRIMARY KEY (id);
 
 
 --
@@ -389,11 +535,33 @@ ALTER TABLE ONLY tags
 
 
 --
+-- Name: tokens tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY tokens
+    ADD CONSTRAINT tokens_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_restaurant_images_on_restaurant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_restaurant_images_on_restaurant_id ON restaurant_images USING btree (restaurant_id);
+
+
+--
+-- Name: index_restaurants_on_hero_image_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_restaurants_on_hero_image_id ON restaurants USING btree (hero_image_id);
 
 
 --
@@ -414,7 +582,15 @@ CREATE UNIQUE INDEX index_users_on_unique_hash ON users USING btree (unique_hash
 -- Name: restaurants tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON restaurants FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger('tsv', 'pg_catalog.simple', 'search_cache', 'tags_index');
+CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON restaurants FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger('tsv', 'pg_catalog.simple', 'search_cache', 'tags_cache');
+
+
+--
+-- Name: restaurant_images fk_rails_3ede18e470; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY restaurant_images
+    ADD CONSTRAINT fk_rails_3ede18e470 FOREIGN KEY (restaurant_id) REFERENCES restaurants(id);
 
 
 --
@@ -429,6 +605,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171108145704'),
 ('20171108154745'),
 ('20171115140509'),
-('20171115141540');
+('20171115141540'),
+('20171205143744'),
+('20171207152354'),
+('20171207152421');
 
 

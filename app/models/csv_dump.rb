@@ -90,7 +90,7 @@ class CSVDump
       raise MissingIDColumnError if index_of_id.nil?
       max_id = @data.map { |r| r[index_of_id].to_i }.max + 1
 
-      model_class.delete_all
+      model_class.find_each(&:destroy)
       model_class.connection.execute("ALTER SEQUENCE #{model_name.pluralize}_id_seq RESTART WITH #{max_id}")
     end
 
@@ -100,10 +100,16 @@ class CSVDump
       @headers.each do |column|
         next if remove_existing == false && column == 'id'
         value = entry[@headers.index(column)]
+        value = value.strip if value.respond_to?(:strip)
         record.send("#{column}=", value) if record.respond_to?("#{column}=")
       end
 
-      record.save
+      begin
+        record.save
+      rescue ActiveRecord::InvalidForeignKey
+        log "couldn't import record #{model_name} ##{record.id}: InvalidForeignKey" if generate_log
+        next
+      end
 
       log "imported record #{model_name} ##{record.id}" if generate_log
     end

@@ -21,16 +21,18 @@ class CSVDumpTest < ActiveSupport::TestCase
   test "should list all available csv dumps" do
     csv_dumps = CSVDump.all
     filenames = [
+      "restaurant_images_csv_dump.csv.gz",
       "restaurant_tests_csv_dump.csv.gz",
       "restaurants_csv_dump.csv",
       "restaurants_csv_dump.csv.gz",
       "localized_strings_csv_dump.csv",
       "restaurants_csv_dump_ro.csv",
       "restaurants_csv_dump_sk.csv",
-      "restaurants_csv_dump_cz.csv"
+      "restaurants_csv_dump_cz.csv",
+      "tags_csv_dump.csv"
     ]
 
-    assert_equal 7, csv_dumps.count
+    assert_equal 9, csv_dumps.count
 
     csv_dumps.each do |csv_dump|
       assert filenames.include? csv_dump.name
@@ -42,8 +44,8 @@ class CSVDumpTest < ActiveSupport::TestCase
   test "should list imported and non-imported csv dumps" do
     imported_csv_dumps = CSVDump.imported
     non_imported_csv_dumps = CSVDump.non_imported
-    assert_equal 5, imported_csv_dumps.count
-    assert_equal 2, non_imported_csv_dumps.count
+    assert_equal 6, imported_csv_dumps.count
+    assert_equal 3, non_imported_csv_dumps.count
 
     imported_csv_dumps.each     { |csvd| assert     csvd.imported? }
     non_imported_csv_dumps.each { |csvd| assert_not csvd.imported? }

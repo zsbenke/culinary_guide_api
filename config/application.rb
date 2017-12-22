@@ -19,5 +19,7 @@ module GaultmillauEu
 
     config.i18n.default_locale = :en
     config.available_locales = [:en, :hu, :cz, :de, :hr, :ro, :cs, :sl, :sk]
+
+    config.restaurant_images_asset_host = 'http://assets.gaultmillau.hu/system'
   end
 end

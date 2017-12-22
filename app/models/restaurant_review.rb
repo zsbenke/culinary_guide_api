@@ -6,15 +6,16 @@ class RestaurantReview < ApplicationRecord
   private
     def update_restaurant_price_columns
       if restaurant.present?
-        restaurant.update_attribute :price_value,  price_value
-        restaurant.update_attribute :price_information, price_information
-        restaurant.update_attribute :price_information_rating, price_information_rating
+        restaurant.update_column :price_value,  price_value
+        restaurant.update_column :price_information, price_information
+        restaurant.update_column :price_information_rating, price_information_rating
       end
     end
 
     def update_restaurant_rating_column
       if restaurant.present?
-        restaurant.update_attribute :rating, rating
+        restaurant.update_column :rating, rating
+        restaurant.override_rating_with_pop
       end
     end
 end
