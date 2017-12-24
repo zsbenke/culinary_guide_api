@@ -2,6 +2,9 @@
 <playground requires-full-environment="false" version="6.0" target-platform="ios">
     <pages>
         <page name="Gault&amp;Millau iOS APIService"/>
-        <page name="Sandbox"/>
+        <page name="Custom Array method"/>
+        <page name="JSONDecoder"/>
+        <page name="FileManager"/>
+        <page name="URLSession"/>
     </pages>
 </playground>

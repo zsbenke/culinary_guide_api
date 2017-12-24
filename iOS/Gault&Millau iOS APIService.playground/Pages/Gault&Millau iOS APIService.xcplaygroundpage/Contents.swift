@@ -11,6 +11,17 @@ func assertEqual(_ lhs: String, with rhs: String) -> String {
 
 PlaygroundPage.current.needsIndefiniteExecution = true
 
+/*:
+ # Routers
+ 
+ All object, protocols needed for generating API URL objects.
+ */
+
+let authToken = "Token token=eyJhbGciOiJIUzI1NiJ9.eyJ1bmlxdWVfaGFzaCI6InRlc3QifQ.9RwhNNuROSt_DpadCdGhSICbp0HSceu6Nv1u3sn5q-E"
+let sessionConfiguration = URLSessionConfiguration.ephemeral
+sessionConfiguration.httpAdditionalHeaders = ["Authorization": authToken]
+let session = URLSession(configuration: sessionConfiguration)
+
 public enum Environment {
     case production
     case staging
@@ -128,6 +139,12 @@ public enum RestaurantRouter: Router, CustomStringConvertible {
     }
 }
 
+/*:
+ # Routers
+ 
+ Testing routers with restaurant endpoints.
+ */
+
 class RestaurantRouterTests {
     static func testSearchWithParameters() -> String {
         var tokens = [
@@ -170,3 +187,135 @@ RestaurantRouterTests.testIndexWithoutParameters()
 RestaurantRouterTests.testSearchWithParameters()
 RestaurantRouterTests.testShow()
 
+/*:
+ # Requests
+ 
+ APIResource protocol defines needed methods to access a read-only resource. RestaurantResource implements the following methods:
+ 
+ - index(completionHandler:)
+ - index(search:,completionHandler:)
+ - show(_, :completionHandler:)
+ 
+ All of these callbacks returning a Data? object for creating model object.
+ */
+
+protocol APIResource {
+    associatedtype Router
+    static var router: Router { get }
+    
+    static func index(completionHandler: @escaping (_ data: Data?) -> Void)
+    static func index(search tokens: [URLQueryToken], completionHandler: @escaping  (_ data: Data?) -> Void)
+    static func show(_ id: Int, completionHandler: @escaping  (_ data: Data?) -> Void)
+}
+
+extension APIResource {
+    static func authorize(data: Data?, for response: URLResponse?, error: Error?, _ completionHandler: (_ data: Data?) -> Void) {
+        defer { PlaygroundPage.current.finishExecution() }
+        if (error != nil) {
+            print(error?.localizedDescription)
+        } else {
+            if let response = response as? HTTPURLResponse {
+                switch response.statusCode {
+                case 401:
+                    print("Not authorized") 
+                case 200:
+                    print("Logged in")
+                    completionHandler(data)
+                default:
+                    print("unknown status code")
+                }
+            }
+        }
+    }
+}
+
+class RestaurantResource: APIResource {
+    static let router = RestaurantRouter.self 
+    
+    static func index(completionHandler: @escaping (Data?) -> Void) {
+        let dataTask = session.dataTask(with: router.index.asURLRequest()) { data, response, error in
+            RestaurantResource.authorize(data: data, for: response, error: error) { data in
+                completionHandler(data)
+            }
+        }
+        dataTask.resume()
+    }
+    
+    static func index(search tokens: [URLQueryToken], completionHandler: @escaping (Data?) -> Void) {
+        let dataTask = session.dataTask(with: router.search(tokens).asURLRequest()) { data, response, error in
+            RestaurantResource.authorize(data: data, for: response, error: error) { data in
+                completionHandler(data)
+            }
+        }
+        dataTask.resume()
+    }
+
+    static func show(_ id: Int, completionHandler: @escaping (Data?) -> Void) {
+        let dataTask = session.dataTask(with: router.show(id).asURLRequest()) { data, response, error in
+            RestaurantResource.authorize(data: data, for: response, error: error) { data in
+                completionHandler(data)
+            }
+        }
+        dataTask.resume()
+    }
+}
+
+/*:
+ # Models
+ 
+ Defining model objects used for decoding data for resources.
+ 
+ */
+
+protocol PointOfInterest {
+    var title: String? { get }
+    var address: String? { get }   
+    var latitude: String? { get }
+    var longitude: String? { get }
+}
+
+struct APIResponse: Codable {
+    var headers: [String: String]
+    var data: [String: String]
+}
+
+class Restaurant: PointOfInterest, Decodable {
+    var title: String? = nil
+    var address: String? = nil
+    var latitude: String? = nil
+    var longitude: String? = nil
+    
+    enum CodingKeys: String, CodingKey {
+        case header
+        case data
+    }
+    
+    enum DataKeys: String, CodingKey {
+        case title = "title"
+        case address = "full_address"
+        case latitude = "latitude"
+        case longitude = "longitude"
+    }
+    
+    static func parseFromJSON(_ data: Data) -> Restaurant? {
+        do {
+            var json = String(data: data, encoding: .utf8)
+            return try JSONDecoder().decode(Restaurant.self, from: data)
+        } catch {
+            return nil
+        }
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        let dataInfo = try values.nestedContainer(keyedBy: DataKeys.self, forKey: .data)
+        title = try dataInfo.decode(String.self, forKey: .title)
+        address = try dataInfo.decode(String.self, forKey: .address)
+        latitude = try dataInfo.decode(String.self, forKey: .latitude)
+        longitude = try dataInfo.decode(String.self, forKey: .longitude)
+    }
+}
+
+RestaurantResource.show(10177) { data in
+    if let data = data { Restaurant.parseFromJSON(data) }
+}
