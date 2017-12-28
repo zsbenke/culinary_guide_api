@@ -12,6 +12,38 @@ func assertEqual(_ lhs: String, with rhs: String) -> String {
 PlaygroundPage.current.needsIndefiniteExecution = true
 
 /*:
+ # Models
+ 
+ Defining model objects used for decoding data for resources.
+ 
+ */
+protocol PointOfInterest {
+    var id: Int? { get }
+    var title: String? { get }
+    var address: String? { get }   
+    var latitude: String? { get }
+    var longitude: String? { get }
+}
+
+struct Restaurant: PointOfInterest, Codable {
+    let id: Int?
+    let title: String?
+    let address: String?
+    let latitude: String?
+    let longitude: String?
+    let rating: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case address = "full_address"
+        case latitude
+        case longitude
+        case rating
+    }
+}
+
+/*:
  # Routers
  
  All object, protocols needed for generating API URL objects.
@@ -71,7 +103,7 @@ public struct URLQueryToken: CustomStringConvertible {
     }
     
     private static func initURLQueryItem(for tokenType: TokenType, value: String) -> URLQueryItem {
-        return URLQueryItem(name: "token[\(tokenType)]", value: value)
+        return URLQueryItem(name: "tokens[][\(tokenType)]", value: value)
     }
     
     public var description: String {
@@ -125,6 +157,7 @@ public enum RestaurantRouter: Router, CustomStringConvertible {
             if let path = path { url.appendPathComponent(path) }
             var urlComponents = URLComponents.init(url: url, resolvingAgainstBaseURL: false)
             urlComponents?.queryItems = tokens
+            print(urlComponents!.url!)
             return urlComponents!.url!
         }()
         
@@ -199,123 +232,231 @@ RestaurantRouterTests.testShow()
  All of these callbacks returning a Data? object for creating model object.
  */
 
-protocol APIResource {
-    associatedtype Router
-    static var router: Router { get }
+class AsyncOperation: Operation {
+    enum State: String {
+        case Ready, Executing, Finished
+        
+        fileprivate var keyPath: String {
+            return "is\(rawValue)"
+        }
+    }
     
-    static func index(completionHandler: @escaping (_ data: Data?) -> Void)
-    static func index(search tokens: [URLQueryToken], completionHandler: @escaping  (_ data: Data?) -> Void)
-    static func show(_ id: Int, completionHandler: @escaping  (_ data: Data?) -> Void)
+    var state = State.Ready {
+        willSet {
+            willChangeValue(forKey: newValue.keyPath)
+            willChangeValue(forKey: state.keyPath)
+        }
+        didSet {
+            didChangeValue(forKey: oldValue.keyPath)
+            didChangeValue(forKey: state.keyPath)
+        }
+    }
+    
+    override var isReady: Bool {
+        return super.isReady && state == .Ready
+    }
+    
+    override var isExecuting: Bool {
+        return state == .Executing
+    }
+    
+    override var isFinished: Bool {
+        return state == .Finished
+    }
+    
+    override var isAsynchronous: Bool {
+        return true
+    }
+    
+    override func start() {
+        if isCancelled {
+            state = .Finished
+            return
+        }
+        main()
+        state = .Executing
+    }
+    
+    override func cancel() {
+        state = .Finished
+    }
 }
 
-extension APIResource {
-    static func authorize(data: Data?, for response: URLResponse?, error: Error?, _ completionHandler: (_ data: Data?) -> Void) {
-        defer { PlaygroundPage.current.finishExecution() }
-        if (error != nil) {
-            print(error?.localizedDescription)
-        } else {
-            if let response = response as? HTTPURLResponse {
-                switch response.statusCode {
-                case 401:
-                    print("Not authorized") 
-                case 200:
-                    print("Logged in")
-                    completionHandler(data)
-                default:
-                    print("unknown status code")
+protocol APIResource {
+    associatedtype Router
+    associatedtype Record
+    
+    static var router: Router { get }
+    
+    static func index(completionHandler: @escaping (_ records: [Record?]) -> Void)
+    static func index(search tokens: [URLQueryToken], completionHandler: @escaping  (_ records: [Record?]) -> Void)
+    static func show(_ id: Int, completionHandler: @escaping  (_ record: Record?) -> Void)
+}
+
+class APIRequestOperation: AsyncOperation {
+    let urlRequest: URLRequest
+    var data: Data?
+    
+    init(urlRequest: URLRequest) {
+        self.urlRequest = urlRequest
+        super.init()
+    }
+    
+    override func main() {
+        request(urlRequest) { (data) in
+            self.data = data
+            self.state = .Finished
+        }
+    }
+    
+    private func request(_ apiRequest: URLRequest, completionHandler: @escaping (_ data: Data?) -> Void) {
+        let dataTask = session.dataTask(with: apiRequest) { data, response, error in
+            if (error != nil) {
+                print(error?.localizedDescription)
+            } else {
+                if let response = response as? HTTPURLResponse {
+                    switch response.statusCode {
+                    case 401:
+                        print("Not authorized") 
+                    case 200:
+                        print("Logged in")
+                        completionHandler(data)
+                    default:
+                        print("unknown status code")
+                    }
                 }
             }
         }
+        dataTask.resume()
     }
 }
 
-class RestaurantResource: APIResource {
-    static let router = RestaurantRouter.self 
+extension Restaurant: APIResource {
+    internal static let router = RestaurantRouter.self
     
-    static func index(completionHandler: @escaping (Data?) -> Void) {
-        let dataTask = session.dataTask(with: router.index.asURLRequest()) { data, response, error in
-            RestaurantResource.authorize(data: data, for: response, error: error) { data in
-                completionHandler(data)
+    static func index(completionHandler: @escaping (_ restaurants: [Restaurant?]) -> Void) {
+        let operationQueue = OperationQueue()
+        let requestOperation = APIRequestOperation(urlRequest: router.index.asURLRequest())
+        requestOperation.completionBlock = {
+            guard let data = requestOperation.data else { return }
+            do {
+                let restaurants = try JSONDecoder().decode([Restaurant].self, from: data)
+                completionHandler(restaurants)
+            } catch {
+                return
             }
         }
-        dataTask.resume()
+        operationQueue.addOperation(requestOperation)
     }
     
-    static func index(search tokens: [URLQueryToken], completionHandler: @escaping (Data?) -> Void) {
-        let dataTask = session.dataTask(with: router.search(tokens).asURLRequest()) { data, response, error in
-            RestaurantResource.authorize(data: data, for: response, error: error) { data in
-                completionHandler(data)
+    static func index(search tokens: [URLQueryToken], completionHandler: @escaping (_ restaurants: [Restaurant?]) -> Void) {
+        let operationQueue = OperationQueue()
+        let requestOperation = APIRequestOperation(urlRequest: router.search(tokens).asURLRequest())
+        requestOperation.completionBlock = {
+            guard let data = requestOperation.data else { return }
+            do {
+                let restaurants = try JSONDecoder().decode([Restaurant].self, from: data)
+                completionHandler(restaurants)
+            } catch {
+                return
             }
         }
-        dataTask.resume()
+        operationQueue.addOperation(requestOperation)
+    }
+
+    static func show(_ id: Int, completionHandler: @escaping (_ restaurant: Restaurant?) -> Void) {
+        let operationQueue = OperationQueue()
+        let requestOperation = APIRequestOperation(urlRequest: router.show(id).asURLRequest())
+        requestOperation.completionBlock = {
+            guard let data = requestOperation.data else { return }
+            do {
+                let restaurant = try JSONDecoder().decode(Restaurant.self, from: data)
+                completionHandler(restaurant)
+            } catch {
+                return
+            }
+            
+        }
+        operationQueue.addOperation(requestOperation)
+    }
+}
+
+enum TestRouter: Router {
+    static var baseURLEndpoint: String = "\(API.baseURL)/api/test"
+
+    func asURLRequest() -> URLRequest {
+        let url = URL(string: TestRouter.baseURLEndpoint)
+        return URLRequest(url: url!)
+    }
+}
+/*
+struct TestResource: APIResource {
+    static let router = TestRouter.self
+    
+    enum TestJSON {
+        static let index = ""
+        static let show = "{ \"title\": \"Test Resource\", \"address\": \"Somewhere City\" }"
+    }
+    
+    static func index(completionHandler: @escaping (Data?) -> Void) {
+        let data = TestJSON.index.data(using: .utf8)
+        completionHandler(data)
+    }
+
+    static func index(search tokens: [URLQueryToken], completionHandler: @escaping (Data?) -> Void) {
+        let data = TestJSON.index.data(using: .utf8)
+        completionHandler(data)
     }
 
     static func show(_ id: Int, completionHandler: @escaping (Data?) -> Void) {
-        let dataTask = session.dataTask(with: router.show(id).asURLRequest()) { data, response, error in
-            RestaurantResource.authorize(data: data, for: response, error: error) { data in
-                completionHandler(data)
-            }
-        }
-        dataTask.resume()
+        let data = TestJSON.show.data(using: .utf8)
+        completionHandler(data)
     }
 }
 
-/*:
- # Models
- 
- Defining model objects used for decoding data for resources.
- 
- */
-
-protocol PointOfInterest {
-    var title: String? { get }
-    var address: String? { get }   
-    var latitude: String? { get }
-    var longitude: String? { get }
-}
-
-struct APIResponse: Codable {
-    var headers: [String: String]
-    var data: [String: String]
-}
-
-class Restaurant: PointOfInterest, Decodable {
-    var title: String? = nil
-    var address: String? = nil
-    var latitude: String? = nil
-    var longitude: String? = nil
+struct TestModel: Codable {
+    var title: String
+    var address: String
     
-    enum CodingKeys: String, CodingKey {
-        case header
-        case data
-    }
-    
-    enum DataKeys: String, CodingKey {
-        case title = "title"
-        case address = "full_address"
-        case latitude = "latitude"
-        case longitude = "longitude"
-    }
-    
-    static func parseFromJSON(_ data: Data) -> Restaurant? {
+    static func parseFromJSON(_ data: Data) -> TestModel? {
         do {
             var json = String(data: data, encoding: .utf8)
-            return try JSONDecoder().decode(Restaurant.self, from: data)
+            return try JSONDecoder().decode(self, from: data)
         } catch {
             return nil
         }
     }
+}
+
+TestResource.show(1) { (data) in
+    var testModel = TestModel.parseFromJSON(data!)
+}
+ */
+
+Restaurant.index() { (restaurants) in
+    let titles = restaurants.map { $0?.title }
+}
+
+let cityToken = URLQueryToken(column: "city", value: "Debrecen")
+let openOnSundayToken = URLQueryToken(column: "open_on_sunday", value: "true")
+Restaurant.index(search: [cityToken, openOnSundayToken]) { restaurants in
+    let addresses = restaurants.map { $0?.address }
+    addresses.count
+}
     
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        let dataInfo = try values.nestedContainer(keyedBy: DataKeys.self, forKey: .data)
-        title = try dataInfo.decode(String.self, forKey: .title)
-        address = try dataInfo.decode(String.self, forKey: .address)
-        latitude = try dataInfo.decode(String.self, forKey: .latitude)
-        longitude = try dataInfo.decode(String.self, forKey: .longitude)
+Restaurant.show(10177) { restaurant in
+    let title = restaurant?.title
+}
+
+var thing = ""
+
+DispatchQueue.global().async {
+    sleep(3)
+    
+    DispatchQueue.main.async {
+        thing = "csá"
+        print(thing)
     }
 }
 
-RestaurantResource.show(10177) { data in
-    if let data = data { Restaurant.parseFromJSON(data) }
-}
+var another = "xxx"
