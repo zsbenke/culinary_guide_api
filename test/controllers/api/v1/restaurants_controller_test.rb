@@ -335,3 +335,166 @@ class Api::V1::RestaurantsControllerShowTest < ActionDispatch::IntegrationTest
     compare_restaurant_keys record, locale
   end
 end
+
+class Api::V1::RestaurantsControllerAutocompleteTest < ActionDispatch::IntegrationTest
+  def setup
+    @user = users :user
+    @headers = authorization_header authorization_token_for_user @user
+
+    CSVDump.find('localized_strings_csv_dump.csv').import(generate_log: false)
+    CSVDump.find('restaurants_csv_dump.csv.gz').import(generate_log: false)
+    CSVDump.find('restaurants_csv_dump_cz.csv').import(remove_existing: false, generate_log: false)
+    Facet.generate(:restaurant)
+
+    Rails.cache.clear
+  end
+
+  test "should deny index for bad token" do
+    token = 'b4dt0ken'
+    get autocomplete_api_v1_restaurants_path, params: nil, headers: authorization_header(token)
+
+    assert_response :unauthorized
+  end
+
+  test "should deny index for missing unique_hash key in encoded token" do
+    token = Token.encode({ foo: 'bar' })
+    get autocomplete_api_v1_restaurants_path, params: nil, headers: authorization_header(token)
+
+    assert_response :unauthorized
+  end
+
+  test "should index all restaurants when no params set" do
+    facets = Facet.where(
+      country: :all,
+      locale: :en,
+      home_screen_section: Facet.home_screen_sections
+    )
+
+    get autocomplete_api_v1_restaurants_path, params: nil, headers: @headers
+
+    data = JSON.parse(response.body)['data']
+
+    assert_response :success
+    assert_equal facets.count, data.count
+
+    data.each { |record| compare_facet_keys record }
+  end
+
+  test "should translate facets when locale set on index" do
+    locale = :cz
+    facets = Facet.where(
+      country: :all,
+      locale: locale,
+      home_screen_section: Facet.home_screen_sections
+    )
+
+    get autocomplete_api_v1_restaurants_path, params: { locale: locale }, headers: @headers
+
+    data = JSON.parse(response.body)['data']
+
+    assert_response :success
+    assert_equal facets.count, data.count
+
+    data.each { |record| compare_facet_keys record, locale }
+  end
+
+  test "should filter country on autocomplete when country param is set" do
+    country = :hu
+    facets = Facet.where(
+      country: country,
+      locale: :en,
+      home_screen_section: Facet.home_screen_sections
+    )
+    get autocomplete_api_v1_restaurants_path, params: { country: country }, headers: @headers
+
+    data = JSON.parse(response.body)['data']
+    ids = data.map { |r| r['id'].to_i }.sort
+
+    assert_response :success
+    assert_not facets.empty?
+    assert_equal ['hu'], facets.pluck(:country).uniq
+    assert_equal facets.pluck(:id).sort, ids
+
+    data.each { |record| compare_facet_keys record }
+
+    country = :all
+    facets = Facet.where(
+      country: country,
+      locale: :en,
+      home_screen_section: Facet.home_screen_sections
+    )
+    get autocomplete_api_v1_restaurants_path, params: { country: country }, headers: @headers
+
+    data = JSON.parse(response.body)['data']
+    ids = data.map { |r| r['id'].to_i }.sort
+
+    assert_response :success
+    assert_equal facets.pluck(:id).sort, ids
+
+    data.each { |record| compare_facet_keys record }
+  end
+
+  test "should filter for every available country on autocomplete when country param is invalid" do
+    country = :invalid
+    facets = Facet.where(
+      country: :all,
+      locale: :en,
+      home_screen_section: Facet.home_screen_sections
+    )
+    get autocomplete_api_v1_restaurants_path, params: { country: country }, headers: @headers
+
+    data = JSON.parse(response.body)['data']
+    ids = data.map { |r| r['id'].to_i }.sort
+
+    assert_response :success
+    assert_equal facets.pluck(:id).sort, ids
+
+    data.each { |record| compare_facet_keys record, :en }
+  end
+
+  test "should search on autocomplete" do
+    facets = Facet.where(country: :all, locale: :en)
+    params = { search: facets.pluck(:value).sample[0..2] }
+    facets = facets.search(params[:search])
+
+    get autocomplete_api_v1_restaurants_path, params: params, headers: @headers
+
+    data = JSON.parse(response.body)['data']
+    ids = data.map { |r| r['id'].to_i }.sort
+
+    assert_response :success
+    assert_not facets.empty?
+    assert_equal facets.pluck(:id).sort, ids
+
+    data.each { |record| compare_facet_keys record, :en }
+  end
+
+  test "should narrow search to current country on autocomplete when country is set" do
+    locale = :cz
+    country = :cz
+    facets = Facet.where(country: country, locale: locale)
+    params = { locale: locale, country: country, search: facets.pluck(:value).sample[0..2] }
+    facets = facets.search(params[:search])
+
+    get autocomplete_api_v1_restaurants_path, params: params, headers: @headers
+
+    data = JSON.parse(response.body)['data']
+    ids = data.map { |r| r['id'].to_i }.sort
+
+    assert_response :success
+    assert_not facets.empty?
+    assert_equal [country.to_s], Facet.where(id: ids).pluck(:country).uniq
+    assert_equal facets.pluck(:id).sort, ids
+
+    data.each { |record| compare_facet_keys record, locale }
+  end
+
+  def compare_facet_keys(record, locale = nil)
+    facet = Facet.find(record['id'])
+    record.keys.each do |key|
+      value = facet.send("#{key}")
+      assert_equal(value, record[key]) unless value.nil?
+    end
+    assert_equal(locale.to_s, record['locale']) if locale.present?
+  end
+end

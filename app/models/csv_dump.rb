@@ -100,6 +100,7 @@ class CSVDump
       @headers.each do |column|
         next if remove_existing == false && column == 'id'
         value = entry[@headers.index(column)]
+        value = value.strip if value.respond_to?(:strip)
         record.send("#{column}=", value) if record.respond_to?("#{column}=")
       end
 
