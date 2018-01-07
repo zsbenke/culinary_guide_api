@@ -12,15 +12,7 @@ class Api::V1::ApiController < ActionController::API
     end
 
     def json_response(data, needs_subscription: true)
-      header = {
-        unique_hash: current_user.unique_hash,
-        expires_at: current_user.expires_at,
-        subscriber: current_user.subscriber?,
-        needs_subscription: needs_subscription,
-        locale: current_locale
-      }
-
-      render json: { header: header, data: data }
+      render json: data
     end
 
     def current_user
