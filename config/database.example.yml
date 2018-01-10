@@ -5,20 +5,20 @@ default: &default
 
 development:
   <<: *default
-  database: gaultmillau_eu_development
+  database: culinary_guide_api_development
 
 test:
   <<: *default
-  database: gaultmillau_eu_test
+  database: culinary_guide_api_test
 
 staging:
   <<: *default
-  database: gaultmillau_eu_staging
-  username: gaultmillau_eu
+  database: culinary_guide_api_staging
+  username: culinary_guide_api
   password: <%= ENV['APPSOLUTE_DATABASE_PASSWORD'] %>
 
 production:
   <<: *default
-  database: gaultmillau_eu_production
-  username: gaultmillau_eu
-  password: <%= ENV['APPSOLUTE_DATABASE_PASSWORD'] %>
+  database: culinary_guide_api_production
+  username: culinary_guide_api
+  password: <%= ENV['culinary_guide_api_DATABASE_PASSWORD'] %>
