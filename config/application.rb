@@ -18,7 +18,7 @@ module GaultmillauEu
     # -- all .rb files in that directory are automatically loaded.
 
     config.i18n.default_locale = :en
-    config.available_locales = [:en, :hu, :cz, :de, :hr, :ro, :cs, :sl, :sk]
+    config.available_locales = [:en, :hu, :cz, :de, :hr, :ro, :rs, :sl, :sk]
 
     config.restaurant_images_asset_host = 'http://assets.gaultmillau.hu/system'
   end

@@ -1,7 +1,0 @@
-en:
-  shared:
-    messages:
-      boolean_true: "Yes"
-      boolean_false: "No"
-      nil: "not set"
-      or: "or"

@@ -1,1 +1,18 @@
 cz:
+  date:
+    abbr_day_names:
+    - Ne
+    - Út
+    - St
+    - Čt
+    - Pá
+    - So
+    day_names:
+    - Neděle
+    - Pondělí
+    - Úterý
+    - Středa
+    - Čtvrtek
+    - Pátek
+    - Sobota
+

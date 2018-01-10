@@ -1,4 +1,4 @@
-cs:
+rs:
   restaurant:
     full_address_format: "%{address}, %{postcode} %{city}"
     values:
