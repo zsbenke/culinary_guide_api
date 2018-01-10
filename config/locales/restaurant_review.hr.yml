@@ -3,6 +3,7 @@ hr:
     values:
       price_value:
         "nincs kitöltve": "nije zadovoljeno"
+        "nagyon rossz": "jako loše"
         "rossz": "loše"
         "megfelelő": "odgovarajuće"
         "jó": "dobro"

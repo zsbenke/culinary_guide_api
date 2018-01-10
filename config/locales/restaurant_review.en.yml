@@ -3,6 +3,7 @@ en:
     values:
       price_value:
         "nincs kitöltve": "not completed"
+        "nagyon rossz": "very poor"
         "rossz": "poor"
         "megfelelő": "adequate"
         "jó": "good"

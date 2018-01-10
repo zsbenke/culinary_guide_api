@@ -3,6 +3,7 @@ cs:
     values:
       price_value:
         "nincs kitöltve": "nije popunjeno"
+        "nagyon rossz": "jako loš"
         "rossz": "loš"
         "megfelelő": "odgovarajući"
         "jó": "dobar"

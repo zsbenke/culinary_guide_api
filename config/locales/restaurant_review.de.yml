@@ -4,6 +4,7 @@ de:
       price_value:
         "nincs kitöltve": "nicht ausgefüllt"
         "rossz": "schlecht"
+        "nagyon rossz": "sehr schlecht"
         "megfelelő": "befriedigend"
         "jó": "gut"
         "nagyon jó": "sehr gut"

@@ -3,6 +3,7 @@ sk:
     values:
       price_value:
         "nincs kitöltve": "nie je vyplnený"
+        "nagyon rossz": "veľmi zlý"
         "rossz": "zlý"
         "megfelelő": "vyhovujúci"
         "jó": "dobrý"

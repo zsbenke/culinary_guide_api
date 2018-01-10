@@ -3,6 +3,7 @@ ro:
     values:
       price_value:
         "nincs kitöltve": "necompletat"
+        "nagyon rossz": "foarte slab"
         "rossz": "slab"
         "megfelelő": "satisfăcător"
         "jó": "bun"

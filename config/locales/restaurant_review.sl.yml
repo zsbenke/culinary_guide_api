@@ -3,6 +3,7 @@ sl:
     values:
       price_value:
         "nincs kitöltve": "ni izpolnjeno"
+        "nagyon rossz": "zelo slabo"
         "rossz": "slabo"
         "megfelelő": "ustrezno"
         "jó": "dobro"
