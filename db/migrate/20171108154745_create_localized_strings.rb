@@ -6,7 +6,7 @@ class CreateLocalizedStrings < ActiveRecord::Migration[5.1]
       t.string :value
       t.string :value_in_hu
       t.string :value_in_de
-      t.string :value_in_cs
+      t.string :value_in_rs
       t.string :value_in_en
       t.string :value_in_sk
       t.string :value_in_ro

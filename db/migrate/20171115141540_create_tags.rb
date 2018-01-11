@@ -5,7 +5,7 @@ class CreateTags < ActiveRecord::Migration[5.1]
        "name_in_de",
        "name_in_en",
        "name_in_sk",
-       "name_in_cs",
+       "name_in_rs",
        "name_in_ro",
        "name_in_cz",
        "name_in_sl",

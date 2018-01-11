@@ -1,4 +1,4 @@
-id,model,column,value,value_in_hu,value_in_de,value_in_cs,value_in_en,value_in_sk,value_in_ro,value_in_sl,value_in_cz,value_in_hr,created_at,updated_at
+id,model,column,value,value_in_hu,value_in_de,value_in_rs,value_in_en,value_in_sk,value_in_ro,value_in_sl,value_in_cz,value_in_hr,created_at,updated_at
 1,restaurant,country,HU – Magyarország,Magyarország,Ungarn,Mađarska,Hungary,Maďarsko,Ungaria,Madžarska,Maďarsko,Mađarska,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
 2,restaurant,country,CZ – Csehország,Csehország,Tschechien,Češka,Czech Republic,Česká republika,Cehia,Češka,Česká republika,Češka,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200
 3,restaurant,country,SK – Szlovákia,Szlovákia,Slowakei,Slovačka,Slovakia,Slovensko,Slovacia,Slovaška,Slovensko,Slovačka,2017-10-06 14:27:46 +0200,2017-10-06 14:27:46 +0200

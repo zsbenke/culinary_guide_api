@@ -92,11 +92,11 @@ class LocalizableTest < ActiveSupport::TestCase
     restaurant = restaurants(:lacikonyha)
 
     localization = LocalizedString.where(model: 'restaurant', column: 'region', value: 'Budapest').first
-    localization.update_attribute :value_in_cs, 'Budapest CS'
+    localization.update_attribute :value_in_rs, 'Budapest CS'
     localization.update_attribute :value_in_en, 'Budapest'
     assert_equal 'Budapest CS', restaurant.region_localized_to_cs
 
-    localization.update_attribute :value_in_cs, ''
+    localization.update_attribute :value_in_rs, ''
     assert_equal 'Budapest', restaurant.region_localized_to_cs
 
     localization.update_attribute :value_in_en, ''
