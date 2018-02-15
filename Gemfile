@@ -30,10 +30,12 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# gem 'capistrano3-delayed-job', '~> 1.0', group: :development
-gem 'capistrano-rails', group: :development
-gem 'capistrano-rake', group: :development
-gem 'capistrano-rbenv', github: "capistrano/rbenv"
+gem 'capistrano3-delayed-job', '~> 1.0'
+gem 'capistrano', '~> 3.7', '>= 3.7.1'
+gem 'capistrano-rails', '~> 1.2'
+gem 'capistrano-passenger', '~> 0.2.0'
+gem 'capistrano-rbenv', '~> 2.1'
+gem 'capistrano-rake'
 
 gem 'jwt'
 gem 'ffi-xattr'

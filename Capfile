@@ -9,6 +9,7 @@ require 'capistrano/bundler'
 require 'capistrano/rails'
 require 'capistrano/rake'
 require 'capistrano/rbenv'
+require 'capistrano/passenger'
 # require 'capistrano/delayed_job'
 # require 'whenever/capistrano'
 
