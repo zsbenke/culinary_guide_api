@@ -1,4 +1,4 @@
-# Gault&Millau EU
+# Enfys Restaurant Guide WebApp & API
 
 ## API usage
 
