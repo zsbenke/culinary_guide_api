@@ -1,0 +1,80 @@
+html {
+	font-family: "ff-tisa-sans-web-pro", "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 1em;
+	line-height: 1em;
+	color: #333;
+	background: #EEF7FF;
+	-webkit-font-smoothing: antialiased
+}
+
+.grid {
+	width: 100%;
+	max-width: 1000px;
+	margin: 0 auto
+}
+
+.grid .grid {
+  width: auto;
+  min-width: 0;
+  margin: 0 .984rem;
+}
+
+.unit {
+	display: block;
+	float: left;
+	padding: 0 .984rem;
+	width: 100%
+}
+
+a {
+	color: #2085DD;
+	text-decoration: underline;
+	font-style: italic;
+	-moz-transition: all .15s ease-out;
+	-o-transition: all .15s ease-out;
+	-webkit-transition: all .15s ease-out;
+	transition: all .15s ease-out
+}
+
+a:hover {
+	color: #F2B501;
+}
+
+a:active {
+	color: #D39702;
+	-moz-transition: none !important;
+	-o-transition: none !important;
+	-webkit-transition: none !important;
+	transition: none !important
+}
+
+.logo {
+	height: 14.4rem;
+	margin-top: 4.92rem;
+	margin-bottom: 3.92rem;
+	background: url("/images/logo-enfys.svg") center center no-repeat;
+	-moz-background-size: 30% auto;
+	-o-background-size: 30% auto;
+	-webkit-background-size: 30% auto;
+	background-size: 30% auto;	
+}
+	
+@media screen and (max-width: 700px) {
+    
+    .logo {
+	    height: 10.4rem;
+	    margin-top: 2.92rem;
+		margin-bottom: 1.92rem;
+		background-size: 50% auto; 
+    }
+}
+
+
+.unit.contact-informations {
+	width: 100%;
+	text-align: center
+}
+
+.unit.contact-informations .email-contact {
+	margin-bottom: .82rem
+}
