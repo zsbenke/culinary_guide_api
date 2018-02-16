@@ -1,6 +1,6 @@
 class Api::V1::ApiController < ActionController::API
   include ActionController::HttpAuthentication::Token::ControllerMethods
-  before_action :authenticate, :set_current_locale
+  before_action :set_current_locale
 
   private
     def authenticate
