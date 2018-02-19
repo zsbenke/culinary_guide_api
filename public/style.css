@@ -2,8 +2,8 @@ html {
 	font-family: "ff-tisa-sans-web-pro", "Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size: 1em;
 	line-height: 1em;
-	color: #333;
-	background: #EEF7FF;
+	color: #004058;
+	background: #FDCF0A;
 	-webkit-font-smoothing: antialiased
 }
 
@@ -27,7 +27,7 @@ html {
 }
 
 a {
-	color: #2085DD;
+	color: #0087E4;
 	text-decoration: underline;
 	font-style: italic;
 	-moz-transition: all .15s ease-out;
@@ -37,7 +37,7 @@ a {
 }
 
 a:hover {
-	color: #F2B501;
+	color: #40A5EB;
 }
 
 a:active {
@@ -49,7 +49,7 @@ a:active {
 }
 
 .logo {
-	height: 14.4rem;
+	height: 16.4rem;
 	margin-top: 4.92rem;
 	margin-bottom: 3.92rem;
 	background: url("/images/logo-enfys.svg") center center no-repeat;
