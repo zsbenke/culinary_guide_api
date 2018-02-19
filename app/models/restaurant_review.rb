@@ -14,8 +14,18 @@ class RestaurantReview < ApplicationRecord
 
     def update_restaurant_rating_column
       if restaurant.present?
-        restaurant.update_column :rating, rating
+        restaurant.update_column :rating, final_rating
         restaurant.override_rating_with_pop
+      end
+    end
+
+    def final_rating
+      case rating
+      when 'T', '8', '9', '10', '11', '12' then '1'
+      when '13', '14' then '2'
+      when '15', '16' then '3'
+      when '17', '18' then '4'
+      when '19', '20' then '5'
       end
     end
 end
