@@ -26,6 +26,7 @@ class Restaurant < ApplicationRecord
         :city,
         :address,
         :country,
+        :region,
         :def_people_one_name,
         :def_people_two_name,
         :def_people_three_name
