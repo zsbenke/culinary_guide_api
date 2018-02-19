@@ -6,7 +6,7 @@ class Api::V1::RestaurantsController < Api::V1::ApiController
     @restaurants = Restaurant.by_country(@current_country).filter(params[:tokens])
     @restaurants = @restaurants.map do |restaurant|
       cache([restaurant, :index]) do
-        restaurant.formatted_hash(current_locale, [:id, :title, :full_address, :rating])
+        restaurant.formatted_hash(current_locale, [:id, :title, :full_address, :rating, :latitude, :longitude])
       end
     end
     json_response @restaurants
