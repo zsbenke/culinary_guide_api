@@ -100,7 +100,8 @@ class Api::V1::RestaurantsController < Api::V1::ApiController
         :rating,
         :price_value,
         :price_information,
-        :price_information_rating
+        :price_information_rating,
+        :hero_image_url
       ]
     end
 end
