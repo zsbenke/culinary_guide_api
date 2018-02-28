@@ -125,6 +125,7 @@ CREATE TABLE restaurant_images (
     id bigint NOT NULL,
     restaurant_id bigint,
     name character varying,
+    paid boolean,
     restaurant_image_file_name character varying,
     restaurant_image_content_type character varying,
     restaurant_image_file_size integer,
