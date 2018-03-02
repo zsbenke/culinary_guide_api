@@ -8,6 +8,12 @@ module Locatable
         where country: country
       end
     }
+
+    def country_code
+      if parsed_country_code = country.split(' – ')[0]
+        return parsed_country_code.downcase.to_sym
+      end
+    end
   end
 
   class_methods do

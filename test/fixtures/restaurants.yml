@@ -2,3 +2,15 @@ lacikonyha:
   title: Lacikonyha
   country: HU – Magyarország
   region: Budapest
+
+restaurant_hu:
+  title: "Restaurant HU"
+  country: HU – Magyarország
+
+restaurant_cz:
+  title: "Restaurant CZ"
+  country: CZ – Csehország
+
+restaurant_sk:
+  title: "Restaurant SK"
+  country: SK – Szlovákia

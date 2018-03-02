@@ -3,6 +3,10 @@ require 'test_helper'
 class RestaurantTest < ActiveSupport::TestCase
   def setup
     # import restaurants to work with
+    @restaurant_hu = restaurants(:restaurant_hu)
+    @restaurant_cz = restaurants(:restaurant_cz)
+    @restaurant_sk = restaurants(:restaurant_sk)
+
     CSVDump.find('localized_strings_csv_dump.csv').import(generate_log: false)
     CSVDump.find('tags_csv_dump.csv').import(generate_log: false)
     CSVDump.find('restaurants_csv_dump.csv.gz').import(generate_log: false)
@@ -90,5 +94,11 @@ class RestaurantTest < ActiveSupport::TestCase
     assert_nil restaurant.hero_image
     assert_nil restaurant.hero_image_id
     assert_nil restaurant.hero_image_url
+  end
+
+  test "should return country_code from country name" do
+    assert_equal :hu, @restaurant_hu.country_code
+    assert_equal :cz, @restaurant_cz.country_code
+    assert_equal :sk, @restaurant_sk.country_code
   end
 end

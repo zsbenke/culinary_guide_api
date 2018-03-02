@@ -34,4 +34,17 @@ class RestaurantReviewTest < ActiveSupport::TestCase
     assert_not_equal restaurant.rating, review.rating
     assert_equal 'pop', restaurant.rating
   end
+
+  test "should return translated test from locale" do
+    # A review-nak három lehetséges nyelve van:
+    # - angol
+    # - német
+    # - lokalizált
+    #
+    # Locale társítása a megfelelő oszlophoz:
+    # 1. locale == restaurant.country_code ->
+    #    localized_translation.present? ? localized_translation : english_translation
+    # 2. en -> english_translation
+    # 3. de -> german_translation
+  end
 end
