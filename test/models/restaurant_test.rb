@@ -1,18 +1,16 @@
 require 'test_helper'
 
 class RestaurantTest < ActiveSupport::TestCase
-  def setup
+  def import
     # import restaurants to work with
-    @restaurant_hu = restaurants(:restaurant_hu)
-    @restaurant_cz = restaurants(:restaurant_cz)
-    @restaurant_sk = restaurants(:restaurant_sk)
-
     CSVDump.find('localized_strings_csv_dump.csv').import(generate_log: false)
     CSVDump.find('tags_csv_dump.csv').import(generate_log: false)
     CSVDump.find('restaurants_csv_dump.csv.gz').import(generate_log: false)
   end
 
   test "should search for restaurants" do
+    import
+
     results_count = Restaurant.where(city: 'Budapest').count
     restaurants = Restaurant.filter([{ 'column' => 'search', 'value' => 'budapest'}])
 
@@ -22,6 +20,8 @@ class RestaurantTest < ActiveSupport::TestCase
   end
 
   test "should search for tags" do
+    import
+
     Restaurant.all[0..2].each { |r| r.update tags_index: 'sör, éjszakai' }
     Restaurant.all[3..6].each { |r| r.update tags_index: 'sör' }
 
@@ -35,6 +35,8 @@ class RestaurantTest < ActiveSupport::TestCase
   end
 
   test "should verify country code" do
+    import
+
     assert_equal :all, Restaurant.verify_country_code(:all)
     assert_equal :all, Restaurant.verify_country_code(:de)
 
@@ -42,6 +44,8 @@ class RestaurantTest < ActiveSupport::TestCase
   end
 
   test "should return country name by country code" do
+    import
+
     assert_equal 'HU – Magyarország', Restaurant.country_name_for(:hu)
     assert_equal 'SK – Szlovákia', Restaurant.country_name_for(:sk)
     assert_equal Restaurant.countries, Restaurant.country_name_for(:all)
@@ -51,6 +55,8 @@ class RestaurantTest < ActiveSupport::TestCase
   end
 
   test "should cache searchable text on multiple languages" do
+    import
+
     restaurant = Restaurant.order("RANDOM()").limit(1).last
 
     Rails.configuration.available_locales.each do |locale|
@@ -68,6 +74,8 @@ class RestaurantTest < ActiveSupport::TestCase
   end
 
   test "should store hero image and returns it's URL" do
+    import
+
     restaurant = Restaurant.order("RANDOM()").limit(1).last
     1..5.times do |i|
       restaurant.restaurant_images.create(
@@ -97,8 +105,59 @@ class RestaurantTest < ActiveSupport::TestCase
   end
 
   test "should return country_code from country name" do
-    assert_equal :hu, @restaurant_hu.country_code
-    assert_equal :cz, @restaurant_cz.country_code
-    assert_equal :sk, @restaurant_sk.country_code
+    restaurant_hu = restaurants(:restaurant_hu)
+    restaurant_cz = restaurants(:restaurant_cz)
+    restaurant_sk = restaurants(:restaurant_sk)
+    assert_equal :hu, restaurant_hu.country_code
+    assert_equal :cz, restaurant_cz.country_code
+    assert_equal :sk, restaurant_sk.country_code
+  end
+
+  test "should return reviews as a localized hash" do
+    asserted_hash_for_review = -> (restaurant_review, asserted_text) {
+      [
+        {
+          id: restaurant_review.id,
+          rating: restaurant_review.final_rating,
+          year: restaurant_review.year,
+          text: asserted_text
+        }
+      ]
+    }
+
+    restaurant_hu = restaurants(:restaurant_hu)
+    restaurant_cz = restaurants(:restaurant_cz)
+    restaurant_sk = restaurants(:restaurant_sk)
+
+    restaurant_review_hu = restaurant_reviews :restaurant_review_hu
+    restaurant_review_sk = restaurant_reviews :restaurant_review_sk
+    restaurant_review_cz = restaurant_reviews :restaurant_review_cz
+
+    assert_equal asserted_hash_for_review.call(restaurant_review_hu, "Localized"),
+      restaurant_hu.restaurant_reviews_localized_to_hu
+    assert_equal asserted_hash_for_review.call(restaurant_review_hu, "English"),
+      restaurant_hu.restaurant_reviews_localized_to_en
+    assert_equal asserted_hash_for_review.call(restaurant_review_hu, "German"),
+      restaurant_hu.restaurant_reviews_localized_to_de
+    assert_equal asserted_hash_for_review.call(restaurant_review_hu, "English"),
+      restaurant_hu.restaurant_reviews_localized_to_rs
+
+    assert_equal asserted_hash_for_review.call(restaurant_review_cz, "Localized"),
+      restaurant_cz.restaurant_reviews_localized_to_cz
+    assert_equal asserted_hash_for_review.call(restaurant_review_cz, "English"),
+      restaurant_cz.restaurant_reviews_localized_to_en
+    assert_equal asserted_hash_for_review.call(restaurant_review_cz, "German"),
+      restaurant_cz.restaurant_reviews_localized_to_de
+    assert_equal asserted_hash_for_review.call(restaurant_review_cz, "English"),
+      restaurant_cz.restaurant_reviews_localized_to_rs
+
+    assert_equal asserted_hash_for_review.call(restaurant_review_sk, "Localized"),
+      restaurant_sk.restaurant_reviews_localized_to_sk
+    assert_equal asserted_hash_for_review.call(restaurant_review_sk, "English"),
+      restaurant_sk.restaurant_reviews_localized_to_en
+    assert_equal asserted_hash_for_review.call(restaurant_review_sk, "German"),
+      restaurant_sk.restaurant_reviews_localized_to_de
+    assert_equal asserted_hash_for_review.call(restaurant_review_sk, "English"),
+      restaurant_sk.restaurant_reviews_localized_to_rs
   end
 end

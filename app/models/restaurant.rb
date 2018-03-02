@@ -48,6 +48,23 @@ class Restaurant < ApplicationRecord
     end
   end
 
+  Rails.configuration.available_locales.each do |locale|
+    define_method("restaurant_reviews_localized_to_#{locale}".to_s) do
+      restaurant_review_hashes = []
+      restaurant_reviews.each do |review|
+        hash = {}
+        hash[:id] = review.id
+        hash[:rating] = review.final_rating
+        hash[:year] =year
+        hash[:text] = review.try("text_localized_to_#{locale}")
+
+        restaurant_review_hashes << hash
+      end
+
+      return restaurant_review_hashes
+    end
+  end
+
   def hero_image_url
     hero_image.try(:url)
   end

@@ -5,6 +5,7 @@ class RestaurantReview < ApplicationRecord
 
   Rails.configuration.available_locales.each do |locale|
     define_method("text_localized_to_#{locale}".to_s) do
+      return print if locale == :hu && locale == restaurant.country_code # speciális eset a magyar szövegre
       return localized_translation if localized_translation.present? && locale == restaurant.country_code
       return english_translation if locale == :en
       return german_translation if locale == :de

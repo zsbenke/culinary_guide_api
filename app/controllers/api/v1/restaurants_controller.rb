@@ -3,10 +3,10 @@ class Api::V1::RestaurantsController < Api::V1::ApiController
   before_action :set_restaurant, only: :show
 
   def index
-    @restaurants = Restaurant.by_country(@current_country).filter(params[:tokens])
+    @restaurants = Restaurant.by_country(@current_country).filter(params[:tokens]).order("position ASC")
     @restaurants = @restaurants.map do |restaurant|
       cache([restaurant, :index]) do
-        restaurant.formatted_hash(current_locale, [:id, :title, :full_address, :rating, :latitude, :longitude, :phone_1])
+        restaurant.formatted_hash(current_locale, [:id, :title, :full_address, :rating, :latitude, :longitude, :phone_1, :position])
       end
     end
     json_response @restaurants
@@ -101,7 +101,8 @@ class Api::V1::RestaurantsController < Api::V1::ApiController
         :price_value,
         :price_information,
         :price_information_rating,
-        :hero_image_url
+        :hero_image_url,
+        :restaurant_reviews
       ]
     end
 end
