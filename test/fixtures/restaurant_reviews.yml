@@ -1,11 +1,21 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+restaurant_review_hu:
+  restaurant: :restaurant_hu
+  rating: 10
+  localized_translation: "Localized"
+  english_translation: "English"
+  german_translation: "German"
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+restaurant_review_cz:
+  restaurant: :restaurant_cz
+  rating: 10
+  localized_translation: "Localized"
+  english_translation: "English"
+  german_translation: "German"
+
+restaurant_review_sk:
+  restaurant: :restaurant_sk
+  rating: 10
+  localized_translation: "Localized"
+  english_translation: "English"
+  german_translation: "German"
+

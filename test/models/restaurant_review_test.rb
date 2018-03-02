@@ -12,7 +12,7 @@ class RestaurantReviewTest < ActiveSupport::TestCase
     })
     restaurant.reload
 
-    assert_equal restaurant.rating, review.rating
+    assert_equal restaurant.rating, review.final_rating
     assert_equal restaurant.price_value, review.price_value
     assert_equal restaurant.price_information, review.price_information
     assert_equal restaurant.price_information_rating, review.price_information_rating
@@ -46,5 +46,25 @@ class RestaurantReviewTest < ActiveSupport::TestCase
     #    localized_translation.present? ? localized_translation : english_translation
     # 2. en -> english_translation
     # 3. de -> german_translation
+    # 4. minden egyéb esetben angol
+
+    restaurant_review_hu = restaurant_reviews :restaurant_review_hu
+    restaurant_review_sk = restaurant_reviews :restaurant_review_sk
+    restaurant_review_cz = restaurant_reviews :restaurant_review_cz
+
+    assert_equal "Localized", restaurant_review_hu.text_localized_to_hu
+    assert_equal "English",   restaurant_review_hu.text_localized_to_en
+    assert_equal "German",    restaurant_review_hu.text_localized_to_de
+    assert_equal "English",   restaurant_review_hu.text_localized_to_rs
+
+    assert_equal "Localized", restaurant_review_sk.text_localized_to_sk
+    assert_equal "English",   restaurant_review_sk.text_localized_to_en
+    assert_equal "German",    restaurant_review_sk.text_localized_to_de
+    assert_equal "English",   restaurant_review_sk.text_localized_to_rs
+
+    assert_equal "Localized", restaurant_review_cz.text_localized_to_cz
+    assert_equal "English",   restaurant_review_cz.text_localized_to_en
+    assert_equal "German",    restaurant_review_cz.text_localized_to_de
+    assert_equal "English",   restaurant_review_cz.text_localized_to_rs
   end
 end
