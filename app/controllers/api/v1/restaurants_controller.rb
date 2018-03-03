@@ -38,6 +38,7 @@ class Api::V1::RestaurantsController < Api::V1::ApiController
           id: facet.id,
           model: facet.model,
           value: facet.value,
+          column: facet.column,
           locale: facet.locale,
           country: facet.country,
           home_screen_section: facet.home_screen_section
