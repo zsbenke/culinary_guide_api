@@ -44,7 +44,7 @@ class Api::V1::ApiController < ActionController::API
     end
 
     def cache(key, &block)
-      key = ['api', 'v1'] << key
+      key = ['api', 'v1', current_country, current_locale] << key
       key = key.flatten
       Rails.cache.fetch(key) { block.call }
     end
