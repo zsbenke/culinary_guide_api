@@ -29,7 +29,7 @@ class Api::V1::RestaurantsController < Api::V1::ApiController
     @facets = if params[:search].present?
       @facets.search(params[:search])
     else
-      @facets.where(home_screen_section: Facet.home_screen_sections)
+      @facets.where(home_screen_section: Facet.home_screen_sections).order('value ASC')
     end
 
     @facets = @facets.map do |facet|

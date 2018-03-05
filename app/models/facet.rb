@@ -12,6 +12,8 @@ class Facet < ApplicationRecord
     end
 
     def generate(model)
+      self.delete_all
+
       model_class = model.to_s.classify.constantize
 
       model_class.try(:country_codes).try(:each) do |country_code|
@@ -57,10 +59,12 @@ class Facet < ApplicationRecord
 
     def generatable_columns
       columns = []
-      columns << HashWithIndifferentAccess.new(name: :region, home_screen_section: :where, localized: true)
+      columns << HashWithIndifferentAccess.new(name: :region, home_screen_section: nil, localized: true)
       columns << HashWithIndifferentAccess.new(name: :city, home_screen_section: :where, localized: false)
+      columns << HashWithIndifferentAccess.new(name: :open_on_sunday, home_screen_section: :when, localized: true)
+      columns << HashWithIndifferentAccess.new(name: :open_on_monday, home_screen_section: :when, localized: true)
       I18n.t('date.day_names', locale: :en).each do |dn|
-        columns << HashWithIndifferentAccess.new(name: "open_on_#{dn.downcase}", home_screen_section: :when, localized: true)
+        columns << HashWithIndifferentAccess.new(name: "open_on_#{dn.downcase}", home_screen_section: nil, localized: true)
       end
       columns
     end

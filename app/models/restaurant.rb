@@ -40,11 +40,14 @@ class Restaurant < ApplicationRecord
     end
 
     def generate_facets
-      # just show the top 10 cities on the home screen
-      top_cities = group(:city).count.sort_by { |k, v| v }.reverse.take(10).to_h.keys
       city_facets = Facet.where(model: :restaurant, column: :city)
       city_facets.update_all(home_screen_section: nil)
-      city_facets.where(value: top_cities).update_all(home_screen_section: :where)
+
+      try(:country_codes).try(:each) do |country_code|
+        # just show the top 10 cities on the home screen
+        top_cities = by_country(country_code).group(:city).count.sort_by { |k, v| v }.reverse.take(10).to_h.keys
+        city_facets.where(value: top_cities).update_all(home_screen_section: :where)
+      end
     end
   end
 
