@@ -8,7 +8,7 @@ class Facet < ApplicationRecord
 
   class << self
     def home_screen_sections
-      [:when, :where, :what]
+      [:when, :where, :what, :what_kind_of]
     end
 
     def generate(model)
