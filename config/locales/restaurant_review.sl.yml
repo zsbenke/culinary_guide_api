@@ -1,15 +1,15 @@
 sl:
-  restaurant_test:
+  restaurant_review:
     values:
       price_value:
         "nincs kitöltve": "ni izpolnjeno"
-        "nagyon rossz": "zelo slabo"
         "rossz": "slabo"
+        "nem jó": "ni dobro"
         "megfelelő": "ustrezno"
         "jó": "dobro"
         "nagyon jó": "odlično"
 
   activerecord:
     attributes:
-      restaurant_test:
+      restaurant_review:
         price_value: "Razmerje cena-vrednost"

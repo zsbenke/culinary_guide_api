@@ -4,8 +4,8 @@ hu:
     values:
       price_value:
         "nincs kitöltve": "nincs kitöltve"
-        "nagyon rossz": "nagyon rossz"
         "rossz": "rossz"
+        "nem jó": "nem jó"
         "megfelelő": "megfelelő"
         "jó": "jó"
         "nagyon jó": "nagyon jó"

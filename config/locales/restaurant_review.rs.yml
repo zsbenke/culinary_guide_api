@@ -1,15 +1,15 @@
-cs:
-  restaurant_test:
+rs:
+  restaurant_review:
     values:
       price_value:
         "nincs kitöltve": "nije popunjeno"
-        "nagyon rossz": "jako loš"
         "rossz": "loš"
+        "nem jó": "nije dobar"
         "megfelelő": "odgovarajući"
         "jó": "dobar"
         "nagyon jó": "jako dobar"
 
   activerecord:
     attributes:
-      restaurant_test:
+      restaurant_review:
         price_value: "Odnos cene i kvaliteta"

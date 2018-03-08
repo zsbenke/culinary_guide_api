@@ -1,15 +1,10 @@
 de:
-  restaurant_test:
+  restaurant_review:
     values:
       price_value:
         "nincs kitöltve": "nicht ausgefüllt"
         "rossz": "schlecht"
-        "nagyon rossz": "sehr schlecht"
+        "nem jó": "nicht gut"
         "megfelelő": "befriedigend"
         "jó": "gut"
         "nagyon jó": "sehr gut"
-
-  activerecord:
-    attributes:
-      restaurant_test:
-        price_value: "Preis-Leistungs-Verhältnis"
