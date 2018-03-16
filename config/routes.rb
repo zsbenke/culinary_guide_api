@@ -5,4 +5,6 @@ Rails.application.routes.draw do
       get :autocomplete, on: :collection
     end
   end
+
+  root to: 'home#index'
 end
