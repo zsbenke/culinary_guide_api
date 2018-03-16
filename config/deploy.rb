@@ -1,10 +1,10 @@
 # config valid only for current version of Capistrano
 lock '3.10.1'
 
-set :application, 'culinary_guide'
-set :repo_url, 'git@github.com:zsbenke/culinary_guide.git'
+set :application, 'culinary_guide_api'
+set :repo_url, 'git@github.com:zsbenke/culinary_guide_api.git'
 
-set :deploy_to, '/home/deploy/culinary_guide'
+set :deploy_to, '/home/deploy/culinary_guide_api'
 
 set :linked_files, %w{config/database.yml config/secrets.yml}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
