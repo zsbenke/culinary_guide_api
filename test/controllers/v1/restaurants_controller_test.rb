@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
+class V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
   def setup
     @user = users :user
     @headers = authorization_header authorization_token_for_user @user
@@ -296,7 +296,7 @@ class Api::V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
   end
 end
 
-class Api::V1::RestaurantsControllerShowTest < ActionDispatch::IntegrationTest
+class V1::RestaurantsControllerShowTest < ActionDispatch::IntegrationTest
   def setup
     @user = users :user
     @headers = authorization_header authorization_token_for_user @user
@@ -336,7 +336,7 @@ class Api::V1::RestaurantsControllerShowTest < ActionDispatch::IntegrationTest
   end
 end
 
-class Api::V1::RestaurantsControllerAutocompleteTest < ActionDispatch::IntegrationTest
+class V1::RestaurantsControllerAutocompleteTest < ActionDispatch::IntegrationTest
   def setup
     @user = users :user
     @headers = authorization_header authorization_token_for_user @user

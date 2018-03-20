@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
+class V1::UsersControllerTest < ActionDispatch::IntegrationTest
   test "should create unknown user and return details" do
     unique_hash = 'hash124'
     token = Token.encode({ unique_hash: unique_hash })

@@ -1,4 +1,4 @@
-class Api::V1::RestaurantsController < Api::V1::ApiController
+class V1::RestaurantsController < V1::ApiController
   before_action :set_current_country, only: [:index, :autocomplete]
   before_action :set_restaurant, only: :show
 
