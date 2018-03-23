@@ -124,8 +124,8 @@ en:
         "true": "is available"
         "false": "is not available"
       wifi:
-        "true": ""
-        "false": ""
+        "true": "is available"
+        "false": "is not available"
       credit_card:
-        "true": ""
-        "false": ""
+        "true": "is available"
+        "false": "is not available"
