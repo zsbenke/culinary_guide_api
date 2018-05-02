@@ -11,7 +11,9 @@ module Locatable
 
     def country_code
       if parsed_country_code = country.split(' – ')[0]
-        return parsed_country_code.downcase.to_sym
+        normalized_country_code = parsed_country_code.downcase.to_sym
+        return :sl if normalized_country_code == :si
+        return normalized_country_code
       end
     end
   end
