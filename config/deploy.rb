@@ -2,7 +2,7 @@
 lock '3.10.1'
 
 set :application, 'culinary_guide_api'
-set :repo_url, 'git@gitlab.com:gaultmillau/culinary_guide_api.git'
+set :repo_url, 'git@github.com:angelday/culinary_guide_api.git'
 
 set :deploy_to, '/home/deploy/culinary_guide_api'
 
