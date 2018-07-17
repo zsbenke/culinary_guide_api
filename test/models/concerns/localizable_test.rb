@@ -73,7 +73,7 @@ class LocalizableTest < ActiveSupport::TestCase
     assert_equal 'street postcode city',  restaurant.full_address_to_cz
 
     # Szlovákia
-    assert_equal 'postcode city street',  restaurant.full_address_to_sk
+    assert_equal 'postcode city, street',  restaurant.full_address_to_sk
 
     # Románia
     assert_equal 'postcode city, street', restaurant.full_address_to_ro

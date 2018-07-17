@@ -3,6 +3,7 @@ SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
@@ -21,8 +22,6 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
-SET search_path = public, pg_catalog;
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -31,7 +30,7 @@ SET default_with_oids = false;
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE ar_internal_metadata (
+CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
     created_at timestamp without time zone NOT NULL,
@@ -43,7 +42,7 @@ CREATE TABLE ar_internal_metadata (
 -- Name: facets; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE facets (
+CREATE TABLE public.facets (
     id bigint NOT NULL,
     model character varying,
     "column" character varying,
@@ -60,7 +59,7 @@ CREATE TABLE facets (
 -- Name: facets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE facets_id_seq
+CREATE SEQUENCE public.facets_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -72,14 +71,14 @@ CREATE SEQUENCE facets_id_seq
 -- Name: facets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE facets_id_seq OWNED BY facets.id;
+ALTER SEQUENCE public.facets_id_seq OWNED BY public.facets.id;
 
 
 --
 -- Name: localized_strings; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE localized_strings (
+CREATE TABLE public.localized_strings (
     id bigint NOT NULL,
     model character varying,
     "column" character varying,
@@ -102,7 +101,7 @@ CREATE TABLE localized_strings (
 -- Name: localized_strings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE localized_strings_id_seq
+CREATE SEQUENCE public.localized_strings_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -114,14 +113,14 @@ CREATE SEQUENCE localized_strings_id_seq
 -- Name: localized_strings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE localized_strings_id_seq OWNED BY localized_strings.id;
+ALTER SEQUENCE public.localized_strings_id_seq OWNED BY public.localized_strings.id;
 
 
 --
 -- Name: restaurant_images; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE restaurant_images (
+CREATE TABLE public.restaurant_images (
     id bigint NOT NULL,
     restaurant_id bigint,
     name character varying,
@@ -138,7 +137,7 @@ CREATE TABLE restaurant_images (
 -- Name: restaurant_images_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE restaurant_images_id_seq
+CREATE SEQUENCE public.restaurant_images_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -150,14 +149,14 @@ CREATE SEQUENCE restaurant_images_id_seq
 -- Name: restaurant_images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE restaurant_images_id_seq OWNED BY restaurant_images.id;
+ALTER SEQUENCE public.restaurant_images_id_seq OWNED BY public.restaurant_images.id;
 
 
 --
 -- Name: restaurant_reviews; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE restaurant_reviews (
+CREATE TABLE public.restaurant_reviews (
     id bigint NOT NULL,
     restaurant_id integer,
     title character varying,
@@ -179,7 +178,7 @@ CREATE TABLE restaurant_reviews (
 -- Name: restaurant_reviews_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE restaurant_reviews_id_seq
+CREATE SEQUENCE public.restaurant_reviews_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -191,14 +190,14 @@ CREATE SEQUENCE restaurant_reviews_id_seq
 -- Name: restaurant_reviews_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE restaurant_reviews_id_seq OWNED BY restaurant_reviews.id;
+ALTER SEQUENCE public.restaurant_reviews_id_seq OWNED BY public.restaurant_reviews.id;
 
 
 --
 -- Name: restaurants; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE restaurants (
+CREATE TABLE public.restaurants (
     id bigint NOT NULL,
     title character varying,
     city character varying,
@@ -284,7 +283,7 @@ CREATE TABLE restaurants (
 -- Name: restaurants_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE restaurants_id_seq
+CREATE SEQUENCE public.restaurants_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -296,14 +295,14 @@ CREATE SEQUENCE restaurants_id_seq
 -- Name: restaurants_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE restaurants_id_seq OWNED BY restaurants.id;
+ALTER SEQUENCE public.restaurants_id_seq OWNED BY public.restaurants.id;
 
 
 --
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE schema_migrations (
+CREATE TABLE public.schema_migrations (
     version character varying NOT NULL
 );
 
@@ -312,7 +311,7 @@ CREATE TABLE schema_migrations (
 -- Name: tags; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE tags (
+CREATE TABLE public.tags (
     id bigint NOT NULL,
     name character varying,
     name_in_de character varying,
@@ -333,7 +332,7 @@ CREATE TABLE tags (
 -- Name: tags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE tags_id_seq
+CREATE SEQUENCE public.tags_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -345,14 +344,14 @@ CREATE SEQUENCE tags_id_seq
 -- Name: tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE tags_id_seq OWNED BY tags.id;
+ALTER SEQUENCE public.tags_id_seq OWNED BY public.tags.id;
 
 
 --
 -- Name: tokens; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE tokens (
+CREATE TABLE public.tokens (
     id bigint NOT NULL,
     model character varying,
     "column" character varying,
@@ -368,7 +367,7 @@ CREATE TABLE tokens (
 -- Name: tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE tokens_id_seq
+CREATE SEQUENCE public.tokens_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -380,14 +379,14 @@ CREATE SEQUENCE tokens_id_seq
 -- Name: tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE tokens_id_seq OWNED BY tokens.id;
+ALTER SEQUENCE public.tokens_id_seq OWNED BY public.tokens.id;
 
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE users (
+CREATE TABLE public.users (
     id bigint NOT NULL,
     unique_hash character varying,
     expires_at timestamp without time zone,
@@ -400,7 +399,7 @@ CREATE TABLE users (
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE users_id_seq
+CREATE SEQUENCE public.users_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -412,70 +411,70 @@ CREATE SEQUENCE users_id_seq
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE users_id_seq OWNED BY users.id;
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
 -- Name: facets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY facets ALTER COLUMN id SET DEFAULT nextval('facets_id_seq'::regclass);
+ALTER TABLE ONLY public.facets ALTER COLUMN id SET DEFAULT nextval('public.facets_id_seq'::regclass);
 
 
 --
 -- Name: localized_strings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY localized_strings ALTER COLUMN id SET DEFAULT nextval('localized_strings_id_seq'::regclass);
+ALTER TABLE ONLY public.localized_strings ALTER COLUMN id SET DEFAULT nextval('public.localized_strings_id_seq'::regclass);
 
 
 --
 -- Name: restaurant_images id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY restaurant_images ALTER COLUMN id SET DEFAULT nextval('restaurant_images_id_seq'::regclass);
+ALTER TABLE ONLY public.restaurant_images ALTER COLUMN id SET DEFAULT nextval('public.restaurant_images_id_seq'::regclass);
 
 
 --
 -- Name: restaurant_reviews id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY restaurant_reviews ALTER COLUMN id SET DEFAULT nextval('restaurant_reviews_id_seq'::regclass);
+ALTER TABLE ONLY public.restaurant_reviews ALTER COLUMN id SET DEFAULT nextval('public.restaurant_reviews_id_seq'::regclass);
 
 
 --
 -- Name: restaurants id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY restaurants ALTER COLUMN id SET DEFAULT nextval('restaurants_id_seq'::regclass);
+ALTER TABLE ONLY public.restaurants ALTER COLUMN id SET DEFAULT nextval('public.restaurants_id_seq'::regclass);
 
 
 --
 -- Name: tags id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY tags ALTER COLUMN id SET DEFAULT nextval('tags_id_seq'::regclass);
+ALTER TABLE ONLY public.tags ALTER COLUMN id SET DEFAULT nextval('public.tags_id_seq'::regclass);
 
 
 --
 -- Name: tokens id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY tokens ALTER COLUMN id SET DEFAULT nextval('tokens_id_seq'::regclass);
+ALTER TABLE ONLY public.tokens ALTER COLUMN id SET DEFAULT nextval('public.tokens_id_seq'::regclass);
 
 
 --
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY ar_internal_metadata
+ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
 
 
@@ -483,7 +482,7 @@ ALTER TABLE ONLY ar_internal_metadata
 -- Name: facets facets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY facets
+ALTER TABLE ONLY public.facets
     ADD CONSTRAINT facets_pkey PRIMARY KEY (id);
 
 
@@ -491,7 +490,7 @@ ALTER TABLE ONLY facets
 -- Name: localized_strings localized_strings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY localized_strings
+ALTER TABLE ONLY public.localized_strings
     ADD CONSTRAINT localized_strings_pkey PRIMARY KEY (id);
 
 
@@ -499,7 +498,7 @@ ALTER TABLE ONLY localized_strings
 -- Name: restaurant_images restaurant_images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY restaurant_images
+ALTER TABLE ONLY public.restaurant_images
     ADD CONSTRAINT restaurant_images_pkey PRIMARY KEY (id);
 
 
@@ -507,7 +506,7 @@ ALTER TABLE ONLY restaurant_images
 -- Name: restaurant_reviews restaurant_reviews_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY restaurant_reviews
+ALTER TABLE ONLY public.restaurant_reviews
     ADD CONSTRAINT restaurant_reviews_pkey PRIMARY KEY (id);
 
 
@@ -515,7 +514,7 @@ ALTER TABLE ONLY restaurant_reviews
 -- Name: restaurants restaurants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY restaurants
+ALTER TABLE ONLY public.restaurants
     ADD CONSTRAINT restaurants_pkey PRIMARY KEY (id);
 
 
@@ -523,7 +522,7 @@ ALTER TABLE ONLY restaurants
 -- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY schema_migrations
+ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
@@ -531,7 +530,7 @@ ALTER TABLE ONLY schema_migrations
 -- Name: tags tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY tags
+ALTER TABLE ONLY public.tags
     ADD CONSTRAINT tags_pkey PRIMARY KEY (id);
 
 
@@ -539,7 +538,7 @@ ALTER TABLE ONLY tags
 -- Name: tokens tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY tokens
+ALTER TABLE ONLY public.tokens
     ADD CONSTRAINT tokens_pkey PRIMARY KEY (id);
 
 
@@ -547,7 +546,7 @@ ALTER TABLE ONLY tokens
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users
+ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
@@ -555,43 +554,43 @@ ALTER TABLE ONLY users
 -- Name: index_restaurant_images_on_restaurant_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_restaurant_images_on_restaurant_id ON restaurant_images USING btree (restaurant_id);
+CREATE INDEX index_restaurant_images_on_restaurant_id ON public.restaurant_images USING btree (restaurant_id);
 
 
 --
 -- Name: index_restaurants_on_hero_image_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_restaurants_on_hero_image_id ON restaurants USING btree (hero_image_id);
+CREATE INDEX index_restaurants_on_hero_image_id ON public.restaurants USING btree (hero_image_id);
 
 
 --
 -- Name: index_restaurants_on_tsv; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_restaurants_on_tsv ON restaurants USING gin (tsv);
+CREATE INDEX index_restaurants_on_tsv ON public.restaurants USING gin (tsv);
 
 
 --
 -- Name: index_users_on_unique_hash; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_users_on_unique_hash ON users USING btree (unique_hash);
+CREATE UNIQUE INDEX index_users_on_unique_hash ON public.users USING btree (unique_hash);
 
 
 --
 -- Name: restaurants tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON restaurants FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger('tsv', 'pg_catalog.simple', 'search_cache', 'tags_cache');
+CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.restaurants FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger('tsv', 'pg_catalog.simple', 'search_cache', 'tags_cache');
 
 
 --
 -- Name: restaurant_images fk_rails_3ede18e470; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY restaurant_images
-    ADD CONSTRAINT fk_rails_3ede18e470 FOREIGN KEY (restaurant_id) REFERENCES restaurants(id);
+ALTER TABLE ONLY public.restaurant_images
+    ADD CONSTRAINT fk_rails_3ede18e470 FOREIGN KEY (restaurant_id) REFERENCES public.restaurants(id);
 
 
 --

@@ -1,6 +1,6 @@
 sk:
   restaurant:
-    full_address_format: "%{postcode} %{city} %{address}"
+    full_address_format: "%{postcode} %{city}, %{address}"
     values:
       country:
         "HU – Magyarország": "Maďarsko"
