@@ -79,7 +79,7 @@ class LocalizableTest < ActiveSupport::TestCase
     assert_equal 'postcode city, street', restaurant.full_address_to_ro
 
     # Szerbia
-    assert_equal 'street, postcode city', restaurant.full_address_to_cs
+    assert_equal 'street, postcode city', restaurant.full_address_to_rs
 
     # Horváthország
     assert_equal 'street, postcode city', restaurant.full_address_to_hr
@@ -92,15 +92,15 @@ class LocalizableTest < ActiveSupport::TestCase
     restaurant = restaurants(:lacikonyha)
 
     localization = LocalizedString.where(model: 'restaurant', column: 'region', value: 'Budapest').first
-    localization.update_attribute :value_in_rs, 'Budapest CS'
+    localization.update_attribute :value_in_rs, 'Budapest RS'
     localization.update_attribute :value_in_en, 'Budapest'
-    assert_equal 'Budapest CS', restaurant.region_localized_to_cs
+    assert_equal 'Budapest RS', restaurant.region_localized_to_rs
 
     localization.update_attribute :value_in_rs, ''
-    assert_equal 'Budapest', restaurant.region_localized_to_cs
+    assert_equal 'Budapest', restaurant.region_localized_to_rs
 
     localization.update_attribute :value_in_en, ''
-    assert_equal '', restaurant.region_localized_to_cs
+    assert_equal '', restaurant.region_localized_to_rs
   end
 
   test "should format hash from values" do
