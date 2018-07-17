@@ -16,22 +16,22 @@ class V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
 
   test "should deny index for bad token" do
     token = 'b4dt0ken'
-    get api_v1_restaurants_path, params: nil, headers: authorization_header(token)
+    get v1_restaurants_path, params: nil, headers: authorization_header(token)
 
     assert_response :unauthorized
   end
 
   test "should deny index for missing unique_hash key in encoded token" do
     token = Token.encode({ foo: 'bar' })
-    get api_v1_restaurants_path, params: nil, headers: authorization_header(token)
+    get v1_restaurants_path, params: nil, headers: authorization_header(token)
 
     assert_response :unauthorized
   end
 
   test "should index all restaurants when no params set" do
-    get api_v1_restaurants_path, params: nil, headers: @headers
+    get v1_restaurants_path, params: nil, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     assert_response :success
     assert_equal data.count, Restaurant.count
 
@@ -40,9 +40,9 @@ class V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
 
   test "should translate restaurants when locale set on index" do
     locale = :sk
-    get api_v1_restaurants_path, params: { locale: locale }, headers: @headers
+    get v1_restaurants_path, params: { locale: locale }, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     assert_response :success
 
     data.each { |record| compare_restaurant_keys record, locale }
@@ -50,9 +50,9 @@ class V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
 
   test "should filter country on index when country param is set" do
     country = :hu
-    get api_v1_restaurants_path, params: { country: country }, headers: @headers
+    get v1_restaurants_path, params: { country: country }, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
     restaurants = Restaurant.by_country(country)
 
@@ -64,9 +64,9 @@ class V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
     data.each { |record| compare_restaurant_keys record, :en }
 
     country = :all
-    get api_v1_restaurants_path, params: { country: country }, headers: @headers
+    get v1_restaurants_path, params: { country: country }, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
     restaurants = Restaurant.all
 
@@ -78,9 +78,9 @@ class V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
 
   test "should filter for every available country on index when country param is invalid" do
     country = :invalid
-    get api_v1_restaurants_path, params: { country: country }, headers: @headers
+    get v1_restaurants_path, params: { country: country }, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
     restaurants = Restaurant.all
 
@@ -96,9 +96,9 @@ class V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
         { 'column' => 'search', 'value' => 'Budapest'},
       ]
     }
-    get api_v1_restaurants_path, params: params, headers: @headers
+    get v1_restaurants_path, params: params, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
     restaurants = Restaurant.search('budapest')
 
@@ -121,9 +121,9 @@ class V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
       ]
     }
 
-    get api_v1_restaurants_path, params: params, headers: @headers
+    get v1_restaurants_path, params: params, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
     restaurants = Restaurant.by_country(country).filter(params[:tokens])
 
@@ -143,9 +143,9 @@ class V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
       ]
     }
 
-    get api_v1_restaurants_path, params: params, headers: @headers
+    get v1_restaurants_path, params: params, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
     restaurants = Restaurant.filter(params[:tokens])
 
@@ -173,9 +173,9 @@ class V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
       ]
     }
 
-    get api_v1_restaurants_path, params: params, headers: @headers
+    get v1_restaurants_path, params: params, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
     restaurants = Restaurant.filter(params[:tokens])
 
@@ -194,9 +194,9 @@ class V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
       ]
     }
 
-    get api_v1_restaurants_path, params: params, headers: @headers
+    get v1_restaurants_path, params: params, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
     restaurants = Restaurant.filter(params[:tokens])
 
@@ -218,9 +218,9 @@ class V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
       ]
     }
 
-    get api_v1_restaurants_path, params: params, headers: @headers
+    get v1_restaurants_path, params: params, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
     restaurants = Restaurant.open_at(params[:tokens][0]['value'])
 
@@ -237,9 +237,9 @@ class V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
       ]
     }
 
-    get api_v1_restaurants_path, params: params, headers: @headers
+    get v1_restaurants_path, params: params, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
     restaurants = Restaurant.open_at(params[:tokens][0]['value'])
 
@@ -258,9 +258,9 @@ class V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
       ]
     }
 
-    get api_v1_restaurants_path, params: params, headers: @headers
+    get v1_restaurants_path, params: params, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
     restaurants = Restaurant.open_at(params[:tokens][0]['value']).where(city: 'Fülöpszállás')
 
@@ -280,9 +280,9 @@ class V1::RestaurantsControllerIndexTest < ActionDispatch::IntegrationTest
       ]
     }
 
-    get api_v1_restaurants_path, params: params, headers: @headers
+    get v1_restaurants_path, params: params, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
     restaurants = Restaurant.filter(params[:tokens])
 
@@ -313,23 +313,23 @@ class V1::RestaurantsControllerShowTest < ActionDispatch::IntegrationTest
 
   test "should deny show for bad token" do
     token = 'b4dt0ken'
-    get api_v1_restaurant_path(@random_restaurant), params: nil, headers: authorization_header(token)
+    get v1_restaurant_path(@random_restaurant), params: nil, headers: authorization_header(token)
 
     assert_response :unauthorized
   end
 
   test "should deny showx for missing unique_hash key in encoded token" do
     token = Token.encode({ foo: 'bar' })
-    get api_v1_restaurant_path(@random_restaurant), params: nil, headers: authorization_header(token)
+    get v1_restaurant_path(@random_restaurant), params: nil, headers: authorization_header(token)
 
     assert_response :unauthorized
   end
 
   test "should translate restaurants when locale set on show" do
     locale = :sk
-    get api_v1_restaurant_path(@random_restaurant), params: { locale: locale }, headers: @headers
+    get v1_restaurant_path(@random_restaurant), params: { locale: locale }, headers: @headers
 
-    record = JSON.parse(response.body)['data']
+    record = JSON.parse(response.body)
     assert_response :success
 
     compare_restaurant_keys record, locale
@@ -351,14 +351,14 @@ class V1::RestaurantsControllerAutocompleteTest < ActionDispatch::IntegrationTes
 
   test "should deny index for bad token" do
     token = 'b4dt0ken'
-    get autocomplete_api_v1_restaurants_path, params: nil, headers: authorization_header(token)
+    get autocomplete_v1_restaurants_path, params: nil, headers: authorization_header(token)
 
     assert_response :unauthorized
   end
 
   test "should deny index for missing unique_hash key in encoded token" do
     token = Token.encode({ foo: 'bar' })
-    get autocomplete_api_v1_restaurants_path, params: nil, headers: authorization_header(token)
+    get autocomplete_v1_restaurants_path, params: nil, headers: authorization_header(token)
 
     assert_response :unauthorized
   end
@@ -370,9 +370,9 @@ class V1::RestaurantsControllerAutocompleteTest < ActionDispatch::IntegrationTes
       home_screen_section: Facet.home_screen_sections
     )
 
-    get autocomplete_api_v1_restaurants_path, params: nil, headers: @headers
+    get autocomplete_v1_restaurants_path, params: nil, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
 
     assert_response :success
     assert_equal facets.count, data.count
@@ -388,9 +388,9 @@ class V1::RestaurantsControllerAutocompleteTest < ActionDispatch::IntegrationTes
       home_screen_section: Facet.home_screen_sections
     )
 
-    get autocomplete_api_v1_restaurants_path, params: { locale: locale }, headers: @headers
+    get autocomplete_v1_restaurants_path, params: { locale: locale }, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
 
     assert_response :success
     assert_equal facets.count, data.count
@@ -405,9 +405,9 @@ class V1::RestaurantsControllerAutocompleteTest < ActionDispatch::IntegrationTes
       locale: :en,
       home_screen_section: Facet.home_screen_sections
     )
-    get autocomplete_api_v1_restaurants_path, params: { country: country }, headers: @headers
+    get autocomplete_v1_restaurants_path, params: { country: country }, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
 
     assert_response :success
@@ -423,9 +423,9 @@ class V1::RestaurantsControllerAutocompleteTest < ActionDispatch::IntegrationTes
       locale: :en,
       home_screen_section: Facet.home_screen_sections
     )
-    get autocomplete_api_v1_restaurants_path, params: { country: country }, headers: @headers
+    get autocomplete_v1_restaurants_path, params: { country: country }, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
 
     assert_response :success
@@ -441,9 +441,9 @@ class V1::RestaurantsControllerAutocompleteTest < ActionDispatch::IntegrationTes
       locale: :en,
       home_screen_section: Facet.home_screen_sections
     )
-    get autocomplete_api_v1_restaurants_path, params: { country: country }, headers: @headers
+    get autocomplete_v1_restaurants_path, params: { country: country }, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
 
     assert_response :success
@@ -457,9 +457,9 @@ class V1::RestaurantsControllerAutocompleteTest < ActionDispatch::IntegrationTes
     params = { search: facets.pluck(:value).sample[0..2] }
     facets = facets.search(params[:search])
 
-    get autocomplete_api_v1_restaurants_path, params: params, headers: @headers
+    get autocomplete_v1_restaurants_path, params: params, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
 
     assert_response :success
@@ -476,9 +476,9 @@ class V1::RestaurantsControllerAutocompleteTest < ActionDispatch::IntegrationTes
     params = { locale: locale, country: country, search: facets.pluck(:value).sample[0..2] }
     facets = facets.search(params[:search])
 
-    get autocomplete_api_v1_restaurants_path, params: params, headers: @headers
+    get autocomplete_v1_restaurants_path, params: params, headers: @headers
 
-    data = JSON.parse(response.body)['data']
+    data = JSON.parse(response.body)
     ids = data.map { |r| r['id'].to_i }.sort
 
     assert_response :success
