@@ -43,7 +43,10 @@ class FacetTest < ActiveSupport::TestCase
                             else
                               restaurants.pluck(column[:name]).clean_and_sort
                             end
-          facets = Facet.where(model: :restaurant, column: column[:name], locale: locale, country: country_code).pluck(:value).sort
+          next if asserted_values.empty?
+
+          puts "Testing values for #{asserted_values.to_sentence}"
+          facets = Facet.where(model: :restaurant, column: column[:name], locale: locale, country: country_code).pluck(:value).clean_and_sort
           assert_equal asserted_values, facets
         end
       end

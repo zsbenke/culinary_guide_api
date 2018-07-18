@@ -133,7 +133,7 @@ class RestaurantTest < ActiveSupport::TestCase
     restaurant_review_sk = restaurant_reviews :restaurant_review_sk
     restaurant_review_cz = restaurant_reviews :restaurant_review_cz
 
-    assert_equal asserted_hash_for_review.call(restaurant_review_hu, "Localized"),
+    assert_equal asserted_hash_for_review.call(restaurant_review_hu, "Print"),
       restaurant_hu.restaurant_reviews_localized_to_hu
     assert_equal asserted_hash_for_review.call(restaurant_review_hu, "English"),
       restaurant_hu.restaurant_reviews_localized_to_en
