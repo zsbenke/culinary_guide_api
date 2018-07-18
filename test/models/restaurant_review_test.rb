@@ -39,7 +39,7 @@ class RestaurantReviewTest < ActiveSupport::TestCase
     # A review-nak három lehetséges nyelve van:
     # - angol
     # - német
-    # - lokalizált
+    # - lokalizált (a magyar nyelv a print oszlopból jön)
     #
     # Locale társítása a megfelelő oszlophoz:
     # 1. locale == restaurant.country_code ->
@@ -52,7 +52,7 @@ class RestaurantReviewTest < ActiveSupport::TestCase
     restaurant_review_sk = restaurant_reviews :restaurant_review_sk
     restaurant_review_cz = restaurant_reviews :restaurant_review_cz
 
-    assert_equal "Localized", restaurant_review_hu.text_localized_to_hu
+    assert_equal "Print", restaurant_review_hu.text_localized_to_hu
     assert_equal "English",   restaurant_review_hu.text_localized_to_en
     assert_equal "German",    restaurant_review_hu.text_localized_to_de
     assert_equal "English",   restaurant_review_hu.text_localized_to_rs
