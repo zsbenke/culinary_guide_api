@@ -1,6 +1,7 @@
 restaurant_review_hu:
   restaurant: :restaurant_hu
   rating: 10
+  print: "Print"
   localized_translation: "Localized"
   english_translation: "English"
   german_translation: "German"
@@ -8,6 +9,7 @@ restaurant_review_hu:
 restaurant_review_cz:
   restaurant: :restaurant_cz
   rating: 10
+  print: "Print"
   localized_translation: "Localized"
   english_translation: "English"
   german_translation: "German"
@@ -15,6 +17,7 @@ restaurant_review_cz:
 restaurant_review_sk:
   restaurant: :restaurant_sk
   rating: 10
+  print: "Print"
   localized_translation: "Localized"
   english_translation: "English"
   german_translation: "German"
